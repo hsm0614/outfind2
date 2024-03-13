@@ -1,0 +1,4 @@
+{
+    "aws.codeWhisperer.includeSuggestionsWithCodeReferences": true,
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
+}

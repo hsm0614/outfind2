@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기업과 인력 중개 플랫폼</title>
+    <link rel="stylesheet" type="text/css" href="mainpage.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <a href="maintpage.html" class="outfind">아웃파인드</a>
+        <div class="header-text">
+            <h1 class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
+            </h1>
+            <h1 class="h1-outfind">Outfind</h1>
+            <h1 class="h1-second">영업의 어려움을 간소화하세요</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="maintpage.html">홈</a></li>
+                <li><a href="#">회사 소개</a></li>
+                <li><a href="#">매칭가이드</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+            <ul class="user-links">
+                <li class="login-link"><a href="loginpage/loginpage.html" id="login-link">로그인</a></li> <!-- 로그인 링크 추가 -->
+                <li class="signup-link"><a href="signuppage/signup.html" id="signup-link">회원가입</a></li> <!-- 회원가입 링크 추가 -->
+                <li class="mypage-link"><a href="mypage/mypage.html" id="mypage-link">마이페이지</a></li>
+                <li class="logout-link"><a href="#" id="logout-link">로그아웃</a></li> <!-- 로그아웃 버튼 추가 -->
+            </ul>
+        </nav>
+        <button class="match-button">매칭하기</button>
+    </header>
+    <div>
+        <class= text>
+            <h1 class="intro">Outfind</h1>
+            <p class="intro2">아웃파인드는 HR 아웃소싱의 영업 간소화를 목적으로 하는 플랫폼입니다</p>
+        </class>
+    </div>
+    <div class="introimg">
+        <div class="image-container">
+            <img src="./image/savemoney.png" alt="Save Money">
+            <div class="image-text">
+                <div class="big-text">1. 비용 절감</div>
+                <div class="small-text">영업을 하기 직전까지의 불필요한 비용을 줄여줍니다.</div>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="./image/savetime.png" alt="Save Time">
+            <div class="image-text">
+                <div class="big-text">2. 시간 절약</div>
+                <div class="small-text">아웃파인드는 매칭 시스템을 통해 불필요한 시간을 줄여줍니다.</div>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="./image/goodcontract.png" alt="Good Contract">
+            <div class="image-text">
+                <div class="big-text">3. 체결확률 증가</div>
+                <div class="small-text">기업의 아웃소싱 평가를 통해 신뢰성 높은 아웃소싱을 사용할 수 있게 합니다.</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2><a href="maintpage.html">홈</a></h2>
+            </div>
+            <div class="footer-section">
+                <h2><a href="about.html">회사 소개</a></h2>
+            </div>
+            <div class="footer-section">
+                <h2><a href="matching_guide.html">매칭 가이드</a></h2>
+            </div>
+            <div class="footer-section">
+                <h2><a href="faq.html">FAQ</a></h2>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Email: info@outfind.com</p>
+            <p>Phone: 123-456-7890</p>
+            <p>Address: 123 Main St, City, Country</p>
+            <p>사업자번호: XXX-XX-XXXXX</p>
+            <p>&copy; 2024 Outfind. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/testserver.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            // 이미지 크기 조정
+            resizeImage();
+            // 윈도우 크기 변경시 이미지 크기 조정
+            window.addEventListener('resize', resizeImage);
+        });
+
+        function resizeImage() {
+            var image = document.getElementById('main-image');
+            var windowHeight = window.innerHeight;
+            var imageHeight = windowHeight / 2; // 화면의 반 정도의 높이
+            image.style.height = imageHeight + 'px';
+        }
+
+        $(document).ready(function() {
+    // 페이지가 로드될 때 실행될 코드 작성
+    if(localStorage.getItem('token')) {
+        // 토큰이 있는 경우: 로그인 상태
+        $('#login-link').hide(); // 로그인 링크 숨기기
+        $('#signup-link').hide(); // 회원가입 링크 숨기기
+        $('#mypage-link').show(); // 마이페이지 링크 표시
+    } else {
+        // 토큰이 없는 경우: 비로그인 상태
+        $('#login-link').show(); // 로그인 링크 표시
+        $('#signup-link').show(); // 회원가입 링크 표시
+        $('#mypage-link').hide(); // 마이페이지 링크 숨기기
+        $('#logout-link').hide(); // 마이페이지 링크 숨기기
+    }
+
+    // 로그아웃 버튼 클릭 시 처리
+    $('#logout-link').click(function(event) {
+        event.preventDefault(); // 기본 클릭 동작 막기
+        localStorage.removeItem('token'); // localStorage에서 토큰 삭제
+        // 로그인 및 회원가입 링크 표시, 마이페이지 링크 숨기기
+        $('#login-link').show();
+        $('#signup-link').show();
+        $('#mypage-link').hide();
+        $('#logout-link').hide();
+        // 페이지 새로고침
+        window.location.href = '/';
+    });
+});
+
+ // 매칭하기 버튼 클릭 시 처리
+ $('.match-button').click(function() {
+        var userType = localStorage.getItem('userType');
+        if (userType === 'company') {
+            // 기업 유형으로 로그인한 경우
+            window.location.href = '/matching_page.html'; // 매칭 페이지로 이동
+        } else if (userType === 'contractor') {
+            // 인력도급 유형으로 로그인한 경우
+            alert('인력도급은 매칭 기능을 사용할 수 없습니다.'); // 메시지 표시
+        } else {
+            // 로그인하지 않은 경우
+            alert('매칭 기능을 사용하려면 로그인이 필요합니다.'); // 메시지 표시
+        }
+    });
+
+    </script>
+</body>
+</html>

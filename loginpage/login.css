@@ -1,0 +1,225 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f5ff; /* 연한 파란색 배경색 */
+}
+
+.container {
+    width: 500px; /* 수정된 너비 */
+    margin: 100px auto; /* 상단 여백을 추가하여 중앙 정렬 */
+    background-color: #fff; /* 흰색 배경색 */
+    padding: 40px; /* 내부 여백을 추가하여 요소와 내용을 더 크게 만듦 */
+    border-radius: 20px; /* 더 큰 경계 반경을 사용하여 모서리를 둥글게 만듦 */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 더 큰 그림자 효과 */
+}
+
+h2 {
+    text-align: center;
+    color: #333; /* 어두운 회색 텍스트 색상 */
+}
+
+.login-form {
+    width: 100%;
+    display: none; /* 초기에는 로그인 폼을 숨김 */
+}
+
+input[type="text"],
+input[type="password"],
+button {
+    width: calc(100% - 20px); /* 수정된 너비 */
+    padding: 15px; /* 내부 여백을 더 크게 만듦 */
+    margin: 20px 0; /* 외부 여백을 더 크게 만듦 */
+    border: 2px solid #ccc; /* 더 큰 테두리 두께를 사용하여 요소를 강조 */
+    border-radius: 10px; /* 더 큰 경계 반경을 사용하여 요소를 둥글게 만듦 */
+    box-sizing: border-box; /* 내용 포함 크기 계산 */
+}
+
+button {
+    background-color: #4580F6; /* 파란색 배경색 */
+    color: #fff; /* 흰색 텍스트 색상 */
+    border: none; /* 테두리 없애기 */
+    border-radius: 10px; /* 더 큰 경계 반경을 사용하여 버튼을 둥글게 만듦 */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3; /* 마우스 호버 시 진한 파란색으로 변경 */
+}
+
+.login-choice {
+    text-align: center;
+    padding-right: 10px;
+}
+
+.login-btn {
+    display: inline-block; /* 인라인 블록 요소로 변경하여 가로로 정렬 */
+    width: 45%; /* 버튼 너비 조정 */
+    padding: 15px;
+    margin: 0px; /* 버튼 간격 조정 */
+    margin-left: 0px;
+}
+
+
+.selected {
+    
+    color: #fff; /* 선택된 버튼 텍스트 색상을 흰색으로 변경 */
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/*nav css*/
+header {
+    background-color: #ffffff; /* 배경색을 흰색으로 설정 */
+    color: #000000; /* 글씨색을 검은색으로 설정 */
+    text-align: center;
+    height: 70px; /* 헤더의 높이를 70px로 설정 */
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.outfind {
+    text-decoration: none;
+    font-size: 24px; /* 로고 텍스트의 크기 */
+    font-weight: bold; /* 로고 텍스트의 굵기 */
+    color: #000000; /* 로고 텍스트의 색상 */
+    position: absolute; /* 로고를 절대적으로 위치시킴 */
+    top: 10px; /* 헤더의 상단에 로고를 배치 */
+    left: 30px; /* 헤더의 왼쪽에 로고를 배치 */
+    margin-top: 10px;
+}
+
+nav {
+    display: flex;
+    position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
+    top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
+    right: 20px; /* 헤더의 오른쪽에 네비게이션을 배치 */
+    align-items: center;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    text-align: center;
+    display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
+    align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
+    margin-right: 700px;
+}
+
+.nav-links li {
+    margin-right: 10px; /* 각 항목 사이의 간격 설정 */
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 100px;
+}
+
+nav ul li a {
+    color: #000000; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    margin-right: 30px;
+}
+
+.nav-links li a::after {
+    content: "|"; /* 각 항목 사이에 짝대기 추가 */
+    margin-left: 20px; /* 짝대기와 텍스트 사이의 간격 설정 */
+}
+
+.nav-links li:last-child a::after {
+    content: none; /* 마지막 항목의 짝대기 제거 */
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* 호버 시 밑줄 추가 */
+}
+
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .nav-links li {
+        display: none; /* 작은 화면에서는 nav link를 숨김 */
+    }
+}
+
+
+/* footer */
+footer {
+    background-color: rgb(249, 249, 249); /* 푸터의 배경색을 변경 */
+    color: #666; /* 푸터의 텍스트 색상을 회색으로 설정 */
+    padding: 10px 0; /* 푸터의 위아래 패딩 */
+    text-align: center; /* 모든 텍스트를 가로로 정렬 */
+    position: relative; /* 푸터를 고정시킴 */
+    bottom: 0; /* 화면 하단에 배치 */
+    width: 100%; /* 너비를 100%로 설정하여 전체 폭을 차지하도록 함 */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: flex-start; 
+    border-bottom: 1px solid #ccc; /* 각 섹션 사이의 구분선 */
+}
+
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px; /* 좌우 여백 추가 */
+    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+    margin-right: auto;
+}
+
+.footer-section h2 {
+    color: #666; /* 섹션 제목의 색상 */
+    font-size: 15px; /* 섹션 제목의 폰트 크기 */
+    margin-bottom: 10px; /* 섹션 제목과 내용 사이의 간격 */
+    font-weight: normal;
+}
+
+.footer-section p {
+    font-size: 14px; /* 섹션 내용의 폰트 크기 */
+    line-height: 1.5; /* 섹션 내용의 줄 간격 */
+    text-align: left;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px; /* 각 링크 항목 사이의 간격 */
+}
+
+.footer-section ul li a {
+    color: #666; /* 링크 텍스트의 색상 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.footer-section ul li:last-child {
+    margin-bottom: 20px; /* 마지막 링크 항목과 내용 사이의 간격을 크게 설정 */
+}
+
+.footer-bottom {
+    text-align: left;
+    padding-top: 20px; /* 푸터 하단과 내용 사이의 간격 */
+    border-top: 1px solid #ccc; /* 푸터 상단 경계선 */
+    font-size: 12px; /* 푸터 하단 텍스트의 폰트 크기를 줄임 */
+}
+
+.footer-bottom p {
+    display: inline-block; /* p 요소를 블록 레벨에서 인라인 레벨로 변경하여 두 개씩 나눠서 표시 */
+    margin: 5px; /* 각 텍스트 사이의 간격 설정 */
+    width: 50%; /* 부모 요소의 절반만큼 너비를 가짐 */
+    vertical-align: top; /* 상단 정렬 */
+}
+
+a {
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 부모 요소의 텍스트 색상을 상속하여 링크 색상을 텍스트 색상으로 설정 */
+}

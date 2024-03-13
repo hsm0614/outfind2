@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" href="singup.css"> <!-- CSS 파일 링크 -->
+</head>
+<header>
+    <a href="/" class="outfind">아웃파인드</a>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="maintpage.html">홈</a></li>
+            <li><a href="#">서비스</a></li>
+            <li><a href="#">회사 소개</a></li>
+            <li><a href="#">연락처</a></li>
+        </ul>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <h2>회원가입</h2>
+        <!-- 회원가입 선택 버튼 -->
+        <div class="signup-choice">
+            <button id="company-signup-btn" class="signup-btn selected">기업 회원가입</button>
+            <button id="contractor-signup-btn" class="signup-btn">인력도급 회원가입</button>
+        </div>
+        
+        <!-- 기업 회원가입 폼 -->
+        <form id="company-signup-form" method="POST">
+            <div class="form-group">
+                <label for="company-business-number">사업자 번호 입력</label>
+                <div class="business-number-input">
+                    <input type="text" id="company-business-number1" placeholder="사업자 번호 - 제외">
+                    <button id="company-search-button">조회하기</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="company-name">회사명</label>
+                <input type="text" id="company-name" placeholder="회사명">
+            </div>
+            <div class="form-group">
+                <label for="company-representative">대표명</label>
+                <input type="text" id="company-representative" placeholder="대표명">
+            </div>
+            <div class="form-group">
+                <label for="company-password">비밀번호</label>
+                <input type="password" id="company-password" placeholder="비밀번호">
+            </div>
+            <div class="form-group">
+                <label for="company-confirm-password">비밀번호 확인</label>
+                <input type="password" id="company-confirm-password" placeholder="비밀번호 확인">
+            </div>
+            <div class="form-group">
+                <label for="company-email">이메일</label>
+                <div class="company-email-input">
+                    <input type="text" id="company-email" placeholder="이메일">
+                    <button id="company-email-check-button">중복확인</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="company-address">회사주소</label>
+                <input type="text" id="company-address" placeholder="회사주소">
+            </div>
+            <div class="form-group">
+                <label for="company-address-details">상세주소</label>
+                <input type="text" id="company-address-details" placeholder="상세주소">
+            </div>
+            <div class="form-group">
+                <label for="company-introduction">기업소개</label>
+                <textarea id="company-introduction" maxlength="200" placeholder="최대 200자 이내로 입력해주세요."></textarea>
+            </div>
+            <button type="submit">회원가입</button>
+        </form>
+
+        <!-- 인력도급 회원가입 폼 -->
+        <form id="contractor-signup-form" style="display: none;" method="POST">
+            <div class="form-group">
+                <label for="contractor-business-number">사업자 번호 입력</label>
+                <div class="business-number-input">
+                    <input type="text" id="contractor-business-number1" placeholder="사업자 번호 - 제외">
+                    <button id="contractor-search-button">조회하기</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="contractor-email">이메일</label>
+                <div class="contractor-email-input">
+                    <input type="text" id="contractor-email" placeholder="이메일">
+                    <button id="contractor-email-check-button">중복확인</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="contractor-password">비밀번호</label>
+                <input type="password" id="contractor-password" placeholder="비밀번호">
+            </div>
+            <div class="form-group">
+                <label for="contractor-confirm-password">비밀번호 확인</label>
+                <input type="password" id="contractor-confirm-password" placeholder="비밀번호 확인">
+            </div>
+            <div class="form-group">
+                <label for="contractor-industry">업종</label>
+                <select id="contractor-industry" onchange="updateSubIndustry()">
+                    <option value="choice">선택</option>
+                    <option value="manufacturing">제조업</option>
+                    <option value="logistics">물류업</option>
+                    <option value="service">서비스업</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="contractor-subindustry">상세업종</label>
+                <select id="contractor-subindustry"></select>
+            </div>
+                <!-- 선택된 업종에 따라서 동적으로 옵션을 추가할 예정 -->
+            <div class="form-group">
+                <label for="contractor-location">지역 선택</label>
+                <select id="contractor-location">
+                    <option value="seoul">서울</option>
+                    <option value="busan">부산</option>
+                    <option value="incheon">인천</option>
+                    <option value="daegu">대구</option>
+                    <option value="gwangju">광주</option>
+                    <option value="daejeon">대전</option>
+                    <option value="ulsan">울산</option>
+                    <option value="gyeonggi">경기</option>
+                    <option value="gangwon">강원</option>
+                    <option value="chungbuk">충북</option>
+                    <option value="chungnam">충남</option>
+                    <option value="jeonbuk">전북</option>
+                    <option value="jeonnam">전남</option>
+                    <option value="gyeongbuk">경북</option>
+                    <option value="gyeongnam">경남</option>
+                    <option value="jeju">제주</option>
+                </select>
+            </div>
+            <button type="submit">회원가입</button>
+        </form>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2><a href="maintpage.html">홈</a></h2>
+            </div>
+            <div class="footer-section">
+                <h2><a href="about.html">회사 소개</a></h2>
+            </div>
+            <div class="footer-section">
+                <h2><a href="matching_guide.html">매칭 가이드</a></h2>
+            </div>
+            <div class="footer-section">
+                <h2><a href="faq.html">FAQ</a></h2>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Email: info@outfind.com</p>
+            <p>Phone: 123-456-7890</p>
+            <p>Address: 123 Main St, City, Country</p>
+            <p>사업자번호: XXX-XX-XXXXX</p>
+            <p>&copy; 2024 Outfind. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript 파일 링크 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="signup.js"></script>
+   
+
+    <script>
+        $(document).ready(function() {
+            // 기업 회원가입 폼에서 조회하기 버튼 클릭 시
+            $('#company-search-button').click(function(event) {
+                event.preventDefault();
+                
+                var businessNumber = $('#company-business-number1').val();
+                
+                var requestData = {
+                    "b_no": [businessNumber]
+                };
+                
+                $.ajax({
+                    url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=mzkQ7JJ9%2BK6GGApYVpbkfT15KKC1PIMcA4cmLmo0ZtgUKOYr%2FFekXGHmD3vdHd%2BtLHNwxY%2BsnjYhzkscBWS8Hg%3D%3D",
+                    type: "POST",
+                    data: JSON.stringify(requestData),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    success: function(result) {
+                        if (result.status_code === "OK" && result.match_cnt > 0 && result.data[0].b_stt_cd === "01") {
+                            alert('사업자 번호가 확인되었습니다. 회원가입을 진행합니다.');
+                            $('#company-signup-form').submit(); // 기업 회원가입 폼 제출
+                        } else {
+                            alert('유효하지 않은 사업자 번호입니다. 다시 확인해주세요.');
+                            $('#company-business-number').val('');
+                        }
+                    },
+                    error: function(result) {
+                        console.log(result.responseText);
+                        alert('API 호출 중 오류가 발생했습니다.');
+                    }
+                });
+            });
+        
+            // 인력도급업체 회원가입 폼에서 조회하기 버튼 클릭 시
+            $('#contractor-search-button').click(function(event) {
+                event.preventDefault();
+                
+                var businessNumber = $('#contractor-business-number1').val();
+                
+                var requestData = {
+                    "b_no": [businessNumber]
+                };
+                
+                $.ajax({
+                    url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=mzkQ7JJ9%2BK6GGApYVpbkfT15KKC1PIMcA4cmLmo0ZtgUKOYr%2FFekXGHmD3vdHd%2BtLHNwxY%2BsnjYhzkscBWS8Hg%3D%3D",
+                    type: "POST",
+                    data: JSON.stringify(requestData),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    success: function(result) {
+                        if (result.status_code === "OK" && result.match_cnt > 0 && result.data[0].b_stt_cd === "01") {
+                            alert('사업자 번호가 확인되었습니다. 회원가입을 진행합니다.');
+                            $('#contractor-signup-form').submit(); // 인력도급업체 회원가입 폼 제출
+                        } else {
+                            alert('유효하지 않은 사업자 번호입니다. 다시 확인해주세요.');
+                            $('#contractor-business-number').val('');
+                        }
+                    },
+                    error: function(result) {
+                        console.log(result.responseText);
+                        alert('API 호출 중 오류가 발생했습니다.');
+                    }
+                });
+            });
+        
+            // 기업 회원가입 폼 제출 처리
+            $('#company-signup-form').submit(function(event) {
+                event.preventDefault();
+                // 기업 회원가입 폼에서 필수 입력 필드를 확인하는 코드 추가
+                // 이 부분은 회원가입 폼에서 필수 입력 필드를 확인하고 처리하는 코드를 넣어주면 됩니다.
+            });
+        
+            // 인력도급업체 회원가입 폼 제출 처리
+            $('#contractor-signup-form').submit(function(event) {
+                event.preventDefault();
+                // 인력도급업체 회원가입 폼에서 필수 입력 필드를 확인하는 코드 추가
+                // 이 부분은 인력도급업체 회원가입 폼에서 필수 입력 필드를 확인하고 처리하는 코드를 넣어주면 됩니다.
+            });
+        });
+
+
+
+
+
+
+
+        </script>
+</body>
+</html>
+
