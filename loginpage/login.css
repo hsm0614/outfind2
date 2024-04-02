@@ -91,10 +91,11 @@ header {
 
 nav {
     display: flex;
-    position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
+    position: fixed; /* 네비게이션을 절대적으로 위치시킴 */
     top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
-    right: 20px; /* 헤더의 오른쪽에 네비게이션을 배치 */
+    right: 0px; /* 헤더의 오른쪽에 네비게이션을 배치 */
     align-items: center;
+    overflow: hidden;
 }
 
 .nav-links {
@@ -105,7 +106,8 @@ nav {
     text-align: center;
     display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
     align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
-    margin-right: 700px;
+    margin-right: 600px;
+
 }
 
 .nav-links li {

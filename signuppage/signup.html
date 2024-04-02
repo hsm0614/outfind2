@@ -101,9 +101,9 @@
                 <label for="contractor-industry">업종</label>
                 <select id="contractor-industry" onchange="updateSubIndustry()">
                     <option value="choice">선택</option>
-                    <option value="manufacturing">제조업</option>
-                    <option value="logistics">물류업</option>
-                    <option value="service">서비스업</option>
+                    <option value="제조업">제조업</option>
+                    <option value="물류업">물류업</option>
+                    <option value="서비스업">서비스업</option>
                 </select>
             </div>
             <div class="form-group">
@@ -114,23 +114,27 @@
             <div class="form-group">
                 <label for="contractor-location">지역 선택</label>
                 <select id="contractor-location">
-                    <option value="seoul">서울</option>
-                    <option value="busan">부산</option>
-                    <option value="incheon">인천</option>
-                    <option value="daegu">대구</option>
-                    <option value="gwangju">광주</option>
-                    <option value="daejeon">대전</option>
-                    <option value="ulsan">울산</option>
-                    <option value="gyeonggi">경기</option>
-                    <option value="gangwon">강원</option>
-                    <option value="chungbuk">충북</option>
-                    <option value="chungnam">충남</option>
-                    <option value="jeonbuk">전북</option>
-                    <option value="jeonnam">전남</option>
-                    <option value="gyeongbuk">경북</option>
-                    <option value="gyeongnam">경남</option>
-                    <option value="jeju">제주</option>
+                    <option value="서울">서울</option>
+                    <option value="부산">부산</option>
+                    <option value="인천">인천</option>
+                    <option value="대구">대구</option>
+                    <option value="광주">광주</option>
+                    <option value="대전">대전</option>
+                    <option value="울산">울산</option>
+                    <option value="경기">경기</option>
+                    <option value="강원">강원</option>
+                    <option value="충북">충북</option>
+                    <option value="충남">충남</option>
+                    <option value="전북">전북</option>
+                    <option value="전남">전남</option>
+                    <option value="경북">경북</option>
+                    <option value="경남">경남</option>
+                    <option value="제주">제주</option>
                 </select>
+                <div class="form-group">
+                    <label for="contractor-introduction">기업소개</label>
+                    <textarea id="contractor-introduction" maxlength="200" placeholder="최대 200자 이내로 입력해주세요."></textarea>
+                </div>
             </div>
             <button type="submit">회원가입</button>
         </form>

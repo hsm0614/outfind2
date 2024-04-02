@@ -3,9 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="mypage.css"> <!-- CSS 파일 링크 -->
 </head>
 <body>
-    
+<!-- 공통 헤더 -->
+<header>
+    <a href="/" class="outfind">아웃파인드</a>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="maintpage.html">홈</a></li>
+            <li><a href="#">서비스</a></li>
+            <li><a href="#">회사 소개</a></li>
+            <li><a href="#">연락처</a></li>
+        </ul>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><button id="matching-management-button">매칭 리스트</button></li>
+                <li><button id="profile">회원 정보 조회</button></li>
+            </ul>
+        </div>
+        <div class="content">
+            <section id="matching-management-section" style="display: none;">
+                <!-- 매칭 현황 섹션 -->
+                <div id="matching-info"></div>
+            </section>
+
+
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h2><a href="maintpage.html">홈</a></h2>
+        </div>
+        <div class="footer-section">
+            <h2><a href="about.html">회사 소개</a></h2>
+        </div>
+        <div class="footer-section">
+            <h2><a href="matching_guide.html">매칭 가이드</a></h2>
+        </div>
+        <div class="footer-section">
+            <h2><a href="faq.html">FAQ</a></h2>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Email: info@outfind.com</p>
+        <p>Phone: 123-456-7890</p>
+        <p>Address: 123 Main St, City, Country</p>
+        <p>사업자번호: XXX-XX-XXXXX</p>
+        <p>&copy; 2024 Outfind. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- 스크립트 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="mypage.js"></script>
+
+
+
 </body>
 </html>

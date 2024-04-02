@@ -186,10 +186,11 @@ $(document).ready(function() {
     var industry = $('#contractor-industry').val();
     var subIndustry = $('#contractor-subindustry').val();
     var location = $('#contractor-location').val();
+    var contractorintroduction = $('#contractor-introduction').val();
 
 
     // 필수 입력 필드 확인
-    if (businessNumber === '' || email === '' || password === '' || confirmPassword === '' || industry === '' || subIndustry === '' || location === '') {
+    if (businessNumber === '' || email === '' || password === '' || confirmPassword === '' || industry === '' || subIndustry === '' || location === ''| contractorintroduction === '') {
     alert('모든 필수 항목을 입력해주세요.');
     return;
     }
@@ -208,6 +209,7 @@ $(document).ready(function() {
         industry: industry,
         subIndustry: subIndustry,
         location: location,
+        contractorintroduction: contractorintroduction,
         userType: 'contractor'
     };
 
@@ -242,13 +244,13 @@ $(document).ready(function() {
             var subIndustries = [];
             
             switch(selectedIndustry) {
-                case "manufacturing":
+                case "제조업":
                     subIndustries = ["식음료제조업", "자동차 금속 기계업", "의복류 제조업", "펄프 종이제조업", "의료, 정밀기계 제조업", "기타제조업"];
                     break;
-                case "logistics":
+                case "물류업":
                     subIndustries = ["냉장 냉동물류", "의류물류", "농산물 물류", "일반 물류"];
                     break;
-                case "service":
+                case "서비스업":
                     subIndustries = ["판촉업(마트)", "호텔 및 리조트", "식음료 서비스업"];
                     break;
                 default:

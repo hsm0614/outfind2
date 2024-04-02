@@ -18,34 +18,36 @@ $('#company-login-button').click(function(event) {
 
     var companyEmail = $('#email').val(); // 이메일 가져오기
     var companyPassword = $('#password').val(); // 비밀번호 가져오기
-
+    
     $.ajax({
         url: 'http://localhost:3000/login/company', // 로그인 엔드포인트로 수정
         type: 'POST',
         data: {
             userType: 'company',
             companyEmail: companyEmail, // 이메일 전달,
-            companyPassword: companyPassword // 비밀번호 전달,
-            
+            companyPassword: companyPassword, // 비밀번호 전달,
         },
         success: function(response) {
             if(response.token) {
-                // 토큰을 로컬 스토리지에 저장
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('userType', response.userType); // userType을 로컬 스토    
+                // 토큰을 세션 스토리지에 저장
+                // 세션 스토리지에 이메일 저장
+                sessionStorage.setItem('email', response.companyEmail);
+                sessionStorage.setItem('token', response.token);
+                sessionStorage.setItem('userType', response.userType); // userType을 세션 스토리지에 저장
                 // 받은 유저 타입에 따라 처리
-                    if (response.userType === 'company') {
-                        // 기업 유저인 경우 메인 페이지로 이동
-                        window.location.href = '/';
-                    } else {
-                        // 기타 유저 타입 처리
-                        alert('올바른 유저 타입이 아닙니다.');
-                    }
+                if (response.userType === 'company') {
+                    
+                    // 기업 유저인 경우 메인 페이지로 이동
+                    window.location.href = '/';
                 } else {
-                    // 토큰을 받아오지 못한 경우
-                    alert('로그인에 실패하였습니다.');
+                    // 기타 유저 타입 처리
+                    alert('올바른 유저 타입이 아닙니다.');
                 }
-            },
+            } else {
+                // 토큰을 받아오지 못한 경우
+                alert('로그인에 실패하였습니다.');
+            }
+        },
         error: function(xhr, status, error) {
             if(xhr.status === 401) {
                 alert('이메일 또는 비밀번호가 올바르지 않습니다.');
@@ -55,7 +57,7 @@ $('#company-login-button').click(function(event) {
             }
         }
     });
-    });
+});
 
     // 보호되는 페이지 요청 예시
 $.ajax({
@@ -74,46 +76,46 @@ $.ajax({
 
 
 
-    $('#contractor-login-button').click(function(event) {
-        event.preventDefault(); // 기본 제출 동작 막기
-    
-        var contractorEmail = $('#contractor-email').val(); // 이메일 가져오기
-        var contractorPassword = $('#contractor-password').val(); // 비밀번호 가져오기
-    
-        $.ajax({
-            url: 'http://localhost:3000/login/contractor', // 로그인 엔드포인트로 수정
-            type: 'POST',
-            data: {
-                userType: 'contractor',
-                contractorEmail: contractorEmail, // 이메일 전달,
-                contractorPassword: contractorPassword // 비밀번호 전달,
-                
-            },
-            success: function(response) {
-                if(response.token) {
-                    // 토큰을 로컬 스토리지에 저장
-                    localStorage.setItem('token', response.token);
-                    localStorage.setItem('userType', response.userType); // userType을 로컬 스토    
-                    // 받은 유저 타입에 따라 처리
-                        if (response.userType === 'contractor') {
-                            // 기업 유저인 경우 메인 페이지로 이동
-                            window.location.href = '/';
-                        } else {
-                            // 기타 유저 타입 처리
-                            alert('올바른 유저 타입이 아닙니다.');
-                        }
-                    } else {
-                        // 토큰을 받아오지 못한 경우
-                        alert('로그인에 실패하였습니다.');
-                    }
-                },
-            error: function(xhr, status, error) {
-                if(xhr.status === 401) {
-                    alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+$('#contractor-login-button').click(function(event) {
+    event.preventDefault(); // 기본 제출 동작 막기
+
+    var contractorEmail = $('#contractor-email').val(); // 이메일 가져오기
+    var contractorPassword = $('#contractor-password').val(); // 비밀번호 가져오기
+
+    $.ajax({
+        url: 'http://localhost:3000/login/contractor', // 로그인 엔드포인트로 수정
+        type: 'POST',
+        data: {
+            userType: 'contractor',
+            contractorEmail: contractorEmail, // 이메일 전달,
+            contractorPassword: contractorPassword // 비밀번호 전달,
+        },
+        success: function(response) {
+            if(response.token) {
+                // 토큰을 세션 스토리지에 저장
+                sessionStorage.setItem('contractor-email', response.contractorEmail);
+                sessionStorage.setItem('token', response.token);
+                sessionStorage.setItem('userType', response.userType); // userType을 세션 스토리지에 저장
+                // 받은 유저 타입에 따라 처리
+                if (response.userType === 'contractor') {
+                    // 인력도급 유저인 경우 메인 페이지로 이동
+                    window.location.href = '/';
                 } else {
-                    // 401 외의 다른 오류일 경우
-                    alert('서버와 통신 중 오류가 발생했습니다.');
+                    // 기타 유저 타입 처리
+                    alert('올바른 유저 타입이 아닙니다.');
                 }
+            } else {
+                // 토큰을 받아오지 못한 경우
+                alert('로그인에 실패하였습니다.');
             }
-        });
+        },
+        error: function(xhr, status, error) {
+            if(xhr.status === 401) {
+                alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+            } else {
+                // 401 외의 다른 오류일 경우
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            }
+        }
     });
+});

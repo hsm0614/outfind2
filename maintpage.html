@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <a href="maintpage.html" class="outfind">아웃파인드</a>
+        <a href="/" class="outfind">아웃파인드</a>
         <div class="header-text">
             <h1 class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
             </h1>
@@ -19,7 +19,7 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="maintpage.html">홈</a></li>
+                <li><a href="/">홈</a></li>
                 <li><a href="#">회사 소개</a></li>
                 <li><a href="#">매칭가이드</a></li>
                 <li><a href="#">FAQ</a></li>
@@ -32,7 +32,85 @@
             </ul>
         </nav>
         <button class="match-button">매칭하기</button>
+        <div class="modal" id="modal">
+            <div class="modal_body">
+                <button class="close-button">닫기 &times;</button>
+                <button class="next-button">다음</button>
+                <h1>기업 매칭 정보 입력</h1>
+                <div class="separator"></div>
+                <div class="input-container">
+                    <label for="name">담당자 성함</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="input-container">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="input-container">
+                    <label for="phone">담당자 번호</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+            </div>
+        </div>
+        <!-- 두 번째 모달 -->
+        <div class="modal2" id="modal2">
+            <div class="modal_body2">
+                <button class="close-button2">닫기 &times;</button>
+                <h2>다음 모달창 제목</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="project-name">프로젝트명</label>
+                        <input type="text" id="project-name" name="project-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="job-type">직종</label>
+                        <select id="job-type" name="job-type">
+                            <option value="제조업">제조업</option>
+                            <option value="물류업">물류업</option>
+                            <option value="서비스업">서비스업</option>
+                            <!-- 다른 직종 옵션들을 추가할 수 있음 -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">지역</label>
+                        <select id="location" name="location">
+                            <option value="서울">서울</option>
+                            <option value="부산">부산</option>
+                            <option value="인천">인천</option>
+                            <option value="대구">대구</option>
+                            <option value="광주">광주</option>
+                            <option value="대전">대전</option>
+                            <option value="울산">울산</option>
+                            <option value="경기">경기</option>
+                            <option value="강원">강원</option>
+                            <option value="충북">충북</option>
+                            <option value="충남">충남</option>
+                            <option value="전북">전북</option>
+                            <option value="전남">전남</option>
+                            <option value="경북">경북</option>
+                            <option value="경남">경남</option>
+                            <option value="제주">제주</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="number-of-people">인원</label>
+                        <input type="number" id="number-of-people" name="number-of-people" min="1">
+                    </div>
+                    <button class="previous-button">이전</button> 
+                    <button type="submit">제출</button>
+                </form>
+            </div>
+        </div>
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        
+
+
     </header>
+    <!-- 매칭된 인력도급 업체 목록 표시 부분 -->
+    <div class="matching-contractor-container" id="matching-contractor-container">
+       
+        <div id="matching-contractor-list" class="card-container"></div>
+    </div>
     <div>
         <class= text>
             <h1 class="intro">Outfind</h1>
@@ -80,7 +158,7 @@
         </div>
         <div class="footer-bottom">
             <p>Email: info@outfind.com</p>
-            <p>Phone: 123-456-7890</p>
+            <p>Phone: 010-4653-3002</p>
             <p>Address: 123 Main St, City, Country</p>
             <p>사업자번호: XXX-XX-XXXXX</p>
             <p>&copy; 2024 Outfind. All rights reserved.</p>
@@ -103,9 +181,11 @@
             image.style.height = imageHeight + 'px';
         }
 
-        $(document).ready(function() {
+  
+        
+$(document).ready(function() {
     // 페이지가 로드될 때 실행될 코드 작성
-    if(localStorage.getItem('token')) {
+    if(sessionStorage.getItem('token')) {
         // 토큰이 있는 경우: 로그인 상태
         $('#login-link').hide(); // 로그인 링크 숨기기
         $('#signup-link').hide(); // 회원가입 링크 숨기기
@@ -121,7 +201,10 @@
     // 로그아웃 버튼 클릭 시 처리
     $('#logout-link').click(function(event) {
         event.preventDefault(); // 기본 클릭 동작 막기
-        localStorage.removeItem('token'); // localStorage에서 토큰 삭제
+        sessionStorage.removeItem('token'); // localStorage에서 토큰 삭제
+        sessionStorage.removeItem('userType');
+        sessionStorage.removeItem('email'); // 로그인 이메일 삭제
+        sessionStorage.removeItem('contractor-email')
         // 로그인 및 회원가입 링크 표시, 마이페이지 링크 숨기기
         $('#login-link').show();
         $('#signup-link').show();
@@ -131,21 +214,343 @@
         window.location.href = '/';
     });
 });
+$(document).ready(function() {
+    var matchingInfoToken = localStorage.getItem('matchingInfoToken');
+    
+    // 매칭된 정보 토큰이 있다면
+    if (matchingInfoToken) {
+        // 토큰을 해독하여 매칭된 정보를 복구
+        var matchingInfo = JSON.parse(decodeURIComponent(escape(atob(matchingInfoToken))));
+        
+        // 복구된 매칭된 정보를 사용하여 화면에 표시
+        displayMatchingCompanies(matchingInfo);
+    }
 
- // 매칭하기 버튼 클릭 시 처리
- $('.match-button').click(function() {
-        var userType = localStorage.getItem('userType');
-        if (userType === 'company') {
-            // 기업 유형으로 로그인한 경우
-            window.location.href = '/matching_page.html'; // 매칭 페이지로 이동
-        } else if (userType === 'contractor') {
-            // 인력도급 유형으로 로그인한 경우
-            alert('인력도급은 매칭 기능을 사용할 수 없습니다.'); // 메시지 표시
+    // 페이지 로드 시 모달 및 백드롭 숨김
+    $('#modal, #modal2, #modal-backdrop').hide();
+  
+    // 페이지 로드 시 유저 타입 확인하여 매칭된 정보 표시 여부 결정
+    var userType = sessionStorage.getItem('userType');
+    if (userType === 'company') {
+        $('#matching-companies-container').show(); // 기업인 경우 매칭된 정보 표시
+        
+    } else {
+        $('#matching-companies-container').hide(); // 기업이 아닌 경우 매칭된 정보 숨김
+    }
+
+
+    $(document).ready(function() {
+    // 페이지 로드 시 모달 및 백드롭 숨김
+    $('#modal, #modal2, #modal-backdrop').hide();
+
+    // 페이지 로드 시 유저 타입 확인하여 매칭된 정보 표시 여부 결정
+    var userType = sessionStorage.getItem('userType');
+    if (userType === 'company') {
+        $('#matching-companies-container').show(); // 기업인 경우 매칭된 정보 표시
+    } else {
+        $('#matching-companies-container').hide(); // 기업이 아닌 경우 매칭된 정보 숨김
+    }
+
+    // 매칭하기 버튼 클릭 시 처리
+    $('.match-button').click(function() {
+        var userType = sessionStorage.getItem('userType');
+        if (userType === 'contractor') {
+            alert('기업전용 기능입니다.');
         } else {
-            // 로그인하지 않은 경우
-            alert('매칭 기능을 사용하려면 로그인이 필요합니다.'); // 메시지 표시
+            showMatchingModal();
         }
     });
+
+    // 닫기 버튼 클릭 시 처리
+    $('.close-button, .close-button2').click(function() {
+        closeModal();
+    });
+
+    // 다음 버튼 클릭 시 처리
+    $('.next-button').click(function() {
+        var isValid = validateForm('#modal form');
+        if (isValid) {
+            switchModal('#modal', '#modal2');
+        }
+    });
+
+    // 이전 버튼 클릭 시 처리
+    $('.previous-button').click(function() {
+        switchModal('#modal2', '#modal');
+    });
+
+    // 모달 백드롭 클릭 시 처리 (모달 닫기)
+    $('#modal-backdrop').click(function() {
+        closeModal();
+    });
+
+    // 두 번째 모달에서 제출 버튼 클릭 시 처리
+    $('#modal2 form').submit(function(event) {
+        event.preventDefault();
+        var isValid = validateForm('#modal2 form');
+        if (isValid) {
+            submitCompanyInfo();
+            
+            var industry = $('#job-type').val();
+            var location = $('#location').val();
+             // 매칭된 업체 요청
+        requestMatchingCompanies(industry, location);
+        
+        }
+    });
+});
+
+// 기업 정보를 서버에 제출하는 함수
+function submitCompanyInfo() {
+    var projectName = $('#project-name').val();
+    var industry = $('#job-type').val();
+    var location = $('#location').val();
+    var numberOfPeople = $('#number-of-people').val();
+
+    $.ajax({
+        url: '/submit-company-info',
+        method: 'POST',
+        data: {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            phone: $('#phone').val(),
+            project_name: projectName,
+            industry: industry,
+            location: location,
+            number_of_people: numberOfPeople
+        },
+        success: function(response) {
+            $('.match-apply-button').show();
+            $('#matching-companies-container').show();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error submitting data:', error);
+            alert('데이터 제출 중 오류가 발생했습니다.');
+        }
+    });
+}
+
+// 서버로부터 매칭된 인력도급 업체를 요청하는 함수
+function requestMatchingCompanies(industry, location, token) {
+    var token = sessionStorage.getItem('token'); // 토큰 가져오기
+    $.ajax({
+        url: '/matching-companies',
+        type: 'POST',
+        data: {            
+            industry: industry,
+            location: location
+        }, 
+        success: function(response) {
+            displayMatchingCompanies(response.matchingCompanies);
+                // 매칭이 완료되면 토큰을 로컬 스토리지에 저장
+            localStorage.setItem('matchingInfoToken', matchingInfoToken);
+            // 매칭된 정보를 토큰으로 변환
+            var matchingInfoToken = btoa(unescape(encodeURIComponent(JSON.stringify(response.matchingCompanies)))); // 매칭된 정보를 Base64로 인코딩하여 토큰 생성
+
+// 매칭된 정보 토큰을 로컬 스토리지에 저장
+localStorage.setItem('matchingInfoToken', matchingInfoToken);
+            closeModal(); // 모달 닫기
+        },
+        error: function(xhr, status, error) {
+            console.error('Error requesting matching companies:', error);
+            alert('인력도급 업체를 가져오는 중 오류가 발생했습니다.');
+        }
+    });
+}
+
+// 매칭된 업체 정보를 화면에 표시하는 함수
+function displayMatchingCompanies(matchingCompanies) {
+    var userType = sessionStorage.getItem('userType');
+
+// 사용자 유형이 기업인 경우에만 매칭된 업체 정보를 화면에 표시
+if (userType === 'company') {
+    var matchingInfoToken = localStorage.getItem('matchingInfoToken');
+    var companiesList = $('#matching-contractor-list');
+    
+    if (matchingInfoToken) {
+        // 토큰을 해독하여 매칭된 정보를 복구
+        var matchingInfo = JSON.parse(atob(matchingInfoToken));
+
+        // 여기에 매칭된 업체 정보를 표시하는 코드 추가
+    }
+
+    // 기존 목록 초기화
+    companiesList.empty();
+
+    // 매칭된 업체 정보를 반복하여 화면에 추가
+    matchingCompanies.forEach(function(contractor) {
+        var companyCard = $('<div class="card"></div>'); // 카드 스타일 적용
+        companyCard.attr('data-contractor-email', contractor.email);    
+        // 업체 정보를 텍스트로 설정하여 요소에 추가
+        companyCard.append('<div class="company-info introduction">기업소개: <div class="introduction-content">' + contractor.introduction + '</div></div>'); // 기업 소개
+        companyCard.append('<div class="divider"></div>'); // 구분선
+        companyCard.append('<div class="company-info industry">직종: ' + contractor.industry + '</div>'); // 직종
+        companyCard.append('<div class="company-info location">지역: ' + contractor.location + '</div>'); // 지역
+            
+        // 매칭하기 버튼 추가
+        var matchButton = $('<button class="match-apply-button">매칭하기</button>');
+
+ // 매칭하기 버튼 클릭 이벤트 핸들러
+ matchButton.click(function() {
+            var contractorEmail = $(this).closest('.card').attr('data-contractor-email'); // 해당 업체의 이메일 가져오기
+            var companyEmail = sessionStorage.getItem('email');
+            // 서버로 매칭 상태 업데이트 요청과 함께 인력도급업체의 이메일 정보 전송
+            $.ajax({
+                url: '/submit-matching-request',
+                method: 'POST',
+                data: {
+                    contractorEmail: contractorEmail, // 인력도급업체의 이메일 정보 전송
+                    status: 'matching', // 매칭 중 상태 전송
+                    companyEmail: sessionStorage.getItem('email'), // 기업 이메일
+
+                },
+                success: function(response) {
+                    console.log('매칭 상태가 업데이트되었습니다.');
+                    // 매칭 상태가 업데이트되면 버튼을 매칭 중으로 변경할 수 있습니다.
+                    matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
+                    // 클릭한 카드 요소에서만 이메일을 가져와서 콘솔에 출력합니다.
+                    console.log('contractor email:', contractorEmail);
+                    // 매칭 상태를 로컬 스토리지에 저장
+                    saveMatchingStatus(contractorEmail, 'matching');
+                },
+                error: function(xhr, status, error) {
+                    console.error('매칭 상태 업데이트 중 오류:', error);
+                    alert('매칭 상태를 업데이트하는 중 오류가 발생했습니다.');
+                }
+            });
+        });
+
+        // 로컬 스토리지에서 매칭 상태 가져오기
+        var matchingStatus = getMatchingStatus();
+
+        // 매칭 상태 확인 후 버튼 상태 업데이트
+        if (matchingStatus && matchingStatus.contractorEmail === contractor.email && matchingStatus.status === 'matching') {
+            matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
+        }
+        companyCard.append(matchButton);
+        
+        // 생성된 카드를 목록에 추가
+        companiesList.append(companyCard);
+    
+    });
+}
+}
+
+// 페이지 로드 시 매칭 상태 확인하여 버튼 상태 업데이트
+$(document).ready(function() {
+    // 로컬 스토리지에서 매칭 상태 가져오기
+    var matchingStatusList = getMatchingStatusList();
+
+    // 매칭 상태 확인 후 버튼 상태 업데이트
+    if (matchingStatusList && matchingStatusList.length > 0) {
+        matchingStatusList.forEach(function(matchingStatus) {
+            var contractorEmail = matchingStatus.contractorEmail;
+            var status = matchingStatus.status;
+            if (status === 'matching') {
+                $('[data-contractor-email="' + contractorEmail + '"] .match-apply-button')
+                    .text('매칭 중').prop('disabled', true).addClass('matching');
+            }
+        });
+    }
+});
+
+// 매칭 상태를 로컬 스토리지에 저장하는 함수
+function saveMatchingStatus(contractorEmail, status) {
+    // 기존 매칭 상태 배열 불러오기
+    var matchingStatusList = getMatchingStatusList() || [];
+
+    // 새로운 매칭 상태 정보를 객체로 저장
+    var matchingStatus = {
+        contractorEmail: contractorEmail,
+        status: status
+    };
+
+    // 매칭 상태 배열에 추가
+    matchingStatusList.push(matchingStatus);
+
+    // JSON 형식으로 변환하여 로컬 스토리지에 저장
+    localStorage.setItem('matchingStatusList', JSON.stringify(matchingStatusList));
+}
+// 매칭 상태를 가져오는 함수
+function getMatchingStatus() {
+    // 로컬 스토리지에서 매칭 상태 정보를 가져옴
+    var matchingStatusString = localStorage.getItem('matchingStatus');
+
+    // JSON 형식의 문자열을 객체로 변환하여 반환
+    return JSON.parse(matchingStatusString);
+}
+
+// 모든 매칭 상태를 가져오는 함수
+function getMatchingStatusList() {
+    // 로컬 스토리지에서 매칭 상태 배열을 가져옴
+    var matchingStatusListString = localStorage.getItem('matchingStatusList');
+
+    // JSON 형식의 문자열을 객체로 변환하여 반환
+    return JSON.parse(matchingStatusListString);
+}
+
+
+// 매칭하기 모달을 보여주는 함수
+function showMatchingModal() {
+    $('body').css('overflow', 'hidden');
+    $('#modal').fadeIn();
+    $('#modal-backdrop').fadeIn();
+}
+
+// 모달을 닫는 함수
+function closeModal() {
+    $('body').css('overflow', '');
+    $('#modal, #modal2, #modal-backdrop').fadeOut();
+}
+
+// 모달을 전환하는 함수
+function switchModal(currentModal, nextModal) {
+    $(currentModal).fadeOut();
+    $(nextModal).fadeIn();
+}
+
+// 폼 유효성 검사 함수
+function validateForm(formSelector) {
+    var isValid = true;
+    $(formSelector + ' input[type="text"]').each(function() {
+        if ($(this).val() === '') {
+            isValid = false;
+            alert('모든 필드를 입력하세요.');
+            return false; // each 루프 종료
+        }
+    });
+    return isValid;
+}
+
+
+
+
+
+// 사용자가 기업인지 확인하는 함수
+function isCompanyUser() {
+    // 세션에서 userType 값을 확인하여 기업 사용자인지 여부를 반환합니다.
+    // 만약 userType이 'company'라면 true를 반환하고, 그렇지 않으면 false를 반환합니다.
+    // 이 예시에서는 임의로 'userType'이라는 세션 변수를 확인합니다.
+    return sessionStorage.getItem('userType') === 'company';
+}
+
+// 사용자가 로그인되어 있는지 확인하는 함수
+function isLoggedIn() {
+    // 세션에서 userType 값을 확인하여 기업 사용자인 경우에만 로그인된 것으로 간주합니다.
+    return isCompanyUser();
+}
+// JavaScript 코드
+$(document).ready(function() {
+    // 각 기업 소개의 길이를 확인하고 클래스를 추가
+    $('.company-info').each(function() {
+        var introLength = $(this).text().length;
+        if (introLength > 50) {
+            $(this).addClass('long-introduction');
+        }
+    });
+});
+});
+    </script>
 
     </script>
 </body>
