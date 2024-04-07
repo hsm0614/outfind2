@@ -157,7 +157,7 @@ footer {
     color: #666; /* 푸터의 텍스트 색상을 회색으로 설정 */
     padding: 10px 0; /* 푸터의 위아래 패딩 */
     text-align: center; /* 모든 텍스트를 가로로 정렬 */
-    position: relative; /* 푸터를 고정시킴 */
+    position: absolute; /* 푸터를 고정시킴 */
     bottom: 0; /* 화면 하단에 배치 */
     width: 100%; /* 너비를 100%로 설정하여 전체 폭을 차지하도록 함 */
 }

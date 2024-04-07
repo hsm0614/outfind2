@@ -21,10 +21,11 @@ const mysql = require('mysql');
 
 // MySQL 서버 연결 설정
 const connection = mysql.createConnection({
-  host: '127.0.0.1', // MySQL 호스트 주소
+  host: '35.202.16.175', // MySQL 호스트 주소
   user: 'root', // MySQL 사용자 이름
   password: 'tjdals0912!', // MySQL 비밀번호
-  database: 'outfind' // 사용할 데이터베이스 이름
+  database: 'outfind', // 사용할 데이터베이스 이름
+  port: '3306'
 });
 
 // MySQL 서버 연결
@@ -110,6 +111,10 @@ app.get("/image/savemoney.png", function(req, res){
   
   app.get("/image/goodcontract.png", function(req, res){
     res.sendFile(path.join(__dirname, 'image', 'goodcontract.png'));
+  });
+
+  app.get("/image/manage.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'manage.png'));
   });
 
 

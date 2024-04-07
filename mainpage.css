@@ -262,21 +262,6 @@ header {
 }
 
 
-.modal_body2 {
-    position: relative; /* 상대 위치 설정 */
-    width: 600px;
-    height: 400px;
-    max-width: 80%; /* 화면 너비의 최대 80%로 설정 */
-    max-height: 80%;
-    overflow-y: auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-    border-radius: 5px;
-    color: #000;
-    margin: auto; /* 수평 가운데 정렬을 위한 margin 속성 추가 */
-}
-
 
 .modal_body2 {
     display: block;
@@ -287,6 +272,7 @@ header {
     width: 600px;
     height: 400px;
     max-height: 80%; /* 모달의 최대 높이 설정 */
+    max-width: 80%;
     overflow-y: auto; /* 내용이 모달 높이를 초과하는 경우 스크롤바 표시 */
     background-color: #fff; /* 내용의 배경색 */
     padding: 20px; /* 내용 주위의 여백 */
@@ -295,6 +281,7 @@ header {
     text-align: left; /* 텍스트를 왼쪽으로 정렬 */
     color: #000; /* 글자 색을 검정색으로 설정 */
     z-index: 10000;
+    margin: auto
 }
 
 .modal2 h2 {
@@ -487,7 +474,159 @@ nav ul li a:hover {
     padding: 0px;
 }
 
+.goodcompany{
+    background-color: #0099c6;
+    margin-bottom: 0px;
+    height: 100px;
+    margin-top: 100px;
+    padding: 0;
+    position: relative;
 
+}
+    
+.goodcompanytext{
+    color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center; /* 텍스트를 수평으로 가운데 정렬합니다. */
+    align-items: center; /* 텍스트를 수직으로 가운데 정렬합니다. */
+    height: 100%; /* 부모 요소의 높이를 기준으로 텍스트를 수직 가운데에 위치시킵니다. */
+    font-weight: bold;
+    font-size: 24px;   
+    margin: 0;
+}
+
+
+.match-button2 {
+    width: 15vw; /* 버튼의 너비 */
+    height: 3vw; /* 버튼의 높이 */
+    color: #FFF; /* 텍스트 색상 */
+    font-size: 2vw; /* 폰트 크기 */
+    font-weight: 550; /* 폰트 굵기 */
+    flex-shrink: 0; /* Flex 컨테이너에서 축소되지 않도록 설정 */
+    background: #4580F6; /* 배경색 */
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.20); /* 그림자 효과 */
+    border: none; /* 테두리 없애기 */
+    cursor: pointer; /* 마우스 오버 시 커서 모양 변경 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 추가 */
+    position: absolute;
+    left: 80%;
+    margin-top: 1%;
+    top: 30%; /* 세로 중앙 정렬을 위해 top 속성 사용 */
+    transform: translateY(-50%); /* 버튼의 높이의 반만큼 위로 이동시킵니다. */
+}
+
+
+.match-button2:hover {
+    background-color: #0056b3; /* 마우스 오버 시 배경색 변경 */
+}
+
+.goodcontainer {
+    padding: 20px;
+    margin-bottom: 50px;
+    background-color: #989898;
+    display: flex;
+    flex-direction: row; /* 가로 방향으로 배치 */
+    justify-content: space-between; /* 요소들을 좌우에 정렬 */
+    align-items: flex-start; /* 아이템들을 위쪽 정렬 */
+}
+
+.text-container {
+    flex: 0 0 calc(50% - 10px); /* 반응형 크기 조절 */
+    max-width: 350px;
+    width: 100px;
+    margin-left: 50px;
+    
+}
+
+.card-container {
+    flex: 0 0 calc(50% - 10px); /* 반응형 크기 조절 */
+    max-width: 350px;
+    margin-right: 100px;
+}
+
+
+
+.companygood,
+.companygoodtext {
+    flex: 0 0 calc(50% - 20px); /* 요소들이 반응형으로 동작하도록 설정 */
+}
+
+.companygood {
+    color: white;
+    text-align: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 100px; /* 좌우 여백은 없으므로 margin-left을 제거했습니다. */
+    max-width: 500px;
+}
+
+.companygoodtext {
+    text-align: left;
+    font-size: 20px;
+    margin-top: 20px; /* 텍스트의 상단 여백을 20px로 설정합니다. */
+    max-width: 500px;
+}
+
+.benefit-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    width: 320px;
+    flex-shrink: 0; /* 요소의 축소를 금지하여 오른쪽에 위치하도록 설정 */
+    margin-left: auto; /* 카드를 오른쪽으로 이동시킵니다. */
+    margin-top: 20px; /* 필요한 경우 상단 여백을 추가할 수 있습니다. */
+}
+
+.benefit-card h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.benefit-card p {
+    margin-bottom: 0;
+    color: #666;
+}
+
+.hrimage-container   {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    margin-left: 50px;
+ }
+
+.centered-image {
+    display: block;
+    margin: 0 auto;
+    margin-top: 15%;
+    max-width: 50%; /* 이미지가 부모 요소에 맞게 크기 조절됩니다. */
+}
+
+.speech-bubble {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 150px; /* 말풍선의 너비 조절 */
+    top: -130px; /* 이미지 위로 말풍선을 이동시키는 값 설정 */
+    right: 20%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transform: translateX(-50%); /* 말풍선을 가운데 정렬 */
+  }
+
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 10px 0; /* 위를 비워서 삼각형이 아래로 향하도록 변경 */
+    border-color: #f0f0f0 transparent transparent; /* 위쪽 테두리를 표시 */
+    bottom: -10px; /* 말풍선과 삼각형 사이의 간격 조절 */
+    left: calc(50% - 10px); /* 가운데 정렬 */
+}
 ------------------
 
 

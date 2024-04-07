@@ -32,6 +32,7 @@
             </ul>
         </nav>
         <button class="match-button">매칭하기</button>
+        
         <div class="modal" id="modal">
             <div class="modal_body">
                 <button class="close-button">닫기 &times;</button>
@@ -44,7 +45,7 @@
                 </div>
                 <div class="input-container">
                     <label for="email">이메일</label>
-                    <input type="email" id="email" name="email">
+                    <input type="email" id="email" name="email"  placeholder="회원가입 시 사용된 이메일을 입력해주세요">
                 </div>
                 <div class="input-container">
                     <label for="phone">담당자 번호</label>
@@ -108,7 +109,6 @@
     </header>
     <!-- 매칭된 인력도급 업체 목록 표시 부분 -->
     <div class="matching-contractor-container" id="matching-contractor-container">
-       
         <div id="matching-contractor-list" class="card-container"></div>
     </div>
     <div>
@@ -139,6 +139,41 @@
                 <div class="small-text">기업의 아웃소싱 평가를 통해 신뢰성 높은 아웃소싱을 사용할 수 있게 합니다.</div>
             </div>
         </div>
+    </div>
+    <div class="companybenefit" >
+        <section class="goodcompany">
+            <button class="match-button2">매칭하기</button>
+            <p class="goodcompanytext">프로젝트를 입력하시면 인력도급업체 5개가 매칭되요!</p>
+        </section>
+<section class="goodcontainer">
+        <div class="text-container">
+            <p class="companygood">내가 찾는건 인력도급업체!</p>
+            <p class="companygoodtext">
+                원하는 인력도급 직종과 인원을 입력하고<br>
+                다양한 인력도급업체를 만나보세요
+            </p>
+        </div>
+        <div class="hrimage-container">
+            <img src="./image/manage.png"  class="centered-image">
+            <div class="speech-bubble">
+                어떤 업체를 써야하지...?
+              </div>
+        </div>
+        <div class="card-container">
+            <div class="benefit-card">
+                <h2> 믿을 만한 인력도급업체</h2>
+                <p>사업자가 등록된 인력도급업체만 가입해요.</p>
+            </div>
+            <div class="benefit-card">
+                <h2>비용 문제?</h2>
+                <p>프로젝트를 신청하는데 비용이 들지 않아요.</p>
+            </div>
+            <div class="benefit-card">
+                <h2>편의성</h2>
+                <p>인력도급업체 찾는 시간을 줄여보세요.</p>
+            </div>
+        </div>
+    </section>
     </div>
     
     <footer>
@@ -252,12 +287,20 @@ $(document).ready(function() {
     }
 
     // 매칭하기 버튼 클릭 시 처리
-    $('.match-button').click(function() {
+    $('.match-button,.match-button2').click(function() {
+        // 모달이 열리면 페이지를 모달 위치로 스크롤
+        $('html, body').animate({
+            scrollTop: $('#modal').offset().top
+        }, 500); // 스크롤 속도 설정
         var userType = sessionStorage.getItem('userType');
-        if (userType === 'contractor') {
-            alert('기업전용 기능입니다.');
-        } else {
+        if (userType === 'company') {
             showMatchingModal();
+        } else if (userType === 'contractor') {
+            alert('기업 전용 기능입니다.');
+        } else {
+            alert('로그인이 필요합니다.');
+            // 로그인 페이지로 이동하는 코드 추가
+            window.location.href = 'loginpage/loginpage.html';
         }
     });
 
