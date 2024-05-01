@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const uuid = require('uuid').v4; // uuid 패키지를 사용하여 고유한 세션 ID 생성
 
+
+
 // Express 애플리케이션에서 세션 사용 설정
 app.use(session({
     genid: (req) => uuid(), // 세션 ID 생성 함수로 uuid 사용
@@ -21,7 +23,7 @@ const mysql = require('mysql');
 
 // MySQL 서버 연결 설정
 const connection = mysql.createConnection({
-  host: '35.202.16.175', // MySQL 호스트 주소
+  host: 'localhost', // MySQL 호스트 주소
   user: 'root', // MySQL 사용자 이름
   password: 'tjdals0912!', // MySQL 비밀번호
   database: 'outfind', // 사용할 데이터베이스 이름
@@ -395,14 +397,103 @@ function selectRandomCompanies(companies, count) {
     return selectedCompanies;
 }
 
+app.post('/submit-contractor-emails', (req, res) => {
+    const nowEmail = req.body.nowEmail;
+    let contractorEmails = req.body.contractorEmails;
 
-// 클라이언트로부터 매칭 요청을 받는 엔드포인트 설정
+    // contractorEmails 배열이 5개의 요소를 갖도록 조정
+    if (contractorEmails.length > 5) {
+        contractorEmails = contractorEmails.slice(0, 5);
+    } else {
+        while (contractorEmails.length < 5) {
+            contractorEmails.push(null); // 배열의 길이가 5보다 작을 경우 null로 채움
+        }
+    }
+
+    // 최근 모달 ID 조회 쿼리
+    const modalIdQuery = `SELECT id FROM modal WHERE email = ? ORDER BY id DESC LIMIT 1`;
+
+    // 최근 모달 ID 조회
+    connection.query(modalIdQuery, [nowEmail], (modalErr, modalResults) => {
+        if (modalErr) {
+            console.error('Error getting recent modal ID:', modalErr);
+            res.status(500).json({ error: 'Error getting recent modal ID' });
+            return;
+        }
+        
+
+        const modalId = modalResults.length > 0 ? modalResults[0].id : null;
+
+        // 매칭 정보 삽입
+        const matchingInfoQuery = `INSERT INTO matchinginfo (modal_id, contractor_email1, contractor_email2, contractor_email3, contractor_email4, contractor_email5, company_email) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const queryParameters = [modalId, ...contractorEmails, nowEmail];
+        connection.query(matchingInfoQuery, queryParameters, (insertErr, insertResult) => {
+            if (insertErr) {
+                console.error('Error inserting matching info:', insertErr);
+                res.status(500).send('Error inserting matching info');
+                return;
+            }
+
+            res.status(200).send('Matching info inserted successfully');
+        });
+    });
+});
+
+// 매칭된 업체 정보를 가져오는 엔드포인트
+app.post('/matching-info', (req, res) => {
+    const nowEmail = req.body.nowEmail;
+  
+    // 최근 modal_id를 가져오는 SQL 쿼리
+    const modalIdQuery = `
+        SELECT modal_id
+        FROM matchinginfo
+        WHERE company_email = ?
+        ORDER BY modal_id DESC
+        LIMIT 1
+    `;
+    // SQL 쿼리 실행
+    connection.query(modalIdQuery, [nowEmail], (modalErr, modalResults) => {
+        if (modalErr) {
+            console.error('Error fetching modal ID:', modalErr);
+            res.status(500).json({ error: 'Error fetching modal ID' });
+            return;
+        }
+
+        const modalId = modalResults[0].modal_id;
+
+        // 매칭된 업체 정보를 가져오는 SQL 쿼리
+        const matchingInfoQuery = `
+            SELECT c.email, c.industry, c.sub_industry, c.location, c.introduction
+            FROM matchinginfo mi
+            JOIN contractors c
+            ON mi.contractor_email1 = c.email OR mi.contractor_email2 = c.email 
+            OR mi.contractor_email3 = c.email OR mi.contractor_email4 = c.email 
+            OR mi.contractor_email5 = c.email
+            WHERE mi.modal_id = ?
+        `;
+        
+        // SQL 쿼리 실행
+        connection.query(matchingInfoQuery, [modalId], (err, results) => {
+            if (err) {
+                console.error('Error fetching matching info:', err);
+                res.status(500).json({ error: 'Error fetching matching info' });
+                return;
+            }
+
+            // 매칭된 업체 정보를 클라이언트로 응답
+            res.json({ matchingInfo: results });
+        });
+    });
+});
+
+
+// 클라이언트로부터 매칭 요청 받기
 app.post('/submit-matching-request', (req, res) => {
-    console.log(req.body); // 받은 데이터를 콘솔에 출력하여 확인
-    const companyEmail = req.body.companyEmail;
-    const contractorEmail = req.body.contractorEmail; // 인력도급업체의 이메일 정보를 받아옴
-    const status = req.body.status;
+    const { contractorEmail, companyEmail, status } = req.body;
 
+    // 매칭 요청 처리 및 데이터베이스에 저장하는 코드
+
+    // 예시: 매칭 정보를 데이터베이스에 저장하는 SQL 쿼리
     const sql = 'INSERT INTO matching (company_email, contractor_email, status) VALUES (?, ?, ?)';
     connection.query(sql, [companyEmail, contractorEmail, status], (err, result) => {
         if (err) {
@@ -410,22 +501,25 @@ app.post('/submit-matching-request', (req, res) => {
             res.status(500).json({ error: 'Error saving matching request to database' });
             return;
         }
-        // 매칭 정보가 성공적으로 저장되면 응답을 보냄
-        res.json({ success: true, message: '매칭 요청이 성공적으로 처리되었습니다.' });
+        res.json({ success: true, message: 'Matching request saved successfully' });
     });
 });
+app.post('/get-matching-status', (req, res) => {
+    const { contractorEmail, companyEmail } = req.body;
+    
+    // 매칭 상태를 데이터베이스에서 가져오는 쿼리 수행
 
-// 매칭 상태 조회 엔드포인트
-app.get('/get-matching-status', (req, res) => {
-    // MySQL에서 매칭 상태 가져오기
-    connection.query('SELECT * FROM matching', (err, results) => {
+    // 예시: 데이터베이스에서 매칭 상태를 가져오는 SQL 쿼리
+    const sql = 'SELECT status FROM matching WHERE contractor_email = ? AND company_email = ?';
+    connection.query(sql, [contractorEmail, companyEmail], (err, result) => {
         if (err) {
-            console.error('매칭 상태 조회 실패:', err);
-            res.status(500).json({ error: '매칭 상태 조회 실패' });
+            console.error('Error fetching matching status:', err);
+            res.status(500).json({ error: 'Error fetching matching status' });
             return;
         }
-        console.log('매칭 상태 조회 성공:', results);
-        res.json({ matchingStatusList: results });
+        // 매칭 상태 응답
+        const status = result.length > 0 ? result[0].status : 'none';
+        res.json({ status });
     });
 });
 

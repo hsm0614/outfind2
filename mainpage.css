@@ -540,7 +540,7 @@ nav ul li a:hover {
     
 }
 
-.card-container {
+.card-container2 {
     flex: 0 0 calc(50% - 10px); /* 반응형 크기 조절 */
     max-width: 350px;
     margin-right: 100px;
