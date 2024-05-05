@@ -377,9 +377,7 @@ function requestMatchingCompanies(industry, location) {
             industry: industry,
             location: location
         }, 
-        success: function(response) {
-            console.log('Matching companies:', response.matchingCompanies); // 매칭된 업체 데이터 콘솔에 출력
-           
+        success: function(response) {           
             var contractorEmails = response.matchingCompanies.map(contractor => contractor.email);
             submitContractorEmails( contractorEmails, nowEmail);
             closeModal(); // 모달 닫기
@@ -400,12 +398,6 @@ function submitContractorEmails(contractorEmails, nowEmail) {
         contractorEmails = [contractorEmails]; // 배열로 변환
     }
 
-    // 데이터 콘솔
-    console.log('Submitting contractor emails:', {
-        contractorEmail: contractorEmails,
-        nowEmail: nowEmail
-    });
-
     $.ajax({
         url: '/submit-contractor-emails',
         method: 'POST',
@@ -415,7 +407,6 @@ function submitContractorEmails(contractorEmails, nowEmail) {
             nowEmail: nowEmail
         }),
         success: function(response) {
-            console.log('Contractor emails submitted successfully');
         },
         error: function(xhr, status, error) {
             console.error('Error submitting contractor emails:', error);
@@ -423,135 +414,123 @@ function submitContractorEmails(contractorEmails, nowEmail) {
         }
     });
 }
-    $(document).ready(function() {
-    // 페이지 로드 시 매칭된 업체 정보 가져오기
-    fetchMatchingInfo();
+   // 페이지 로드 시 매칭된 업체 정보 가져오기
+fetchMatchingInfo();
 
 
-    // 매칭된 업체 정보를 가져오는 함수
-    function fetchMatchingInfo() {
-        // 세션 스토리지에서 현재 로그인된 사용자의 이메일 가져오기
-        var nowEmail = sessionStorage.getItem('email');
+// 매칭된 업체 정보를 가져오는 함수
+function fetchMatchingInfo() {
+    // 세션 스토리지에서 현재 로그인된 사용자의 이메일 가져오기
+    var nowEmail = sessionStorage.getItem('email');
 
-        // 이메일이 없는 경우 처리
-        if (!nowEmail) {
-            console.error('No email found in session storage.');
-            return;
-        }
-
-        $.ajax({
-            url: '/matching-info',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ nowEmail: nowEmail }),
-            success: function(response) {
-                displayContractors(response.matchingInfo);
-                requestMatchingStatusForAll(); // 매칭 정보를 가져온 후 매칭 상태를 요청하여 처리하는 함수 호출
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching matching info:', error);
-                alert('매칭된 업체 정보를 가져오는 중 오류가 발생했습니다.');
-            }
-        });
-
-        // 매칭 상태를 요청하여 처리하는 함수 호출
-        requestMatchingStatusForAll();
+    // 이메일이 없는 경우 처리
+    if (!nowEmail) {
+        console.error('No email found in session storage.');
+        return;
     }
 
-    // 모든 업체에 대한 매칭 상태를 요청하여 처리하는 함수
-    function requestMatchingStatusForAll() {
-        $('.card').each(function() {
-            var contractorEmail = $(this).attr('data-contractor-email');
+    $.ajax({
+        url: '/matching-info',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ nowEmail: nowEmail }),
+        success: function(response) {
+            displayContractors(response.matchingInfo);
+            requestMatchingStatusForAll(); // 매칭 정보를 가져온 후 매칭 상태를 요청하여 처리하는 함수 호출
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+}
+
+// 매칭된 업체 정보를 화면에 표시하는 함수
+function displayContractors(matchingInfo) {
+    // 매칭된 업체 정보를 받아와서 화면에 표시하는 코드를 작성
+    matchingInfo.forEach(function(contractor) {
+        var companyCard = $('<div class="card"></div>'); // 카드 스타일 적용
+        companyCard.attr('data-contractor-email', contractor.email);
+        // 업체 정보를 텍스트로 설정하여 요소에 추가
+        companyCard.append('<div class="company-info introduction">기업소개: <div class="introduction-content">' + contractor.introduction + '</div></div>'); // 기업 소개
+        companyCard.append('<div class="divider"></div>'); // 구분선
+        companyCard.append('<div class="company-info industry">직종: ' + contractor.industry + '</div>'); // 직종
+        companyCard.append('<div class="company-info location">지역: ' + contractor.location + '</div>'); // 지역
+
+        // 매칭하기 버튼 추가
+        var matchButton = $('<button class="match-apply-button">매칭하기</button>');
+
+        // 매칭하기 버튼 클릭 이벤트 핸들러
+        matchButton.click(function() {
+            var contractorEmail = $(this).closest('.card').attr('data-contractor-email'); // 해당 업체의 이메일 가져오기
             var companyEmail = sessionStorage.getItem('email');
             requestMatchingStatus(contractorEmail, companyEmail);
-        });
-    }
 
-    // 매칭된 업체 정보를 화면에 표시하는 함수
-    function displayContractors(matchingInfo) {
-        console.log('Matching Info Length:', matchingInfo); // 매칭된 업체 정보 배열의 길이 출력
-        // 매칭된 업체 정보를 받아와서 화면에 표시하는 코드를 작성
-        matchingInfo.forEach(function(contractor) {
-            var companyCard = $('<div class="card"></div>'); // 카드 스타일 적용
-            companyCard.attr('data-contractor-email', contractor.email);
-            // 업체 정보를 텍스트로 설정하여 요소에 추가
-            companyCard.append('<div class="company-info introduction">기업소개: <div class="introduction-content">' + contractor.introduction + '</div></div>'); // 기업 소개
-            companyCard.append('<div class="divider"></div>'); // 구분선
-            companyCard.append('<div class="company-info industry">직종: ' + contractor.industry + '</div>'); // 직종
-            companyCard.append('<div class="company-info location">지역: ' + contractor.location + '</div>'); // 지역
+            
+            // 서버로 매칭 상태 업데이트 요청과 함께 인력도급업체의 이메일 정보 전송
+            $.ajax({
+                url: '/submit-matching-request',
+                method: 'POST',
+                data: {
+                    contractorEmail: contractorEmail, // 인력도급업체의 이메일 정보 전송
+                    status: 'matching', // 매칭 중 상태 전송
+                    companyEmail: sessionStorage.getItem('email'), // 기업 이메일
 
-            // 매칭하기 버튼 추가
-            var matchButton = $('<button class="match-apply-button">매칭하기</button>');
-
-            // 매칭하기 버튼 클릭 이벤트 핸들러
-            matchButton.click(function() {
-                var contractorEmail = $(this).closest('.card').attr('data-contractor-email'); // 해당 업체의 이메일 가져오기
-                var companyEmail = sessionStorage.getItem('email');
-                requestMatchingStatus(contractorEmail, companyEmail);
-
-                
-                // 서버로 매칭 상태 업데이트 요청과 함께 인력도급업체의 이메일 정보 전송
-                $.ajax({
-                    url: '/submit-matching-request',
-                    method: 'POST',
-                    data: {
-                        contractorEmail: contractorEmail, // 인력도급업체의 이메일 정보 전송
-                        status: 'matching', // 매칭 중 상태 전송
-                        companyEmail: sessionStorage.getItem('email'), // 기업 이메일
-
-                    },
-                    success: function(response) {
-                        console.log('매칭 상태가 업데이트되었습니다.');
-                        // 매칭 상태가 업데이트되면 버튼을 매칭 중으로 변경할 수 있습니다.
-                        matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
-                        // 클릭한 카드 요소에서만 이메일을 가져와서 콘솔에 출력합니다.
-                        console.log('contractor email:', contractorEmail);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('매칭 상태 업데이트 중 오류:', error);
-                        alert('매칭 상태를 업데이트하는 중 오류가 발생했습니다.');
-                    }
-                });
+                },
+                success: function(response) {
+                    // 매칭 상태가 업데이트되면 버튼을 매칭 중으로 변경할 수 있습니다.
+                    matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
+                    // 클릭한 카드 요소에서만 이메일을 가져와서 콘솔에 출력합니다.
+                },
+                error: function(xhr, status, error) {
+                    console.error('매칭 상태 업데이트 중 오류:', error);
+                    alert('매칭 상태를 업데이트하는 중 오류가 발생했습니다.');
+                }
             });
-
-            // 생성된 카드에 매칭하기 버튼 추가
-            companyCard.append(matchButton);
-
-            // 생성된 카드를 목록에 추가
-            $('#matching-contractor-list').append(companyCard);
-            requestMatchingStatus(contractor.email);
-
         });
-    }
 
-    // 매칭 상태를 서버에 요청하는 함수
-    function requestMatchingStatus(contractorEmail, companyEmail) {
-        $.ajax({
-            url: '/get-matching-status',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ contractorEmail: contractorEmail, companyEmail: companyEmail }),
-            success: function(response) {
-                handleMatchingStatus(response.status, contractorEmail);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching matching status:', error);
-                alert('Error fetching matching status');
-            }
-        });
-    }
+        // 생성된 카드에 매칭하기 버튼 추가
+        companyCard.append(matchButton);
 
-    // 매칭 상태를 처리하는 함수
-    function handleMatchingStatus(status, contractorEmail) {
-        // 매칭 상태에 따라 버튼 업데이트
-        var matchButton = $('.card[data-contractor-email="' + contractorEmail + '"]').find('.match-apply-button');
-        if (status === 'matching') {
-            matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
-        } else {
-            matchButton.text('매칭하기').prop('disabled', false).removeClass('matching');
+        // 생성된 카드를 목록에 추가
+        $('#matching-contractor-list').append(companyCard);
+    });
+}
+
+// 매칭 상태를 서버에 요청하는 함수
+function requestMatchingStatus(contractorEmail, companyEmail) {
+    $.ajax({
+        url: '/get-matching-status',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ contractorEmail: contractorEmail, companyEmail: companyEmail }),
+        success: function(response) {
+            handleMatchingStatus(response.status, contractorEmail);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching matching status:', error);
+            alert('Error fetching matching status');
         }
+    });
+}
+
+// 매칭 상태를 처리하는 함수
+function handleMatchingStatus(status, contractorEmail) {
+    // 매칭 상태에 따라 버튼 업데이트
+    var matchButton = $('.card[data-contractor-email="' + contractorEmail + '"]').find('.match-apply-button');
+    if (status === 'matching') {
+        matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
+    } else {
+        matchButton.text('매칭하기').prop('disabled', false).removeClass('matching');
     }
-});
+}
+
+// 모든 업체에 대한 매칭 상태를 요청하여 처리하는 함수
+function requestMatchingStatusForAll() {
+    $('.card').each(function() {
+        var contractorEmail = $(this).attr('data-contractor-email');
+        var companyEmail = sessionStorage.getItem('email');
+        requestMatchingStatus(contractorEmail, companyEmail);
+    });
+}
 
 
 

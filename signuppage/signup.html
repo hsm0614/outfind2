@@ -181,7 +181,6 @@
                 var requestData = {
                     "b_no": [businessNumber]
                 };
-                
                 $.ajax({
                     url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=mzkQ7JJ9%2BK6GGApYVpbkfT15KKC1PIMcA4cmLmo0ZtgUKOYr%2FFekXGHmD3vdHd%2BtLHNwxY%2BsnjYhzkscBWS8Hg%3D%3D",
                     type: "POST",
@@ -191,7 +190,6 @@
                     success: function(result) {
                         if (result.status_code === "OK" && result.match_cnt > 0 && result.data[0].b_stt_cd === "01") {
                             alert('사업자 번호가 확인되었습니다. 회원가입을 진행합니다.');
-                            $('#company-signup-form').submit(); // 기업 회원가입 폼 제출
                         } else {
                             alert('유효하지 않은 사업자 번호입니다. 다시 확인해주세요.');
                             $('#company-business-number').val('');
@@ -223,7 +221,6 @@
                     success: function(result) {
                         if (result.status_code === "OK" && result.match_cnt > 0 && result.data[0].b_stt_cd === "01") {
                             alert('사업자 번호가 확인되었습니다. 회원가입을 진행합니다.');
-                            $('#contractor-signup-form').submit(); // 인력도급업체 회원가입 폼 제출
                         } else {
                             alert('유효하지 않은 사업자 번호입니다. 다시 확인해주세요.');
                             $('#contractor-business-number').val('');
@@ -242,7 +239,6 @@
                 // 기업 회원가입 폼에서 필수 입력 필드를 확인하는 코드 추가
                 // 이 부분은 회원가입 폼에서 필수 입력 필드를 확인하고 처리하는 코드를 넣어주면 됩니다.
             });
-        
             // 인력도급업체 회원가입 폼 제출 처리
             $('#contractor-signup-form').submit(function(event) {
                 event.preventDefault();
@@ -250,13 +246,6 @@
                 // 이 부분은 인력도급업체 회원가입 폼에서 필수 입력 필드를 확인하고 처리하는 코드를 넣어주면 됩니다.
             });
         });
-
-
-
-
-
-
-
         </script>
 </body>
 </html>

@@ -91,7 +91,7 @@ header {
 
 nav {
     display: flex;
-    position: fixed; /* 네비게이션을 절대적으로 위치시킴 */
+    position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
     top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
     right: 0px; /* 헤더의 오른쪽에 네비게이션을 배치 */
     align-items: center;

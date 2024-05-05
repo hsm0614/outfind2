@@ -390,7 +390,7 @@ nav {
     text-align: center;
     display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
     align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
-    margin-right: 500px;
+    margin-right: 300px;
    
 }
 
@@ -704,13 +704,7 @@ a {
     gap: 20px; /* 카드 간의 간격 조정 */
     margin-left: 10px;
     margin-right: 10px;
-}
-
-
-.card-container {
-    display: flex; /* 컨테이너를 플렉스박스로 설정하여 내부 요소를 정렬합니다. */
-    flex-wrap: wrap; /* 내부 요소가 한 줄을 넘어갈 경우 자동으로 줄바꿈합니다. */
-    justify-content: space-between; /* 요소 사이의 여백을 최대한 넓힙니다. */
+    justify-content: flex-start; /* 요소 사이의 여백을 최대한 넓힙니다. */
 }
 
 .card {

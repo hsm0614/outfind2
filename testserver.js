@@ -459,6 +459,12 @@ app.post('/matching-info', (req, res) => {
             return;
         }
 
+        // 매칭된 정보가 없는 경우 빈 배열을 반환
+        if (modalResults.length === 0) {
+            res.json({ matchingInfo: [] });
+            return;
+        }
+
         const modalId = modalResults[0].modal_id;
 
         // 매칭된 업체 정보를 가져오는 SQL 쿼리
@@ -491,11 +497,9 @@ app.post('/matching-info', (req, res) => {
 app.post('/submit-matching-request', (req, res) => {
     const { contractorEmail, companyEmail, status } = req.body;
 
-    // 매칭 요청 처리 및 데이터베이스에 저장하는 코드
-
-    // 예시: 매칭 정보를 데이터베이스에 저장하는 SQL 쿼리
-    const sql = 'INSERT INTO matching (company_email, contractor_email, status) VALUES (?, ?, ?)';
-    connection.query(sql, [companyEmail, contractorEmail, status], (err, result) => {
+    // 예시: 최근 모달을 참조하여 매칭 정보를 데이터베이스에 저장하는 SQL 쿼리
+    const sql = 'INSERT INTO matching (company_email, contractor_email, status, modal_id) VALUES (?, ?, ?, (SELECT id FROM modal WHERE email = ? ORDER BY id DESC LIMIT 1))';
+    connection.query(sql, [companyEmail, contractorEmail, status, companyEmail], (err, result) => {
         if (err) {
             console.error('Error saving matching request to database:', err);
             res.status(500).json({ error: 'Error saving matching request to database' });
@@ -524,18 +528,17 @@ app.post('/get-matching-status', (req, res) => {
 });
 
 
-// 매칭 정보 확인 엔드포인트 설정
 app.post('/check-matching', (req, res) => {
     const contractorEmail = req.body.contractorEmail;
 
-    // 아웃소싱 업체의 매칭된 기업 정보 및 프로젝트 이름 조회하는 쿼리 작성
+    // 매칭된 기업 정보 및 프로젝트 정보 조회하는 쿼리 작성
     const query = `
-    SELECT m.company_email, c.project_name, c.industry, c.number_of_people, c.phone
-    FROM matching m 
-    INNER JOIN modal c ON m.company_email = c.email 
-    WHERE m.contractor_email = ?
+    SELECT m.company_email, c.project_name, c.industry, c.number_of_people, c.phone, m.status    FROM matching m 
+    INNER JOIN modal c ON m.modal_id = c.id
+    WHERE m.contractor_email = ? AND (m.status = 'matching' OR m.status = 'accepted')
+    ORDER BY c.project_name;
     `;
-     
+
     // 쿼리 실행
     connection.query(query, [contractorEmail], (err, results) => {
         if (err) {
@@ -544,11 +547,16 @@ app.post('/check-matching', (req, res) => {
             return;
         }
 
-        // 매칭된 기업 정보와 프로젝트 이름을 클라이언트에 반환
+        if (results.length === 0) {
+            console.log('매칭된 기업 정보 없음');
+            res.status(404).json({ message: '매칭된 기업 정보가 없습니다.' });
+            return;
+        }
+
+        // 매칭된 기업 정보와 프로젝트 정보를 클라이언트에 반환
         res.json({ matchingCompanies: results });
     });
 });
-
 
 
 // 매칭 수락 요청 처리
@@ -556,9 +564,25 @@ app.post('/accept-match', (req, res) => {
     const contractorEmail = req.body.contractorEmail;
     const companyEmail = req.body.companyEmail;
 
-    // 매칭 수락 처리 로직
-    // 여기서는 단순히 성공을 응답으로 보냄
-    res.status(200).json({ message: '매칭이 성공적으로 수락되었습니다.' });
+    // 매칭 정보를 데이터베이스에 저장하는 SQL 쿼리
+    const sql = 'INSERT INTO accepted_matches (company_email, contractor_email) VALUES (?, ?)';
+    connection.query(sql, [companyEmail, contractorEmail], (err, result) => {
+        if (err) {
+            console.error('Error saving accepted match:', err);
+            res.status(500).json({ error: 'Error saving accepted match' });
+            return;
+        }
+
+        const sql = 'UPDATE matching SET status = ? WHERE company_email = ? AND contractor_email = ?';
+    connection.query(sql, ['accepted', companyEmail, contractorEmail], (err, result) => {
+        if (err) {
+            console.error('Error updating matching status:', err);
+            res.status(500).json({ error: 'Error updating matching status' });
+            return;
+        }
+        res.status(200).json({ message: '매칭이 성공적으로 수락되었습니다.' });
+        });
+    });
 });
 
 app.post('/reject-match', (req, res) => {
