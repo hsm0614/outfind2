@@ -20,13 +20,14 @@ $('#company-login-button').click(function(event) {
     var companyPassword = $('#password').val(); // 비밀번호 가져오기
     
     $.ajax({
-        url: 'http://localhost:3000/login/company', // 로그인 엔드포인트로 수정
+        url: '/loginpage/loginpage.html/login/company', // 로그인 엔드포인트로 수정
         type: 'POST',
-        data: {
+        contentType: 'application/json', // JSON 형식으로 데이터 전송
+        data: JSON.stringify({
             userType: 'company',
-            companyEmail: companyEmail, // 이메일 전달,
-            companyPassword: companyPassword, // 비밀번호 전달,
-        },
+            companyEmail: companyEmail,
+            companyPassword: companyPassword,
+        }),
         success: function(response) {
             if(response.token) {
                 // 토큰을 세션 스토리지에 저장
@@ -38,7 +39,7 @@ $('#company-login-button').click(function(event) {
                 if (response.userType === 'company') {
                     
                     // 기업 유저인 경우 메인 페이지로 이동
-                    window.location.href = '/';
+                    window.location.href = 'https://www.outfind.co.kr/';
                 } else {
                     // 기타 유저 타입 처리
                     alert('올바른 유저 타입이 아닙니다.');
@@ -83,7 +84,7 @@ $('#contractor-login-button').click(function(event) {
     var contractorPassword = $('#contractor-password').val(); // 비밀번호 가져오기
 
     $.ajax({
-        url: 'http://localhost:3000/login/contractor', // 로그인 엔드포인트로 수정
+        url: '/loginpage/loginpage.html/login/contractor', // 로그인 엔드포인트로 수정
         type: 'POST',
         data: {
             userType: 'contractor',

@@ -39,7 +39,7 @@ $(document).ready(function() {
 
         // 서버로 이메일 중복 확인 요청
         $.ajax({
-            url: 'http://localhost:3000/check-email',
+            url: 'https://outfind.co.kr/check-email',
             type: 'POST',
             data: { email: email },
             success: function(response) {
@@ -106,7 +106,7 @@ $(document).ready(function() {
 
         // AJAX 요청 보내기(company)
         $.ajax({
-            url: 'http://localhost:3000/signup/company', // 실제 회원가입 엔드포인트로 수정
+            url: '/signuppage/signup.html/signup/company', // 실제 회원가입 엔드포인트로 수정
             type: 'POST', // POST 메소드 사용
             data: {
                 "businessNumber": businessNumber, // 사업자 번호
@@ -149,7 +149,7 @@ $('#contractor-email-check-button').click(function(event) {
 
     // 서버로 이메일 중복 확인 요청
     $.ajax({
-        url: 'http://localhost:3000/check-contractor-email',
+        url: 'https://outfind.co.kr/check-contractor-email',
         type: 'POST',
         data: { email: email },
         success: function(response) {

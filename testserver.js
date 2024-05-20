@@ -4,8 +4,63 @@ const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 const uuid = require('uuid').v4; // uuid 패키지를 사용하여 고유한 세션 ID 생성
+require('dotenv').config(); // .env 파일에서 환경 변수를 로드합니다.
+const cors = require('cors');
+const https = require('https');
+const fs = require('fs');
+const jwt = require('jsonwebtoken'); // JWT 패키지 임포트
 
 
+const secretKey = process.env.JWT_SECRET_KEY || 'your_secret_key';
+
+const options = {
+    key: fs.readFileSync('/etc/letsencrypt/archive/www.outfind.co.kr/privkey3.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/www.outfind.co.kr/fullchain.pem')
+};
+
+https.createServer(options, app).listen(3000, () => {
+    console.log('HTTPS server is running on port 3000');
+});
+
+
+// 토큰 검증 함수
+function verifyToken(token) {
+    try {
+        return jwt.verify(token, secretKey);
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+}
+function createToken(userId) {
+    // payload는 객체여야 합니다
+    const payload = { userId };
+    console.log('Creating token with payload:', payload);
+    console.log('Using secret key:', secretKey);
+    return jwt.sign(payload, secretKey, { expiresIn: '1h' });
+}
+
+// body-parser 미들웨어 설정
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(express.json());
+app.use(cors());
+
+app.use(cors({
+  origin: 'https://outfind.co.kr',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://www.outfind.co.kr"); // 특정 도메인 허용
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
+// bodyParser를 사용하여 POST 요청의 body를 파싱
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Express 애플리케이션에서 세션 사용 설정
 app.use(session({
@@ -23,8 +78,8 @@ const mysql = require('mysql');
 
 // MySQL 서버 연결 설정
 const connection = mysql.createConnection({
-  host: 'localhost', // MySQL 호스트 주소
-  user: 'root', // MySQL 사용자 이름
+  host: '43.202.132.220', // MySQL 호스트 주소
+  user: 'ubuntu', // MySQL 사용자 이름
   password: 'tjdals0912!', // MySQL 비밀번호
   database: 'outfind', // 사용할 데이터베이스 이름
   port: '3306'
@@ -39,19 +94,10 @@ connection.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
-// 연결 종료
-// connection.end();
-
 // 정적 파일 미들웨어 설정
 app.use(express.static(path.join(__dirname, 'no2outfind', 'image')));
 app.use(express.static(path.join(__dirname, 'no2outfind')));
-// 서버 포트 설정
-const PORT = process.env.PORT || 3000;
 
-// 서버 시작
-app.listen(PORT, function(){
-    console.log("App is running on port " + PORT);
-});
 
 // 루트 경로에 대한 요청 처리
 app.get("/", function(req, res){
@@ -119,8 +165,6 @@ app.get("/image/savemoney.png", function(req, res){
     res.sendFile(path.join(__dirname, 'image', 'manage.png'));
   });
 
-
-
 // testserver.js 파일 제공
 app.get("/testserver.js", function(req, res){
     res.sendFile(path.join(__dirname, "testserver.js"), {
@@ -131,13 +175,8 @@ app.get("/testserver.js", function(req, res){
 });
 
 
-
-// body-parser 미들웨어 설정
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 // 기업 회원가입 요청 처리
-app.post('/signup/company', (req, res) => {
+app.post('/signuppage/signup.html/signup/company', (req, res) => {
   // 회원가입 폼에서 전송된 데이터 받아오기
   const { businessNumber, companyName, companyRepresentative, companyEmail, companyPassword, companyAddress, companyAddressDetails, companyIntroduction } = req.body;
 
@@ -173,7 +212,7 @@ app.post('/check-email', (req, res) => {
 });
 
 // 인력도급 회원가입 요청 처리
-app.post('/signup/contractor', (req, res) => {
+app.post('https://outfind.co.kr/check-email', (req, res) => {
     // 클라이언트에서 전송된 데이터 받아오기
     const { businessNumber, email, password, industry, subIndustry, location, contractorintroduction } = req.body;
 
@@ -211,13 +250,12 @@ app.post('/check-contractor-email', (req, res) => {
         res.json({ exists: count > 0 });
     });
 });
+// 기업 로그인 처리
+app.post("/loginpage/loginpage.html/login/company", function(req, res) {
+    console.log('Request Body:', req.body);
 
-// 로그인 처리
-app.post("/login/company", function(req, res) {
-    // 로그인 폼에서 전송된 데이터 받아오기
     const { companyEmail, companyPassword } = req.body;
 
-    // MySQL 데이터베이스에서 해당 이메일을 가진 사용자를 찾음
     const query = `SELECT * FROM company WHERE email = ? AND password = ?`;
     connection.query(query, [companyEmail, companyPassword], (err, results) => {
         if (err) {
@@ -227,21 +265,16 @@ app.post("/login/company", function(req, res) {
         }
 
         if (results.length > 0) {
-            // 로그인 성공 시 세션에 사용자 정보 저장
-            req.session.user = results[0]; // 여기서는 첫 번째 결과만 사용 (단일 사용자)
-            const token = jwt.sign({ userId: results[0].id }, secretKey);
-            const companyName = results[0].name; // 회사명을 가져와 변수에 저장
-                // 토큰을 클라이언트에게 반환
-                res.json({ companyEmail: companyEmail, token: token, userType: 'company'});
-
+            const token = createToken(results[0].id);
+            res.json({ companyEmail: companyEmail, token: token, userType: 'company' });
         } else {
-            res.status(401).send("이메일 또는 비밀번호가 올바르지 않습니다."); // 로그인 실패 시 실패 메시지를 클라이언트로 보냄
+            res.status(401).send("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
     });
 });
 
 // 인력도급 로그인 처리
-app.post("/login/contractor", function(req, res) {
+app.post("/loginpage/loginpage.html/login/contractor", function(req, res) {
     // 로그인 폼에서 전송된 데이터 받아오기
     const { contractorEmail, contractorPassword } = req.body;
 
@@ -295,49 +328,28 @@ app.post('/', function(req, res) {
     // 이후에 데이터베이스에 데이터 삽입 등의 작업 수행
 });
 
-// body-parser 미들웨어 설정
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
-// 토큰 검증 함수
-function verifyToken(token) {
-    // 토큰 검증 로직 구현
-}
 
-// 예시: 보호되는 페이지 요청 처리
+// 보호된 페이지 요청 처리
 app.get('/protected', function(req, res) {
-    const token = req.headers.authorization.split(' ')[1];
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).send('Unauthorized');
+    }
+
+    const token = authHeader.split(' ')[1];
     try {
         const decoded = verifyToken(token);
-        // 사용자 인증 성공
         res.send('Authenticated');
     } catch (error) {
-        // 사용자 인증 실패
         res.status(401).send('Unauthorized');
     }
 });
 
-const jwt = require('jsonwebtoken');
-
-// 사용자 정보
-const user = {
-  id: 1,
-  username: 'example_user'
-};
-
-// 비밀키 (토큰을 서명할 때 사용됨)
-const secretKey = 'my_secret_key';
-
-// 로그인 요청 처리
+// 로그인 요청 처리 예제
 app.post("/login", function(req, res) {
-    // 사용자 인증 및 정보 가져오는 로직 수행
-
-    // 예시로 사용자 인증 성공 후 토큰 생성
-    const token = jwt.sign(user, secretKey);
     const userType = req.body.userType;
-
-    
-    // 토큰을 클라이언트에게 반환
+    const token = createToken(user);
     res.json({ token: token, userType: userType });
 });
 
