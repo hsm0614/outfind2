@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="login.css"> <!-- CSS 파일 링크 -->
+    <link rel="stylesheet" href="loginmob.css"> <!-- CSS 파일 링크 -->
+
 </head>
 <body>
     <header>
@@ -19,36 +21,46 @@
         </nav>
     </header>
 <body>
-    <div class="container">
-        <h2 class="text-center">로그인</h2>
-        <!-- 기업 로그인 폼 -->
-        <div id="company-login-form" class="login-form" style="display: none;">
-            <form id="company-login-form" action="/login" method="POST">
-                <input type="text" id="email" name="email" placeholder="이메일">
-                <input type="password" id="password" name="password" placeholder="비밀번호">
-                <button id="company-login-button" type="submit">기업 로그인</button>
-            </form>
-        </div>
 
-        <!-- 인력도급 업체 로그인 폼 -->
-        <div id="contractor-login-form" class="login-form" style="display: none;">
-            <form id="contractor-login-form" action="/login" method="POST">
-                <input type="text" id="contractor-email" name="contractorEmail" placeholder="이메일">
-                <input type="password" id="contractor-password" name="contractorPassword" placeholder="비밀번호">
-                <button id="contractor-login-button" type="submit">인력도급 업체 로그인</button>
-            </form>
+    <div class="login-wrapper">
+        <div class="image-container">
+        <div class="image-caption">
+        <p class="logincontent">아웃파인드를 통해<br>다양한 인력도급업체를 만나보세요</p>
         </div>
-
-        <!-- 로그인 선택 버튼 -->
-        <div class="login-choice">
-            <button id="company-login-btn" class="login-btn selected">기업 로그인</button>
-            <button id="contractor-login-btn" class="login-btn">인력도급 업체 로그인</button>
+        <div class="login-image">
+            <img src="/image/loginimage.png" alt="Good Contract" class="loginpng">
         </div>
-        <!-- 회원가입 버튼 -->
-        <div class="register-link">
-            <p>계정이 없으신가요? <a href="../signuppage/signup.html">회원가입</a></p>
+        </div>
+        <div class="container">
+            <h2 class="text-center">로그인</h2>
+            <!-- 기업 로그인 폼 -->
+            <div id="company-login-form" class="login-form" style="display: none;">
+                <form id="company-login-form" action="/login" method="POST">
+                    <input type="text" id="email" name="email" placeholder="이메일">
+                    <input type="password" id="password" name="password" placeholder="비밀번호">
+                    <button id="company-login-button" type="submit">기업 로그인</button>
+                </form>
+            </div>
+            <!-- 인력도급 업체 로그인 폼 -->
+            <div id="contractor-login-form" class="login-form" style="display: none;">
+                <form id="contractor-login-form" action="/login" method="POST">
+                    <input type="text" id="contractor-email" name="contractorEmail" placeholder="이메일">
+                    <input type="password" id="contractor-password" name="contractorPassword" placeholder="비밀번호">
+                    <button id="contractor-login-button" type="submit">인력도급 업체 로그인</button>
+                </form>
+            </div>
+            <!-- 로그인 선택 버튼 -->
+            <div class="login-choice">
+                <button id="company-login-btn" class="login-btn selected">기업 로그인</button>
+                <button id="contractor-login-btn" class="login-btn">인력도급 업체 로그인</button>
+            </div>
+            <!-- 회원가입 버튼 -->
+            <div class="register-link">
+                <p>계정이 없으신가요? <a href="../signuppage/signup.html">회원가입</a></p>
+            </div>
         </div>
     </div>
+    
         
 <footer>
     <div class="footer-content">
@@ -66,11 +78,12 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>Email: info@outfind.com</p>
-        <p>Phone: 123-456-7890</p>
-        <p>Address: 123 Main St, City, Country</p>
-        <p>사업자번호: XXX-XX-XXXXX</p>
+        <p>Email: outfind222@gmail.com</p>
+        <p>Phone: 010-4653-3002</p>
+        <p>Address: 강원도 원주시, 상지대길 58-7</p>
+        <p>사업자등록번호: 668-16-02391</p>
         <p>&copy; 2024 Outfind. All rights reserved.</p>
+        <p>대표: 황성민</p>
     </div>
 </footer>
 

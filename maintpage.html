@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>기업과 인력 중개 플랫폼</title>
     <link rel="stylesheet" type="text/css" href="mainpage.css">
+    <link rel="stylesheet" type="text/css" href="mainpagemob.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <a href="/" class="outfind">아웃파인드</a>
         <div class="header-text">
-            <h1 class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
-            </h1>
+            <p class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
+            </p>
             <h1 class="h1-outfind">Outfind</h1>
             <h1 class="h1-second">영업의 어려움을 간소화하세요</h1>
         </div>
@@ -33,79 +36,86 @@
         </nav>
         <button class="match-button">매칭하기</button>
         
-        <div class="modal" id="modal">
-            <div class="modal_body">
-                <button class="close-button">닫기 &times;</button>
-                <button class="next-button">다음</button>
-                <h1>기업 매칭 정보 입력</h1>
-                <div class="separator"></div>
-                <div class="input-container">
-                    <label for="name">담당자 성함</label>
-                    <input type="text" id="name" name="name">
-                </div>
-                <div class="input-container">
-                    <label for="email">이메일</label>
-                    <input type="email" id="email" name="email"  placeholder="회원가입 시 사용된 이메일을 입력해주세요">
-                </div>
-                <div class="input-container">
-                    <label for="phone">담당자 번호</label>
-                    <input type="tel" id="phone" name="phone">
-                </div>
+  <!-- 첫 번째 모달 -->
+  <div class="modal" id="modal">
+    <div class="modal_body">
+        <button class="close-button">닫기 &times;</button>
+        <h1>기업 매칭 정보 입력</h1>
+        <div class="separator"></div>
+        <form id="form1">
+            <div class="input-container">
+                <label for="name">담당자 성함</label>
+                <input type="text" id="name" name="name">
             </div>
-        </div>
-        <!-- 두 번째 모달 -->
-        <div class="modal2" id="modal2">
-            <div class="modal_body2">
-                <button class="close-button2">닫기 &times;</button>
-                <h2>다음 모달창 제목</h2>
-                <form>
-                    <div class="form-group">
-                        <label for="project-name">프로젝트명</label>
-                        <input type="text" id="project-name" name="project-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="job-type">직종</label>
-                        <select id="job-type" name="job-type">
-                            <option value="제조업">제조업</option>
-                            <option value="물류업">물류업</option>
-                            <option value="서비스업">서비스업</option>
-                            <!-- 다른 직종 옵션들을 추가할 수 있음 -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">지역</label>
-                        <select id="location" name="location">
-                            <option value="서울">서울</option>
-                            <option value="부산">부산</option>
-                            <option value="인천">인천</option>
-                            <option value="대구">대구</option>
-                            <option value="광주">광주</option>
-                            <option value="대전">대전</option>
-                            <option value="울산">울산</option>
-                            <option value="경기">경기</option>
-                            <option value="강원">강원</option>
-                            <option value="충북">충북</option>
-                            <option value="충남">충남</option>
-                            <option value="전북">전북</option>
-                            <option value="전남">전남</option>
-                            <option value="경북">경북</option>
-                            <option value="경남">경남</option>
-                            <option value="제주">제주</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="number-of-people">인원</label>
-                        <input type="number" id="number-of-people" name="number-of-people" min="1">
-                    </div>
-                    <button class="previous-button">이전</button> 
-                    <button type="submit">제출</button>
-                </form>
+            <div class="input-container">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" placeholder="회원가입 시 사용된 이메일을 입력해주세요">
             </div>
-        </div>
-        <div class="modal-backdrop" id="modal-backdrop"></div>
+            <div class="input-container">
+                <label for="phone">담당자 번호</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <button type="button" class="next-button">다음</button>
+        </form>
+    </div>
+</div>
+
+<!-- 두 번째 모달 -->
+<div class="modal2" id="modal2">
+    <div class="modal_body2">
+        <button class="close-button2">닫기 &times;</button>
+        <h1>기업 매칭 정보 입력</h1>
+        <div class="separator"></div>
+        <form id="form2">
+            <div class="form-group">
+                <label for="project-name">프로젝트명</label>
+                <input type="text" id="project-name" name="project-name">
+            </div>
+            <div class="form-group">
+                <label for="job-type">직종</label>
+                <select id="job-type" name="job-type">
+                    <option value="제조업">제조업</option>
+                    <option value="물류업">물류업</option>
+                    <option value="서비스업">서비스업</option>
+                    <!-- 다른 직종 옵션들을 추가할 수 있음 -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="location">지역</label>
+                <select id="location" name="location">
+                    <option value="서울">서울</option>
+                    <option value="부산">부산</option>
+                    <option value="인천">인천</option>
+                    <option value="대구">대구</option>
+                    <option value="광주">광주</option>
+                    <option value="대전">대전</option>
+                    <option value="울산">울산</option>
+                    <option value="경기">경기</option>
+                    <option value="강원">강원</option>
+                    <option value="충북">충북</option>
+                    <option value="충남">충남</option>
+                    <option value="전북">전북</option>
+                    <option value="전남">전남</option>
+                    <option value="경북">경북</option>
+                    <option value="경남">경남</option>
+                    <option value="제주">제주</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="number-of-people">인원</label>
+                <input type="number" id="number-of-people" name="number-of-people" min="1">
+            </div>
+            <div class="form-group">
+                <label for="projectstructure">프로젝트 설명</label>
+                <textarea id="projectstructure" name="projectstructure" rows="5" placeholder="프로젝트에 대해 간략히 설명해주세요"></textarea>
+            </div>
+            <button type="button" class="previous-button">이전</button>
+            <button type="submit">제출</button>
+        </form>
+    </div>
+</div>
+<div class="modal-backdrop" id="modal-backdrop"></div>
         
-
-
     </header>
     <!-- 매칭된 인력도급 업체 목록 표시 부분 -->
     <div class="matching-contractor-container" id="matching-contractor-container">
@@ -140,40 +150,25 @@
             </div>
         </div>
     </div>
-    <div class="companybenefit" >
-        <section class="goodcompany">
-            <button class="match-button2">매칭하기</button>
-            <p class="goodcompanytext">프로젝트를 입력하시면 인력도급업체 5개가 매칭되요!</p>
-        </section>
-<section class="goodcontainer">
-        <div class="text-container">
-            <p class="companygood">내가 찾는건 인력도급업체!</p>
-            <p class="companygoodtext">
-                원하는 인력도급 직종과 인원을 입력하고<br>
-                다양한 인력도급업체를 만나보세요
-            </p>
-        </div>
-        <div class="hrimage-container">
-            <img src="./image/manage.png"  class="centered-image">
-            <div class="speech-bubble">
-                어떤 업체를 써야하지...?
-              </div>
-        </div>
-        <div class="card-container2">
-            <div class="benefit-card">
-                <h2> 믿을 만한 인력도급업체</h2>
-                <p>사업자가 등록된 인력도급업체만 가입해요.</p>
+    <section class="b2b-matching-section">
+        <h2 class="b2b-matching-title">OutFind의 구조는?</h2>
+        <div class="b2b-matching-container">
+            <div class="b2b-matching-image">
+                <img src="./image/BM.png" alt="B2B Matching System">
             </div>
-            <div class="benefit-card">
-                <h2>비용 문제?</h2>
-                <p>프로젝트를 신청하는데 비용이 들지 않아요.</p>
-            </div>
-            <div class="benefit-card">
-                <h2>편의성</h2>
-                <p>인력도급업체 찾는 시간을 줄여보세요.</p>
+            <div class="price-card">
+                <h3>₩가격 안내</h3>
+                <h6>outfind는 요구 인원에 맞는<br>차별화된 가격을 책정합니다</h6>
+                <p>5명 이하: 50,000원</p>
+                <p>6명 이상~10명 이하: 100,000</p>
+                <p>11명 이상~20명 이하: 200,000</p>
+                <p>20명 이상: 300,000</p>
+                <button class="price-match-button">매칭하기</button>
             </div>
         </div>
     </section>
+
+
     </div>
     
     <footer>
@@ -192,11 +187,13 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>Email: info@outfind.com</p>
+            <p class="outfindname">아웃파인드<p>
+            <p>Email: outfind222@gmail.com</p>
             <p>Phone: 010-4653-3002</p>
-            <p>Address: 123 Main St, City, Country</p>
-            <p>사업자번호: XXX-XX-XXXXX</p>
+            <p>Address: 강원도 원주시, 상지대길 58-7</p>
+            <p>사업자등록번호: 668-16-02391</p>
             <p>&copy; 2024 Outfind. All rights reserved.</p>
+            <p>대표: 황성민</p>
         </div>
     </footer>
 
@@ -263,20 +260,9 @@ $(document).ready(function() {
     }
 
 
-    $(document).ready(function() {
-    // 페이지 로드 시 모달 및 백드롭 숨김
-    $('#modal, #modal2, #modal-backdrop').hide();
-
-    // 페이지 로드 시 유저 타입 확인하여 매칭된 정보 표시 여부 결정
-    var userType = sessionStorage.getItem('userType');
-    if (userType === 'company') {
-        $('#matching-companies-container').show(); // 기업인 경우 매칭된 정보 표시
-    } else {
-        $('#matching-companies-container').hide(); // 기업이 아닌 경우 매칭된 정보 숨김
-    }
-
+    
     // 매칭하기 버튼 클릭 시 처리
-    $('.match-button,.match-button2').click(function() {
+    $('.match-button,.price-match-button').click(function() {
         // 모달이 열리면 페이지를 모달 위치로 스크롤
         $('html, body').animate({
             scrollTop: $('#modal').offset().top
@@ -300,37 +286,54 @@ $(document).ready(function() {
 
     // 다음 버튼 클릭 시 처리
     $('.next-button').click(function() {
-        var isValid = validateForm('#modal form');
-        if (isValid) {
-            switchModal('#modal', '#modal2');
-        }
-    });
+            var isValid = validateForm('#form1');
+            if (isValid) {
+                switchModal('#modal', '#modal2');
+            }
+        });
 
     // 이전 버튼 클릭 시 처리
     $('.previous-button').click(function() {
-        switchModal('#modal2', '#modal');
-    });
+    switchModal('#modal2', '#modal'); // 모달 전환
+});
 
     // 모달 백드롭 클릭 시 처리 (모달 닫기)
     $('#modal-backdrop').click(function() {
         closeModal();
     });
 
-    // 두 번째 모달에서 제출 버튼 클릭 시 처리
-    $('#modal2 form').submit(function(event) {
+ // 두 번째 모달에서 제출 버튼 클릭 시 처리
+ $('#modal2 form').submit(function(event) {
         event.preventDefault();
-        var isValid = validateForm('#modal2 form');
+        var isValid = validateForm('#form2');
         if (isValid) {
             submitCompanyInfo();
             
             var industry = $('#job-type').val();
             var location = $('#location').val();
-             // 매칭된 업체 요청
-        requestMatchingCompanies(industry, location);
-        
+             // 매칭된 업체 요청     
         }
     });
 });
+
+
+// 폼 유효성 검사 함수
+function validateForm(formSelector) {
+    var isValid = true;
+    $(formSelector + ' input[type="text"]').each(function() {
+        var fieldValue = $.trim($(this).val());
+        if (fieldValue === '') { // 입력 값에서 공백을 제거하고 빈 문자열인지 확인
+            isValid = false;
+            return false; // 반복문 탈출
+        }
+    });
+
+    if (!isValid) {
+        alert('모든 필드를 입력하세요.');
+    }
+
+    return isValid;
+}
 
 // 기업 정보를 서버에 제출하는 함수
 function submitCompanyInfo() {
@@ -338,7 +341,7 @@ function submitCompanyInfo() {
     var industry = $('#job-type').val();
     var location = $('#location').val();
     var numberOfPeople = $('#number-of-people').val();
-
+    var projectstructure =  $('#projectstructure').val();
     $.ajax({
         url: '/submit-company-info',
         method: 'POST',
@@ -349,20 +352,23 @@ function submitCompanyInfo() {
             project_name: projectName,
             industry: industry,
             location: location,
-            number_of_people: numberOfPeople
+            number_of_people: numberOfPeople,
+            projectstructure: projectstructure
         },
         success: function(response) {
             $('.match-apply-button').show();
             $('#matching-companies-container').show();
             var modalId = response.modalId;
             localStorage.setItem('lastSubmittedModalId', modalId);
-
+            // 매칭된 업체 요청
+            requestMatchingCompanies(industry, location);
             // 매칭된 업체 정보 요청
             fetchMatchingInfo();
+
         },
         error: function(xhr, status, error) {
             console.error('Error submitting data:', error);
-            alert('데이터 제출 중 오류가 발생했습니다.');
+            alert('모든빈칸을 입력해주세요!.');
         }
     });
 }
@@ -435,6 +441,7 @@ function fetchMatchingInfo() {
         contentType: 'application/json',
         data: JSON.stringify({ nowEmail: nowEmail }),
         success: function(response) {
+            $('#matching-contractor-list').empty(); // 기존 카드 목록을 지우기
             displayContractors(response.matchingInfo);
             requestMatchingStatusForAll(); // 매칭 정보를 가져온 후 매칭 상태를 요청하여 처리하는 함수 호출
         },
@@ -555,22 +562,6 @@ function switchModal(currentModal, nextModal) {
     $(nextModal).fadeIn();
 }
 
-// 폼 유효성 검사 함수
-function validateForm(formSelector) {
-    var isValid = true;
-    $(formSelector + ' input[type="text"]').each(function() {
-        if ($(this).val() === '') {
-            isValid = false;
-            alert('모든 필드를 입력하세요.');
-            return false; // each 루프 종료
-        }
-    });
-    return isValid;
-}
-
-
-
-
 
 // 사용자가 기업인지 확인하는 함수
 function isCompanyUser() {
@@ -585,6 +576,8 @@ function isLoggedIn() {
     // 세션에서 userType 값을 확인하여 기업 사용자인 경우에만 로그인된 것으로 간주합니다.
     return isCompanyUser();
 }
+
+
 // JavaScript 코드
 $(document).ready(function() {
     // 각 기업 소개의 길이를 확인하고 클래스를 추가
@@ -595,7 +588,7 @@ $(document).ready(function() {
         }
     });
 });
-});
+;
     </script>
 
     </script>

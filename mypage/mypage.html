@@ -23,19 +23,27 @@
     <div class="container">
         <div class="sidebar">
             <ul>
-                <li><button id="matching-management-button">매칭 리스트</button></li>
-                <li><button id="profile">회원 정보 조회</button></li>
+                <li>
+                    <div class="matching-management-button-container">
+                        <div id="matching-management-button">매칭 리스트</div>
+                        <div class="matching-buttons">
+                            <button id="matching-pending">매칭 중</button>
+                            <button id="matching-accepted">매칭 완료</button>
+                        </div>
+                    </div>
+                </li>
+                <hr class="vertical-line">
+                <li>
+                    <button id="profile">회원 정보 조회</button>
+                </li>
             </ul>
         </div>
         <div class="content">
             <section id="matching-management-section" style="display: none;">
-                <!-- 매칭 현황 섹션 -->
                 <div id="matching-info"></div>
             </section>
-
-
-</div>
-
+        </div>
+    </div>
 <footer>
     <div class="footer-content">
         <div class="footer-section">
@@ -52,17 +60,19 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>Email: info@outfind.com</p>
-        <p>Phone: 123-456-7890</p>
-        <p>Address: 123 Main St, City, Country</p>
-        <p>사업자번호: XXX-XX-XXXXX</p>
+        <p>Email: outfind222@gmail.com</p>
+        <p>Phone: 010-4653-3002</p>
+        <p>Address: 강원도 원주시, 상지대길 58-7</p>
+        <p>사업자등록번호: 668-16-02391</p>
         <p>&copy; 2024 Outfind. All rights reserved.</p>
+        <p>대표: 황성민</p>
     </div>
 </footer>
 
 <!-- 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="mypage.js"></script>
+<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 
 
 

@@ -9,34 +9,45 @@ const cors = require('cors');
 const https = require('https');
 const fs = require('fs');
 const jwt = require('jsonwebtoken'); // JWT 패키지 임포트
+const OrderService = require('./orderservice');
 
 
-const secretKey = process.env.JWT_SECRET_KEY || 'your_secret_key';
+
 
 const options = {
     key: fs.readFileSync('/etc/letsencrypt/archive/www.outfind.co.kr/privkey3.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/www.outfind.co.kr/fullchain.pem')
 };
-
 https.createServer(options, app).listen(3000, () => {
-    console.log('HTTPS server is running on port 3000');
+
 });
 
+const secretKey = process.env.JWT_SECRET_KEY || 'your_secret_key';
 
-// 토큰 검증 함수
+// 토큰을 검증하는 함수
 function verifyToken(token) {
     try {
-        return jwt.verify(token, secretKey);
+        const decoded = jwt.verify(token, secretKey);
+        return decoded;
     } catch (error) {
+        console.error('Token verification error:', error);
         throw new Error('Invalid token');
     }
 }
-function createToken(userId) {
+
+
+function createToken(email) {
     // payload는 객체여야 합니다
-    const payload = { userId };
-    console.log('Creating token with payload:', payload);
-    console.log('Using secret key:', secretKey);
-    return jwt.sign(payload, secretKey, { expiresIn: '1h' });
+    const payload = { email };
+    try {
+        
+        const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+        return token;
+    } catch (error) {
+
+        console.error('Token creation error:', error);
+        throw new Error('Token creation error');
+    }
 }
 
 // body-parser 미들웨어 설정
@@ -58,9 +69,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-// bodyParser를 사용하여 POST 요청의 body를 파싱
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // Express 애플리케이션에서 세션 사용 설정
 app.use(session({
@@ -91,12 +99,11 @@ connection.connect((err) => {
     console.error('Error connecting to MySQL database:', err);
     return;
   }
-  console.log('Connected to MySQL database');
 });
 
 // 정적 파일 미들웨어 설정
-app.use(express.static(path.join(__dirname, 'no2outfind', 'image')));
-app.use(express.static(path.join(__dirname, 'no2outfind')));
+app.use(express.static(path.join(__dirname, 'outfind2', 'image')));
+app.use(express.static(path.join(__dirname, 'outfind2')));
 
 
 // 루트 경로에 대한 요청 처리
@@ -107,6 +114,10 @@ app.get("/", function(req, res){
 app.get("/mainpage.css", function(req, res){
     res.sendFile(path.join(__dirname, "mainpage.css"));
 });
+app.get("/mainpagemob.css", function(req, res){
+    res.sendFile(path.join(__dirname, "mainpagemob.css"));
+});
+
 
 // 회원가입 패이지
 app.get("/signuppage/signup.html", function(req, res){
@@ -114,6 +125,9 @@ app.get("/signuppage/signup.html", function(req, res){
 });
 app.get("/signuppage/singup.css", function(req, res){
     res.sendFile(path.join(__dirname, "signuppage", "singup.css"));
+});
+app.get("/signuppage/signupmob.css", function(req, res){
+    res.sendFile(path.join(__dirname, "signuppage", "signupmob.css"));
 });
 app.get('/signuppage/signup.js', function(req, res) {
     res.type('text/javascript');
@@ -126,6 +140,9 @@ app.get("/loginpage/loginpage.html", function(req, res){
 });
 app.get("/loginpage/login.css", function(req, res){
     res.sendFile(path.join(__dirname, "loginpage", "login.css"));
+});
+app.get("/loginpage/loginmob.css", function(req, res){
+    res.sendFile(path.join(__dirname, "loginpage", "loginmob.css"));
 });
 app.get('/loginpage/login.js', function(req, res) {
     res.type('text/javascript');
@@ -165,6 +182,14 @@ app.get("/image/savemoney.png", function(req, res){
     res.sendFile(path.join(__dirname, 'image', 'manage.png'));
   });
 
+  app.get("/image/BM.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'BM.png'));
+  });
+
+  app.get("/image/loginimage.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'loginimage.png'));
+  });
+
 // testserver.js 파일 제공
 app.get("/testserver.js", function(req, res){
     res.sendFile(path.join(__dirname, "testserver.js"), {
@@ -188,7 +213,6 @@ const sql = `INSERT INTO company (business_number, company_name, representatinve
       res.status(500).send('회원가입 중 오류가 발생했습니다.');
       return;
     }
-    console.log('MySQL 데이터베이스에 회원 정보가 성공적으로 삽입되었습니다.');
     res.send("complete");
   });
 });
@@ -212,23 +236,18 @@ app.post('/check-email', (req, res) => {
 });
 
 // 인력도급 회원가입 요청 처리
-app.post('https://outfind.co.kr/check-email', (req, res) => {
+app.post('/signuppage/signup.html/signup/contractor', (req, res) => {
     // 클라이언트에서 전송된 데이터 받아오기
-    const { businessNumber, email, password, industry, subIndustry, location, contractorintroduction } = req.body;
-
-    // 여기서 받아온 데이터를 사용하여 회원 가입 처리
-    // 예시로 MySQL 데이터베이스에 새로운 회원 정보를 추가하는 코드를 작성합니다.
-    // 실제로는 데이터베이스 연결 및 쿼리 작성이 필요합니다.
+    const { businessNumber, contractorname, email, password, industry, subIndustry, location, contractorintroduction } = req.body;
 
     // 새로운 회원 정보를 MySQL 데이터베이스에 추가하는 쿼리 실행
-    const sql = `INSERT INTO contractors (business_number, email, password, industry, sub_industry, location, introduction) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    connection.query(sql, [businessNumber, email, password, industry, subIndustry, location, contractorintroduction], (error, results, fields) => {
+    const sql = `INSERT INTO contractors (business_number, contractor_name, email, password, industry, sub_industry, location, introduction) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    connection.query(sql, [businessNumber, contractorname, email, password, industry, subIndustry, location, contractorintroduction], (error, results, fields) => {
         if (error) {
             console.error('MySQL 데이터베이스에 회원 정보 삽입 중 오류 발생:', error);
             res.status(500).send('회원가입 중 오류가 발생했습니다.');
             return;
         }
-        console.log('MySQL 데이터베이스에 회원 정보가 성공적으로 삽입되었습니다.');
         res.send('complete');
     });
 });
@@ -252,7 +271,6 @@ app.post('/check-contractor-email', (req, res) => {
 });
 // 기업 로그인 처리
 app.post("/loginpage/loginpage.html/login/company", function(req, res) {
-    console.log('Request Body:', req.body);
 
     const { companyEmail, companyPassword } = req.body;
 
@@ -265,14 +283,13 @@ app.post("/loginpage/loginpage.html/login/company", function(req, res) {
         }
 
         if (results.length > 0) {
-            const token = createToken(results[0].id);
+            const token = createToken(results[0].email); // 토큰 생성 함수 호출
             res.json({ companyEmail: companyEmail, token: token, userType: 'company' });
-        } else {
+        }else {
             res.status(401).send("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
     });
 });
-
 // 인력도급 로그인 처리
 app.post("/loginpage/loginpage.html/login/contractor", function(req, res) {
     // 로그인 폼에서 전송된 데이터 받아오기
@@ -350,20 +367,19 @@ app.get('/protected', function(req, res) {
 app.post("/login", function(req, res) {
     const userType = req.body.userType;
     const token = createToken(user);
+    
     res.json({ token: token, userType: userType });
 });
 
 app.post('/submit-company-info', (req, res) => {
-    const { name, email, phone, project_name, industry, location, number_of_people } = req.body;
-  
-    const sql = 'INSERT INTO modal (name, email, phone, project_name, industry, location, number_of_people) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    connection.query(sql, [name, email, phone, project_name, industry, location, number_of_people], (err, result) => {
+    const { name, email, phone, project_name, industry, location, number_of_people, projectstructure } = req.body;
+    const sql = 'INSERT INTO modal (name, email, phone, project_name, industry, location, number_of_people, projectstructure) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    connection.query(sql, [name, email, phone, project_name, industry, location, number_of_people, projectstructure], (err, result) => {
       if (err) {
         console.error('Error inserting company info: ', err);
         res.status(500).json({ error: 'Error inserting company info' });
         return;
       }
-      console.log('Company info inserted');
       res.sendStatus(200);
     });
   });
@@ -392,21 +408,19 @@ app.post('/matching-companies', (req, res) => {
 
 // 배열에서 무작위로 원하는 개수의 요소를 선택하는 함수
 function selectRandomCompanies(companies, count) {
-    const selectedCompanies = [];
     const totalCompanies = companies.length;
 
     // 요청된 개수가 배열의 길이보다 큰 경우 배열의 길이를 사용
     const selectedCount = Math.min(count, totalCompanies);
 
-    // 배열을 복제하여 셔플
-    const shuffledCompanies = companies.slice().sort(() => Math.random() - 0.5);
-
-    // 매칭된 개수만큼 선택
-    for (let i = 0; i < selectedCount; i++) {
-        selectedCompanies.push(shuffledCompanies[i]);
+    // Fisher-Yates 셔플링 알고리즘을 사용하여 배열을 섞음
+    for (let i = totalCompanies - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [companies[i], companies[j]] = [companies[j], companies[i]];
     }
 
-    return selectedCompanies;
+    // 매칭된 개수만큼 선택
+    return companies.slice(0, selectedCount);
 }
 
 app.post('/submit-contractor-emails', (req, res) => {
@@ -554,14 +568,12 @@ app.post('/check-matching', (req, res) => {
     // 쿼리 실행
     connection.query(query, [contractorEmail], (err, results) => {
         if (err) {
-            console.error('매칭 정보 조회 중 오류:', err);
-            res.status(500).json({ error: '매칭 정보 조회 중 오류가 발생했습니다.' });
+            res.status(500).json();
             return;
         }
 
         if (results.length === 0) {
-            console.log('매칭된 기업 정보 없음');
-            res.status(404).json({ message: '매칭된 기업 정보가 없습니다.' });
+            res.status(404).json();
             return;
         }
 
@@ -614,7 +626,104 @@ app.post('/reject-match', (req, res) => {
             res.status(500).json({ error: 'Error deleting matching data from MySQL' });
             return;
         }
-        console.log('Matching data deleted successfully');
+
         res.json({ success: true, message: 'Matching data deleted successfully' });
     });
+});
+
+
+// 매칭된 인력 조회
+app.post('/check-company-matching', (req, res) => {
+    const companyEmail = req.body.companyEmail;
+  
+    // 매칭된 인력 정보 조회하는 쿼리 작성
+    const query = `
+    SELECT c.email AS contractor_email, c.introduction, c.industry, c.location, m.status
+    FROM matching m
+    INNER JOIN contractors c ON m.contractor_email = c.email
+    WHERE m.company_email = ? AND (m.status = 'matching' OR m.status = 'accepted')
+    `;
+  
+    // 쿼리 실행
+    connection.query(query, [companyEmail], (err, results) => {
+        if (err) {
+          console.error('Error querying matching data from MySQL:', err);
+          res.status(500).json({ error: 'Error querying matching data from MySQL' });
+          return;
+        }
+      
+        if (results.length === 0) {
+          res.status(404).json({ error: 'No matching data found' });
+          return;
+        }
+      
+        // 매칭된 인력 정보를 클라이언트에 반환
+        res.json({ matchingContractors: results });
+    });
+});
+
+app.post('/order/create', async (req, res) => {
+    try {
+        const { paymentId, orderId, amount, contractor_email, status } = req.body; // 요청에서 데이터 추출
+
+        // 필수 필드가 누락된 경우
+        if (!paymentId || !orderId || !amount || !contractor_email || !status) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const result = await OrderService.createOrder(paymentId, orderId, amount, contractor_email, status); // 주문 생성 및 저장
+        res.status(200).json({ success: true, message: '주문이 성공적으로 생성되었습니다.' });
+    } catch (error) {
+        console.error('주문 생성 중 오류 발생:', error);
+        res.status(500).json({ success: false, message: '주문 생성 중 오류가 발생했습니다.' });
+    }
+});
+app.post("/payment/complete", async (req, res) => {
+    try {
+        const { paymentId, orderId } = req.body; // paymentId와 orderId 추출
+
+
+        if (!paymentId || !orderId) { // paymentId와 orderId가 누락되었는지 확인
+            return res.status(400).send({ message: "Missing required fields" });
+        }
+
+        const paymentResponse = await fetch(
+            `https://api.portone.io/payments/${paymentId}`,
+            { headers: { Authorization: `PortOne ${process.env.PORTONE_API_SECRET}` } }
+        );
+
+        if (!paymentResponse.ok) {
+            const errorText = await paymentResponse.text();
+            throw new Error(`Payment API Error: ${paymentResponse.statusText} - ${errorText}`);
+        }
+
+        const payment = await paymentResponse.json();
+
+
+        const order = await OrderService.findById(orderId);
+        if (!order) {
+            return res.status(400).send({ message: "Order not found" });
+        }
+
+        // Convert to float for comparison
+        const orderAmount = parseFloat(order.amount);
+        const paymentAmount = parseFloat(payment.amount.total);
+
+
+        if (orderAmount === paymentAmount) { // 금액을 숫자로 변환 후 비교
+            switch (payment.status) {
+                case "VIRTUAL_ACCOUNT_ISSUED":
+                    return res.status(200).send({ message: "가상 계좌가 발급되었습니다." });
+                case "PAID":
+                    return res.status(201).send({ message: "결제가 완료되었습니다." });
+                default:
+                    return res.status(400).send({ message: "알 수 없는 결제 상태입니다." });
+            }
+        } else {
+            return res.status(400).send({ message: "결제 금액 불일치" });
+        }
+    } catch (e) {
+        console.error('결제 검증에 실패했습니다:', e.message);
+        res.status(400).send({ error: e.message });
+    }
 });

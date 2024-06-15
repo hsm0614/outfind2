@@ -1,0 +1,342 @@
+@media screen and (min-width:100px) and (max-width: 786px){
+    header {
+        height: 40vh; /* 화면의 40%만큼 높이 설정 */
+        position: relative  ;
+    }
+    
+    /* 로고 텍스트 크기와 위치를 조정합니다 */
+    .outfind {
+        font-size: 16px;
+        top: 10px;
+        left: 10px;
+    }
+    
+    /* 헤더 텍스트 레이아웃을 조정합니다 */
+    .header-text {
+        margin-left: 10px;
+    }
+    
+    /* 각 헤더 텍스트의 크기와 여백을 조정합니다 */
+    .h1-first {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .h1-outfind {
+        font-size: 18px;
+    }
+    
+    .h1-second {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    /* 소개 텍스트의 크기를 조정합니다 */
+    .intro {
+        font-size: 20px;
+    }
+    
+    /* 소개 텍스트의 부가적인 정보를 조정합니다 */
+    .intro2 {
+        font-size: 14px;
+    }
+    
+    /* 이미지 간격을 조정합니다 */
+    .introimg img {
+        margin: 0 5px; /* 이미지 간격을 줄입니다 */
+        width: 200px;
+    }
+    
+    /* 이미지 컨테이너의 여백을 조정합니다 */
+    .image-container {
+        margin: 0 5px;
+    }
+    
+    /* 이미지 텍스트 크기를 조정합니다 */
+    .image-text {
+        font-size: 12px;
+    }
+    
+    /* 대문 텍스트의 크기를 조정합니다 */
+    .big-text {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    
+    /* 소문자 텍스트의 크기를 조정합니다 */
+    .small-text {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    
+
+    
+    /* 구분선의 모양을 조정합니다 */
+    .separator {
+        height: 1px; /* 줄의 높이를 조정합니다 */
+        margin: 10px 0; /* 위아래 여백을 조정합니다 */
+    }
+
+    /* 모바일 버전의 추가 스타일 */
+.input-container {
+    margin-bottom: 10px; /* 입력 컨테이너 간격 줄임 */
+}
+
+.input-container label {
+    margin-bottom: 3px; /* 라벨 간격 줄임 */
+}
+
+.input-container input {
+    padding: 8px; /* 입력 필드 패딩 조정 */
+    font-size: 14px; /* 입력 필드 폰트 크기 줄임 */
+}
+
+.input-container input[type="submit"] {
+    padding: 8px 16px; /* 입력 버튼 패딩 조정 */
+    font-size: 14px; /* 입력 버튼 폰트 크기 줄임 */
+}
+
+.close-button {
+    padding: 8px 16px; /* 닫기 버튼 패딩 조정 */
+    font-size: 14px; /* 닫기 버튼 폰트 크기 줄임 */
+}
+
+.next-button {
+    padding: 8px 16px; /* 다음 버튼 패딩 조정 */
+    font-size: 14px; /* 다음 버튼 폰트 크기 줄임 */
+    bottom: 20px; /* 다음 버튼 위치 조정 */
+    right: 20px;
+}
+
+    /* 모달의 크기를 조정합니다 */
+    .modal_body {
+        width: 90%; /* 화면의 90%만큼 너비 설정 */
+        max-width: 400px; /* 최대 너비를 300px로 설정합니다 */
+        height: 700px; /* 자동으로 높이를 조정합니다 */
+        max-height: 130%;
+        top: 50%; /* 화면 세로 중앙에 위치하도록 설정합니다 */
+        left: 50%; /* 화면 가로 중앙에 위치하도록 설정합니다 */
+        transform: translate(-50%, -50%); /* 가운데 정렬합니다 */
+        margin-top: 100px;
+    }
+
+
+
+.modal_body2 {
+    top: 50%; /* 모달 위치를 화면의 중앙에 정렬 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /* 모달 너비를 화면의 90%로 설정 */
+    max-width: 500px; /* 모달의 최대 너비를 300px로 설정 */
+    max-height: 150%;
+    height: 800px; /* 모달 내용의 높이 자동 조정 */
+    padding: 10px; /* 모달 내용의 패딩 조정 */
+}
+
+.modal2 h2 {
+    font-size: 18px; /* 모달 제목 폰트 크기 줄임 */
+}
+
+.modal2 form {
+    margin-top: 15px; /* 폼 위 여백 조정 */
+}
+
+.modal2 .form-group {
+    margin-bottom: 10px; /* 폼 그룹 간격 줄임 */
+}
+
+.modal2 input[type="text"],
+.modal2 input[type="number"],
+.modal2 select {
+    padding: 8px; /* 입력 필드 패딩 조정 */
+    font-size: 14px; /* 입력 필드 폰트 크기 줄임 */
+}
+
+.modal2 button[type="submit"],
+.modal2 .previous-button {
+    width: 100%; /* 버튼의 너비를 100%로 설정 */
+}
+/* 모바일 버전의 네비게이션 및 버튼 스타일 */
+nav {
+    top: 10px; /* 상단 여백을 줄임 */
+    right: 10px; /* 오른쪽 여백을 줄임 */
+}
+
+.nav-links {
+    display: none; /* 기본적으로 네비게이션을 숨김 */
+}
+
+.nav-links li {
+    display: inline-block; /* 네비게이션 항목을 가로로 정렬 */
+    margin-right: 10px; /* 간격 조정 */
+}
+
+nav ul li {
+    display: block; /* 네비게이션 항목을 블록으로 변경 */
+    margin-right: 0; /* 기존 마진 제거 */
+}
+
+nav ul li a {
+    display: block; /* 링크를 블록으로 변경 */
+    padding: 10px 0; /* 링크의 패딩 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.user-links {
+    margin-left: 0; /* 왼쪽 마진 제거 */
+    margin-right: 10px; /* 오른쪽 마진 추가 */
+    font-size: 10px;
+    display: flex;
+}
+
+.match-button {
+    width: 15vw; /* 버튼의 너비 */
+    height: 4vw; /* 버튼의 높이 */
+    color: #FFF; /* 텍스트 색상 */
+    font-size: 2vw; /* 폰트 크기 */
+    font-weight: 550; /* 폰트 굵기 */
+    flex-shrink: 0; /* Flex 컨테이너에서 축소되지 않도록 설정 */
+    background: #4580F6; /* 배경색 */
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.20); /* 그림자 효과 */
+    border: none; /* 테두리 없애기 */
+    position: absolute; /* 이미지 내부에 위치를 고정 */
+    bottom: 20%; /* 아래로부터 20px 떨어진 위치에 배치 */
+    left: 50px; /* 왼쪽으로부터 20px 떨어진 위치에 배치 */
+    cursor: pointer; /* 마우스 오버 시 커서 모양 변경 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 추가 */
+}
+/* 모바일 버전에서 숨겨질 스타일 */
+.goodcompany {
+    display: none; /* 모바일에서는 .goodcompany 요소를 숨깁니다. */
+}
+
+.match-button2 {
+    display: none; /* 모바일에서는 .match-button2 버튼을 숨깁니다. */
+}
+
+.goodcontainer,
+.text-container,
+.card-container2,
+.companygood,
+.companygoodtext,
+.benefit-card,
+.hrimage-container,
+.centered-image,
+.speech-bubble {
+    display: none; /* 모바일에서는 모든 요소를 숨깁니다. */
+}
+
+.footer-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0; /* 푸터의 위아래 패딩을 줄입니다 */
+}
+
+.footer-section {
+    margin: 10px 0; /* 각 섹션 사이의 간격을 줄입니다 */
+    padding: 0 10px; /* 섹션 내부의 좌우 패딩을 줄입니다 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+.footer-section h2 {
+    font-size: 16px; /* 섹션 제목의 폰트 크기를 줄입니다 */
+    margin-bottom: 5px; /* 섹션 제목과 내용 사이의 간격을 줄입니다 */
+}
+
+.footer-section p {
+    font-size: 12px; /* 섹션 내용의 폰트 크기를 줄입니다 */
+    line-height: 1.4; /* 섹션 내용의 줄 간격을 줄입니다 */
+}
+
+.footer-section ul li {
+    margin-bottom: 5px; /* 각 링크 항목 사이의 간격을 줄입니다 */
+}
+
+.footer-bottom {
+    padding-top: 10px; /* 푸터 하단과 내용 사이의 간격을 줄입니다 */
+}
+
+.footer-bottom p {
+    font-size: 10px; /* 푸터 하단 텍스트의 폰트 크기를 줄입니다 */
+    margin: 5px 0; /* 각 텍스트 사이의 간격을 줄입니다 */
+    width: 100%;
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}  .card-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around; /* 두 개의 카드가 한 줄에 들어가도록 중앙 정렬 */
+    align-items: flex-start; /* 카드들이 상단에 정렬되도록 설정 */
+}
+
+.card {
+    width: calc(50% - 20px); /* 카드의 너비를 50%로 설정하고 여백을 고려하여 조정 */
+    margin: 10px; /* 카드 간의 간격을 조정 */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.company-info {
+    font-size: 14px; /* 글꼴 크기 조정 */
+}
+
+.divider {
+    top: auto;
+    bottom: 30%;
+}
+
+.industry,
+.location {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 5px 0;
+}
+
+.introduction {
+    font-size: 16px; /* 폰트 크기 조정 */
+}
+
+.long-introduction {
+    font-size: 14px; /* 폰트 크기 조정 */
+}
+
+.match-apply-button {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 20px 0;
+    width: 100%;
+        box-sizing: border-box;
+    }
+    .b2b-matching-container {
+        flex-direction: column; /* 세로로 배치 */
+        align-items: center; /* 항목을 중앙에 정렬 */
+    }
+
+    .b2b-matching-image, .price-card {
+        max-width: 100%; /* 너비 100%로 설정 */
+        margin-bottom: 20px; /* 하단 마진 추가 */
+    }
+
+    .b2b-matching-title {
+        font-size: 32px; /* 제목 크기 조정 */
+    }
+
+    .price-card h3 {
+        font-size: 24px; /* 헤더 크기 조정 */
+    }
+
+    .price-card h6 {
+        font-size: 16px; /* 서브 헤더 크기 조정 */
+    }
+
+    .price-card p {
+        font-size: 14px; /* 본문 텍스트 크기 조정 */
+    }
+
+    .price-match-button {
+        font-size: 14px; /* 버튼 텍스트 크기 조정 */
+        padding: 8px 16px; /* 버튼 패딩 조정 */
+    }
+}
+

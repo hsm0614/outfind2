@@ -72,18 +72,59 @@ body {
     margin: 0; /* body의 기본 여백 제거 */
     padding: 0; /* body의 기본 패딩 제거 */
     background-color: #f0f5ff; /* 페이지 배경색 설정 */
-    display: flex; /* flex 컨테이너로 설정하여 footer bottom을 포함 */
+
     flex-direction: column; /* 요소들을 세로로 배치 */
-    min-height: 100vh; /* 최소한의 화면 높이 설정 */
+    min-height: auto; /* 최소한의 화면 높이 설정 */
+}
+.login-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px; /* 최대 너비 설정 */
+
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    
+}
+.image-container{
+    max-width: 560px;
+    margin-right: 50px;
+}
+.logincontent{
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 28px;
 }
 
+.login-image {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-image img {
+    width: 800px; /* 원하는 너비로 조정 */
+    
+    height: auto;
+    border-radius: 10px;
+}
 .container {
+    flex: 1;
+    
     width: 500px;
-    margin: 50px auto;
+    max-width: 500px;
+    margin: 0 auto;
     background-color: #fff;
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    margin-right: 0;
+    margin-left: 0;
 }
 
 h2 {
@@ -126,6 +167,7 @@ button:hover {
 
 .signup-choice {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .signup-btn {
@@ -276,6 +318,7 @@ button:hover {
 
 #contractor-signup-form .contractor-email-input button {
     width: auto;
+    margin-top: 10px;
 }
 
 
@@ -288,7 +331,7 @@ footer {
     position: relative; /* 푸터를 고정시킴 */
     bottom: 0; /* 화면 하단에 배치 */
     width: 100%; /* 너비를 100%로 설정하여 전체 폭을 차지하도록 함 */
-    margin-top: 70px;
+    margin-top: 100px;
 }
 
 .container {

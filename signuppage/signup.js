@@ -120,8 +120,8 @@ $(document).ready(function() {
             },
            success: function(response) {
     if(response === "complete") {
-        alert('회원가입이 완료되었습니다. 메인 페이지로 이동합니다.');
-        window.location.href = '/';
+        alert('회원가입이 완료되었습니다.');
+        window.location.href = '/loginpage/loginpage.html';
     } else {
         alert('회원가입 중 오류가 발생했습니다: ' + response.message);
     }
@@ -180,6 +180,7 @@ $(document).ready(function() {
 
     // 폼 데이터 가져오기
     var businessNumber = $('#contractor-business-number1').val();
+    var contractorname = $('#contractorname').val();
     var email = $('#contractor-email').val();
     var password = $('#contractor-password').val();
     var confirmPassword = $('#contractor-confirm-password').val();
@@ -204,6 +205,7 @@ $(document).ready(function() {
     // 서버로 전송할 데이터 객체 생성
     var data = {
         businessNumber: businessNumber,
+        contractorname: contractorname,
         email : email,
         password: password,
         industry: industry,
@@ -215,13 +217,13 @@ $(document).ready(function() {
 
     // AJAX 요청 보내기
     $.ajax({
-        url: 'http://localhost:3000/signup/contractor', // 실제 회원가입 엔드포인트로 수정
+        url: '/signuppage/signup.html/signup/contractor', // 실제 회원가입 엔드포인트로 수정
         type: 'POST', // POST 메소드 사용
         data: data,
         success: function(response) {
             if(response === "complete") {
-                alert('회원가입이 완료되었습니다. 메인 페이지로 이동합니다.');
-                window.location.href = '/';
+                alert('회원가입이 완료되었습니다.');
+                window.location.href = '/loginpage/loginpage.html';
             } else {
                 alert('회원가입 중 오류가 발생했습니다: ' + response.message);
             }
