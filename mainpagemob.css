@@ -65,8 +65,7 @@
     
     /* 소문자 텍스트의 크기를 조정합니다 */
     .small-text {
-        font-size: 12px;
-        margin-top: 5px;
+        display: none;
     }
     
 

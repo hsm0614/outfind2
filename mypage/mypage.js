@@ -25,6 +25,7 @@ $(document).ready(function() {
             loadMatchingData('accepted');  // 매칭완료 리스트 로드
         });
         function loadMatchingData(status) {
+            
             $.ajax({
                 url: '/check-matching',
                 method: 'POST',
@@ -53,12 +54,16 @@ $(document).ready(function() {
             if (matchingCompanies.length > 0) {
                 var html = '<div class="matching-heading"><h2>매칭된 기업 목록</h2></div>';
                 matchingCompanies.forEach(function(company) {
+                    console.log(matchingCompanies)
                     if (!status || company.status === status) {
                         html += '<div class="card">';
                         html += '<div class="card-body">';
-                        html += '<h5 class="card-title">프로젝트 이름: ' + company.project_name + '</h5>';
+                        html += '<h5 class="card-title">' + company.project_name + '</h5><hr>';                       
+                        html += '<p class="card-text">담당자 성함: ' + company.name + '</p>'; 
                         html += '<p class="card-text">산업: ' + company.industry + '</p>';
                         html += '<p class="card-text">인원수: ' + company.number_of_people + '</p>';
+                        html += '<p class="card-text">지역: ' + company.location + '</p>';
+                        html += '<p class="card-text">프로젝트 설명: ' + company.projectstructure + '</p>';
                         if (company.status === 'matching') {
                             html += '<button class="accept-match btn btn-primary" data-company-email="' + company.company_email + '">수락</button>';
                             html += '<button class="reject-match btn btn-danger" data-company-email="' + company.company_email + '">거절</button>';
@@ -97,11 +102,13 @@ $(document).ready(function() {
                     orderName: "매칭 완료를 위한 결제페이지",
                     totalAmount: 500,
                     currency: "CURRENCY_KRW",
-                    channelKey: "channel-key-8b7b03e7-6d0c-4758-befa-2184596dfd07",
-                    payMethod: "CARD"
+                    channelKey: "channel-key-a62e997c-3b89-4b68-b406-0f6d59606bd1",
+                    payMethod:  "CARD",
+                    redirectUrl: "https://www.outfind.co.kr/order/create",  // 결제 완료 후 리디렉션될 URL
+                    noticeUrls: ["https://www.outfind.co.kr/order/create"]  // 여기에 수신할 웹훅 URL 추가
                 });
                 
-                console.log('결제 성공:', response); // 응답 전체 로그
+
         
                 if (response.code != null) {
                     console.error("결제 오류:", response.message);
@@ -117,14 +124,15 @@ $(document).ready(function() {
         
                 console.log('매칭 수락 API 호출 시작');
 
+
                 // 주문 정보 생성
-        const orderData = {
+            const orderData = {
             paymentId: paymentId, // 수정된 부분
             orderId: orderId,
             contractor_email: companyEmail, // 매칭 수락한 회사 이메일을 고객 이름으로 사용
             amount: 500, // 결제 금액
             status: "주문 완료" // 주문 상태
-        };
+            };
 
         // 서버로 주문 정보 전송
         const responseOrder = await fetch('/order/create', {
@@ -165,7 +173,9 @@ $(document).ready(function() {
         
                 if (notified.ok) {
                     console.log('결제 결과 서버에 전송 완료');
+
                     acceptMatchRequest(companyEmail, $card);
+
                 } else {
                     console.error('결제 결과 서버 전송 실패:', notifiedJson.message);
                 }
@@ -189,6 +199,7 @@ $(document).ready(function() {
                     loadMatchingData('matching');
                     loadMatchingData('accepted');
                     $card.remove();
+
                 },
                 error: function (xhr, status, error) {
                     console.error('매칭 수락 중 오류:', error);
@@ -253,7 +264,7 @@ $(document).ready(function() {
                 },
                 error: function(xhr, status, error) {
                     if (xhr.status === 404) {
-                        alert("매칭된 인력이 없습니다");
+                        alert("매칭된 아웃소싱 업체가 없습니다");
                     } else {
                         alert("서버 오류가 발생했습니다");
                     }
@@ -284,14 +295,14 @@ $(document).ready(function() {
                         html += '<p class="card-text">직종: ' + contractor.industry + '</p>';
                         html += '<p class="card-text">세부 직종: ' + contractor.subindustry + '</p>';  // 세부 직종 추가
                         html += '<p class="card-text">지역: ' + contractor.location + '</p>';
-                        html += '<p class="card-text">매칭 상태: ' + (contractor.status === 'accepted' ? '수락됨' : '수락대기중') + '</p>';  // 매칭 상태 표시
+                        html += '<p class="card-text">매칭 상태: <span class="' + (contractor.status === 'accepted' ? 'status-accepted' : 'status-pending') + '">' + (contractor.status === 'accepted' ? '승인' : '대기') + '</span></p>';  // 매칭 상태 표시
                         html += '</div>';
                         html += '</div>';
                     }
                 });
                 matchingInfoDiv.html(html);
             } else {
-                matchingInfoDiv.html('<p>매칭된 인력이 없습니다.</p>');
+                matchingInfoDiv.html('<p>매칭된 아웃소싱 업체가 없습니다다.</p>');
             }
         }
     }

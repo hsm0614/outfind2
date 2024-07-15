@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>기업과 인력 중개 플랫폼</title>
+    <title>아웃소싱 플랫폼을 찾을땐? 아웃파인드</title>
     <link rel="stylesheet" type="text/css" href="mainpage.css">
     <link rel="stylesheet" type="text/css" href="mainpagemob.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon_package_v0.16/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_package_v0.16/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_package_v0.16/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_package_v0.16/favicon-16x16.png">
+    <link rel="manifest" href="favicon_package_v0.16/site.webmanifest">
+    <link rel="mask-icon" href="favicon_package_v0.16/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <header>
@@ -17,13 +25,13 @@
         <div class="header-text">
             <p class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
             </p>
-            <h1 class="h1-outfind">Outfind</h1>
+            <h1 class="h1-outfind">OutFind</h1>
             <h1 class="h1-second">영업의 어려움을 간소화하세요</h1>
         </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="/">홈</a></li>
-                <li><a href="#">회사 소개</a></li>
+                <li><a href="/introducepage/introduce.html">회사 소개</a></li>
                 <li><a href="#">매칭가이드</a></li>
                 <li><a href="#">FAQ</a></li>
             </ul>
@@ -121,11 +129,9 @@
     <div class="matching-contractor-container" id="matching-contractor-container">
         <div id="matching-contractor-list" class="card-container"></div>
     </div>
-    <div>
-        <class= text>
-            <h1 class="intro">Outfind</h1>
-            <p class="intro2">아웃파인드는 HR 아웃소싱의 영업 간소화를 목적으로 하는 플랫폼입니다</p>
-        </class>
+    <div class="text">
+        <h1 class="intro">OutFind</h1>
+        <p class="intro2">Problem&Solution</p>
     </div>
     <div class="introimg">
         <div class="image-container">
@@ -150,23 +156,39 @@
             </div>
         </div>
     </div>
-    <section class="b2b-matching-section">
-        <h2 class="b2b-matching-title">OutFind의 구조는?</h2>
-        <div class="b2b-matching-container">
-            <div class="b2b-matching-image">
-                <img src="./image/BM.png" alt="B2B Matching System">
+    <section class="intro3">
+        <div class="companyoutfind"><h4>기업은 왜 아웃파인드를 쓸까?</h4></div>
+        <div class="card-container">
+            <!-- 첫 번째 카드 -->
+            <div class="card3">
+                <div class="card-image3">
+                    <img src="/image/qulity.png" alt="Quality">
+                </div>
+                <div class="card3-content">
+                    <p>실시간 인력도급업체 회원 관리를 통해 품질을 보증합니다.</p>
+                </div>
             </div>
-            <div class="price-card">
-                <h3>₩가격 안내</h3>
-                <h6>outfind는 요구 인원에 맞는<br>차별화된 가격을 책정합니다</h6>
-                <p>5명 이하: 50,000원</p>
-                <p>6명 이상~10명 이하: 100,000</p>
-                <p>11명 이상~20명 이하: 200,000</p>
-                <p>20명 이상: 300,000</p>
-                <button class="price-match-button">매칭하기</button>
+            <!-- 두 번째 카드 -->
+            <div class="card3">
+                <div class="card-image3">
+                    <img src="/image/qulity2.png" alt="Quality2">
+                </div>
+                <div class="card3-content">
+                    <p>사업자를 통한 보증된 인력도급업체를 찾을 수 있습니다.</p>
+                </div>
+            </div>
+            <!-- 세 번째 카드 -->
+            <div class="card3">
+                <div class="card-image3">
+                    <img src="/image/qulity3.png" alt="Quality3">
+                </div>
+                <div class="card3-content">
+                    <p>아웃파인드를 통해 원하는 인재를 적재적소에 공급할 수 있습니다.</p>
+                </div>
             </div>
         </div>
     </section>
+
 
 
     </div>
@@ -174,7 +196,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h2><a href="maintpage.html">홈</a></h2>
+                <h2><a href="/">홈</a></h2>
             </div>
             <div class="footer-section">
                 <h2><a href="about.html">회사 소개</a></h2>
@@ -213,8 +235,56 @@
             image.style.height = imageHeight + 'px';
         }
 
-  
-        
+        document.addEventListener('DOMContentLoaded', function() {
+    const headerText = document.querySelector('.header-text');
+    const matchButton = document.querySelector('.match-button');
+    const imageContainers = document.querySelectorAll('.image-container');
+
+    const addAnimationClass = () => {
+        if (headerText.getBoundingClientRect().top < window.innerHeight) {
+            headerText.classList.add('show');
+        }
+
+        if (matchButton.getBoundingClientRect().top < window.innerHeight) {
+            matchButton.classList.add('show');
+        }
+
+        imageContainers.forEach((container, index) => {
+            if (container.getBoundingClientRect().top < window.innerHeight) {
+                setTimeout(() => {
+                    container.classList.add('show');
+                }, index * 300); // 각 이미지 컨테이너에 300ms의 지연 시간 적용
+            }
+        });
+    };
+
+    addAnimationClass();
+    window.addEventListener('scroll', addAnimationClass);
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.card3');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('show');
+                }, index * 100); // 순차적으로 애니메이션을 적용
+                observer.unobserve(entry.target); // 한번 애니메이션이 적용되면 다시 관찰하지 않음
+            }
+        });
+    }, observerOptions);
+
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+});
 $(document).ready(function() {
     // 페이지가 로드될 때 실행될 코드 작성
     if(sessionStorage.getItem('token')) {
@@ -262,7 +332,7 @@ $(document).ready(function() {
 
     
     // 매칭하기 버튼 클릭 시 처리
-    $('.match-button,.price-match-button').click(function() {
+    $('.match-button,.match-button2').click(function() {
         // 모달이 열리면 페이지를 모달 위치로 스크롤
         $('html, body').animate({
             scrollTop: $('#modal').offset().top
@@ -452,16 +522,19 @@ function fetchMatchingInfo() {
 
 // 매칭된 업체 정보를 화면에 표시하는 함수
 function displayContractors(matchingInfo) {
+    console.log(matchingInfo)
     // 매칭된 업체 정보를 받아와서 화면에 표시하는 코드를 작성
-    matchingInfo.forEach(function(contractor) {
+    matchingInfo.forEach(function(contractor, index) {
         var companyCard = $('<div class="card"></div>'); // 카드 스타일 적용
         companyCard.attr('data-contractor-email', contractor.email);
         // 업체 정보를 텍스트로 설정하여 요소에 추가
+        companyCard.append('<div class="contractor_name"> <div class="introduction-content">' + contractor.contractor_name + '</div></div>'); // 기업 소개
         companyCard.append('<div class="company-info introduction">기업소개: <div class="introduction-content">' + contractor.introduction + '</div></div>'); // 기업 소개
         companyCard.append('<div class="divider"></div>'); // 구분선
         companyCard.append('<div class="company-info industry">직종: ' + contractor.industry + '</div>'); // 직종
         companyCard.append('<div class="company-info location">지역: ' + contractor.location + '</div>'); // 지역
 
+    
         // 매칭하기 버튼 추가
         var matchButton = $('<button class="match-apply-button">매칭하기</button>');
 
@@ -497,8 +570,13 @@ function displayContractors(matchingInfo) {
         // 생성된 카드에 매칭하기 버튼 추가
         companyCard.append(matchButton);
 
-        // 생성된 카드를 목록에 추가
         $('#matching-contractor-list').append(companyCard);
+               // 클로저를 사용하여 index 값을 보존
+        (function(card, i) {
+            setTimeout(function() {
+                card.addClass('show');
+            }, i * 100); // 순차적으로 보여주기 위한 지연 시간 설정
+        })(companyCard, index);
     });
 }
 

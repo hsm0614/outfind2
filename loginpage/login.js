@@ -86,11 +86,12 @@ $('#contractor-login-button').click(function(event) {
     $.ajax({
         url: '/loginpage/loginpage.html/login/contractor', // 로그인 엔드포인트로 수정
         type: 'POST',
-        data: {
+        contentType: 'application/json', // JSON 형식으로 데이터 전송
+        data: JSON.stringify({
             userType: 'contractor',
-            contractorEmail: contractorEmail, // 이메일 전달,
-            contractorPassword: contractorPassword // 비밀번호 전달,
-        },
+            contractorEmail: contractorEmail, // 이메일 전달
+            contractorPassword: contractorPassword // 비밀번호 전달
+        }),
         success: function(response) {
             if(response.token) {
                 // 토큰을 세션 스토리지에 저장

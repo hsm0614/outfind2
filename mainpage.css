@@ -6,13 +6,15 @@ body {
 
 header {
     background-image: url('./image/mainpageimage.png');
-    background-size: cover; /* 이미지가 요소를 완전히 덮도록 설정 */
-    background-position: center; /* 이미지를 가운데 정렬 */
+    background-size: cover;
+    background-position: center;
     color: #fff;
     text-align: center;
-    height: 70vh; /* 헤더의 높이를 화면의 높이와 같도록 설정 */
-    padding: 0; /* 기존의 padding 제거 */
+    height: 90vh;
+    padding: 0;
     margin-bottom: 20px;
+    position: relative;
+    overflow: hidden; /* 자식 요소가 부모 요소를 벗어나는 것을 숨김 */
 }
 
 .outfind {
@@ -24,15 +26,23 @@ header {
     top: 20px; /* 헤더의 상단에 로고를 배치 */
     left: 30px; /* 헤더의 왼쪽에 로고를 배치 */
     margin-top: 10px;
-    font-family: 'Noto Sans KR', sans-serif;
 }
+
 
 .header-text {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 수직 가운데 정렬 */
+    justify-content: center;
     margin-left: 50px;
-    height: 100%; /* 부모 요소의 높이를 100%로 설정하여 수직 가운데 정렬을 위한 기준으로 설정 */
+    height: 100%;
+    opacity: 0; /* 애니메이션 전에 텍스트를 보이지 않게 설정 */
+    transform: translateY(-100px); /* 애니메이션 전에 텍스트를 위로 이동 */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.header-text.show {
+    opacity: 1; /* 애니메이션 후에 텍스트를 보이게 설정 */
+    transform: translateY(0); /* 애니메이션 후에 텍스트를 원래 위치로 이동 */
 }
 
 .h1-first {
@@ -70,6 +80,7 @@ header {
 /* 텍스트 스타일 */
 .text {
     text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .intro {
@@ -86,8 +97,25 @@ header {
     text-align: center;
     font-family: 'Noto Sans KR',sans-serif;
     font-weight: bold;
+}.text {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.card.show {
+    opacity: 1; /* 애니메이션 후 투명도를 1로 설정 */
+    transform: translateY(0); /* 원래 위치로 이동 */
+}
 .introimg {
     display: flex;
     justify-content: center;
@@ -107,7 +135,16 @@ header {
     display: inline-block;
     margin: 0 20px;
     overflow: hidden;
+    opacity: 0; /* 애니메이션 전에 이미지를 보이지 않게 설정 */
+    transform: translateY(100px); /* 애니메이션 전에 이미지를 아래로 이동 */
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
+
+.image-container.show {
+    opacity: 1; /* 애니메이션 후에 이미지를 보이게 설정 */
+    transform: translateY(0); /* 애니메이션 후에 이미지를 원래 위치로 이동 */
+}
+
 
 .image-container img {
     opacity: 0.5; /* 이미지의 투명도 설정 */
@@ -127,7 +164,9 @@ header {
     transform: translate(-50%, -50%); /* 이미지 중앙에 위치하도록 설정 */
     text-align: center; /* 텍스트를 가운데 정렬하기 위해 */
     color: black; /* 텍스트 색상 설정 */
+    transition: color 0.3s ease; /* 색상 변화에 애니메이션 효과 적용 */
 }
+
 .image-container:hover .image-text {
     color: white; /* 호버 시 텍스트 색상을 검은색으로 조정 */
     transition: color 0.3s ease; /* 색상 변화에 애니메이션 효과 적용 */
@@ -171,7 +210,7 @@ header {
     text-align: left; /* 텍스트를 왼쪽으로 정렬 */
     color: #000; /* 글자 색을 검정색으로 설정 */
     z-index: 10000;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .modal_h1 {
     font-family: 'Noto Sans KR',sans-serif;
@@ -278,7 +317,7 @@ header {
 
 .modal_body2 {
     display: block;
-    position: absolute; /* 모달 내용을 고정시킴 */
+    position: fixed; /* 모달 내용을 고정시킴 */
     top: 30%; /* 화면 상단에서 절반 위치 */
     left: 50%; /* 화면 왼쪽에서 절반 위치 */
     transform: translate(-50%, -50%); /* 수평 및 수직으로 중앙 정렬 */
@@ -395,110 +434,6 @@ header {
     margin-bottom: 30px;
 }
 
-.b2b-matching-section {
-    padding: 40px 20px;
-    background-color: #f8f9fa; /* 조금 더 밝고 깨끗한 색상으로 변경 */
-    border-top: 1px solid #ddd;
-    margin-top: 40px;
-    margin-bottom: 30px;
-    border-radius: 12px; /* 모서리를 부드럽게 만듭니다. */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 추가 */
-}
-
-.b2b-matching-title {
-    font-size: 38px; /* 조금 더 큰 제목 크기로 변경 */
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-.b2b-matching-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start; /* 플렉스 항목들을 시작 위치에 맞춥니다 */
-    justify-content: space-between;
-    gap: 20px; /* 이미지와 가격 카드 사이의 간격을 추가 */
-}
-
-.b2b-matching-image {
-    flex: 1;
-    text-align: center;
-    max-width: 50%; /* 이미지를 너무 크게 만들지 않도록 최대 너비 설정 */
-    overflow: hidden; /* 이미지가 컨테이너를 넘어가지 않도록 설정 */
-    border-radius: 12px; /* 이미지 컨테이너의 모서리를 부드럽게 만듭니다 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 추가 */
-}
-
-.b2b-matching-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px; /* 이미지의 모서리를 부드럽게 만듭니다 */
-    transition: transform 0.3s ease-in-out; /* 호버 효과를 위한 변환을 추가 */
-}
-
-.b2b-matching-image:hover img {
-    transform: scale(1.05); /* 호버 시 이미지를 조금 확대합니다 */
-}
-
-.price-card {
-    flex: 1;
-    max-width: 320px;
-    /* border: 2px solid #4a90e2; /* 테두리 색상 제거 */
-    border-radius: 12px;
-    padding: 24px;
-    margin-top: 0; /* 이미지와 동일한 높이에 맞추기 위해 초기화 */
-    color: #000; /* 텍스트 색상 검은색으로 변경 */
-    font-weight: bold; /* 텍스트 굵게 설정 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    background-color: #fff; /* 배경색 */
-    align-self: flex-start; /* 부모의 flex-start에 맞추기 */
-}
-
-.price-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.price-card h3 {
-    margin-top: 10px;
-    font-size: 30px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: bold;
-    text-shadow: none; /* 텍스트 그림자 제거 */
-    color: #000; /* 헤더 텍스트 색상 검은색으로 변경 */
-}
-.price-card h6 {
-    font-size: 18px;
-    margin-top: 20px;
-    font-family: 'Noto Sans KR', sans-serif;
-
-}
-
-.price-card p {
-    margin: 12px 0;
-    font-size: 16px;
-    color: gray;
-    font-weight: bold;
-
-}
-
-.price-match-button {
-    display: block;
-    margin: 20px 0 0 0;
-    padding: 10px 20px;
-    background-color: #4580F6;
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-}
-.price-match-button:hover {
-    background-color: #356ac3;
-}
 /*nav*/
 nav {
     display: flex;
@@ -587,10 +522,17 @@ nav ul li a:hover {
     box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.20); /* 그림자 효과 */
     border: none; /* 테두리 없애기 */
     position: absolute; /* 이미지 내부에 위치를 고정 */
-    bottom: 40%; /* 아래로부터 20px 떨어진 위치에 배치 */
-    left: 50px; /* 왼쪽으로부터 20px 떨어진 위치에 배치 */
+    bottom: 20%; /* 아래로부터 20% 떨어진 위치에 배치 */
+    left: 50px; /* 왼쪽으로부터 50px 떨어진 위치에 배치 */
     cursor: pointer; /* 마우스 오버 시 커서 모양 변경 */
-    transition: background-color 0.3s; /* 배경색 전환 효과 추가 */
+    opacity: 0; /* 애니메이션 전에 버튼을 보이지 않게 설정 */
+    transform: translateX(-100px); /* 애니메이션 전에 버튼을 왼쪽으로 이동 */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* 애니메이션 전환 효과 */
+}
+
+.match-button.show {
+    opacity: 1; /* 애니메이션 후에 버튼을 보이게 설정 */
+    transform: translateX(0); /* 애니메이션 후에 버튼을 원래 위치로 이동 */
 }
 
 .match-button:hover {
@@ -614,7 +556,7 @@ nav ul li a:hover {
 .goodcompanytext{
     color: white;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:  'Noto Sans KR',sans-serif;
     display: flex;
     justify-content: center; /* 텍스트를 수평으로 가운데 정렬합니다. */
     align-items: center; /* 텍스트를 수직으로 가운데 정렬합니다. */
@@ -673,8 +615,70 @@ nav ul li a:hover {
     margin-right: 100px;
 }
 
+.intro3{
+    margin-bottom: 20px;
+}
+.companyoutfind{
+    text-align: center;
+    font-size: 38px;
+    font-family: 'Noto Sans KR',sans-serif;
+}.card-container {
+    display: flex; /* Flexbox를 사용하여 요소들을 정렬 */
+    flex-wrap: wrap; /* 자식 요소들이 넘칠 경우 줄 바꿈 */
+    gap: 20px; /* 카드 간의 간격 조정 */
+    margin-left: 10px;
+    margin-right: 10px;
+    justify-content: flex-start; /* 요소 사이의 여백을 최대한 넓힙니다. */
+}
 
+.card3 {
+    border-radius: 15px;
+    overflow: hidden;
+    width: 400px; /* 카드의 너비를 원하는 대로 조정 */
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    margin: 20px auto; /* 중앙 정렬 */
+    background-color: white; /* 배경색 */
+    display: flex;
+    flex-direction: column;
+    opacity: 0; /* 초기에는 투명도 0으로 설정 */
+    transform: translateY(20px); /* 초기 위치에서 아래로 20px 이동 */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, box-shadow 0.3s ease-in-out; /* 애니메이션 트랜지션 추가 */
+}
 
+.card3.show {
+    opacity: 1; /* 애니메이션 후 투명도를 1로 설정 */
+    transform: translateY(0); /* 원래 위치로 이동 */
+}
+
+.card3:hover {
+    transform: translateY(-5px); /* 살짝 위로 이동 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 더 강한 그림자 효과 */
+}
+
+.card-image3 {
+    width: 100%;
+    height: 150px; /* 원하는 높이로 조정 */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image3 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 카드의 크기에 맞도록 조절 */
+}
+
+.card3-content {
+    padding: 20px;
+    text-align: center; /* 텍스트 중앙 정렬 */
+    background-color: white; /* 배경색 */
+    flex-grow: 1;
+    font-size: 18px;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+}
 --------------
 
 
@@ -689,6 +693,8 @@ footer {
     display: flex;
     justify-content: space-between; /* 왼쪽과 오른쪽 정렬 */
     border-bottom: 1px solid #ccc; /* 각 섹션 사이의 구분선 */
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
 }
 
 .footer-section {
@@ -754,6 +760,7 @@ a {
     margin-left: 10px;
     margin-right: 10px;
     justify-content: flex-start; /* 요소 사이의 여백을 최대한 넓힙니다. */
+
 }
 
 .card {
@@ -768,7 +775,12 @@ a {
     box-sizing: border-box; /* padding과 border를 박스 크기에 포함합니다. */
     background-color: #f9f9f9; /* 카드 배경색 설정 */
     overflow: auto; /* 또는 overflow: scroll; */
-    margin-left: 10px;
+    margin-left: 10px;   
+    animation: fadeIn 0.5s ease-in-out; /* fadeIn 애니메이션을 0.5초 동안 적용 */
+    animation-fill-mode: forwards; /* 애니메이션이 끝난 후 상태를 유지 */
+    opacity: 0; /* 초기에는 투명도 0으로 설정 */
+    transform: translateY(20px); /* 초기 위치에서 아래로 20px 이동 */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* 애니메이션 트랜지션 추가 */
 }
 
 /* 첫 번째 줄의 카드를 왼쪽으로 이동 */
@@ -831,6 +843,12 @@ a {
     font-size: 14px; /* 긴 소개 글씨 크기 */
     font-weight: normal; /* 긴 소개 글씨 굵기 일반으로 설정 */
     line-height: 1.5; /* 줄 간격 설정 */
+}
+.contractor_name {
+    font-size: 20px; /* 글꼴 크기 설정 */
+    font-weight: bold; /* 굵은 글꼴 설정 */
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 10px; /* 아래 여백 설정 */
 }
 
 /* 매칭 신청 버튼 스타일 */

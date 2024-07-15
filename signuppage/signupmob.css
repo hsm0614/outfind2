@@ -4,6 +4,31 @@
         padding: 10px;
         background-color: #f0f5ff;
     }
+    #contractor-search-button{
+        display: inline-block; /* 버튼을 인라인 블록 요소로 설정 */
+        padding: 10px 20px; /* 버튼 패딩 조정 */
+        background-color: #007bff; /* 버튼 배경색 설정 */
+        color: white; /* 버튼 텍스트 색상 설정 */
+        border: none; /* 버튼 테두리 제거 */
+        cursor: pointer; /* 커서 설정 */
+        text-align: center; /* 텍스트 중앙 정렬 */
+        vertical-align: middle; /* 수직 정렬 */
+        white-space: nowrap; /* 텍스트가 여러 줄로 분리되지 않도록 설정 */
+        transform: rotate(0deg); /* 텍스트 회전 방지 */
+        margin-left: 40px;
+    }
+    #company-search-button {
+        display: inline-block; /* 버튼을 인라인 블록 요소로 설정 */
+        padding: 10px 20px; /* 버튼 패딩 조정 */
+        background-color: #007bff; /* 버튼 배경색 설정 */
+        color: white; /* 버튼 텍스트 색상 설정 */
+        border: none; /* 버튼 테두리 제거 */
+        cursor: pointer; /* 커서 설정 */
+        text-align: center; /* 텍스트 중앙 정렬 */
+        vertical-align: middle; /* 수직 정렬 */
+        white-space: nowrap; /* 텍스트가 여러 줄로 분리되지 않도록 설정 */
+        transform: rotate(0deg); /* 텍스트 회전 방지 */
+    }
 
     .outfind {
         font-size: 20px;
@@ -14,7 +39,10 @@
         text-align: center;
     }
 
-
+    .login-image,
+    .logincontent{
+        display: none;
+    }
 
     .container {
         width: 90%;
@@ -59,6 +87,9 @@
     #contractor-signup-form .contractor-email-check-button{
         width: auto;
         margin-top: 10px;
+    };
+    .contractor-email-input{
+        position: relative;
     }
 
     

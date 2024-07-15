@@ -16,7 +16,10 @@
     .nav-links li {
         margin-right: 0; /* 작은 화면에서는 간격 제거 */
     }
-
+    .login-image,
+    .logincontent{
+        display: none;
+    }
 
     footer {
         padding: 5px 0; /* 푸터의 위아래 패딩을 줄임 */

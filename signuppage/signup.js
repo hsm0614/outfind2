@@ -250,10 +250,10 @@ $(document).ready(function() {
                     subIndustries = ["식음료제조업", "자동차 금속 기계업", "의복류 제조업", "펄프 종이제조업", "의료, 정밀기계 제조업", "기타제조업"];
                     break;
                 case "물류업":
-                    subIndustries = ["냉장 냉동물류", "의류물류", "농산물 물류", "일반 물류"];
+                    subIndustries = ["냉장 냉동물류", "의류물류", "농산물 물류", "일반 물류", "운송 택배"];
                     break;
                 case "서비스업":
-                    subIndustries = ["판촉업(마트)", "호텔 및 리조트", "식음료 서비스업"];
+                    subIndustries = ["판촉업(마트)", "호텔 및 리조트", "식음료 서비스업", "콜센터 서비스업"];
                     break;
                 default:
                     subIndustries = [];

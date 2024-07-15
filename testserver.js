@@ -11,7 +11,8 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken'); // JWT 패키지 임포트
 const OrderService = require('./orderservice');
 
-
+// 정적 파일 제공 설정
+app.use(express.static(path.join(__dirname, 'favicon_package_v0.16')));
 
 
 const options = {
@@ -118,6 +119,12 @@ app.get("/mainpagemob.css", function(req, res){
     res.sendFile(path.join(__dirname, "mainpagemob.css"));
 });
 
+app.get("/introducepage/introduce.html", function(req, res){
+    res.sendFile(path.join(__dirname, "introducepage", "introduce.html"));
+});
+app.get("/introducepage/introduce.css", function(req, res){
+    res.sendFile(path.join(__dirname, "introducepage", "introduce.css"));
+});
 
 // 회원가입 패이지
 app.get("/signuppage/signup.html", function(req, res){
@@ -133,10 +140,17 @@ app.get('/signuppage/signup.js', function(req, res) {
     res.type('text/javascript');
     res.sendFile(__dirname + '/signuppage/signup.js');
 });
-
+app.get('/signuppage/agree.txt', function(req, res) {
+    res.type('text/plain');
+    res.sendFile(__dirname + '/signuppage/agree.txt');
+});
 // 로그인페이지
 app.get("/loginpage/loginpage.html", function(req, res){
     res.sendFile(path.join(__dirname, "loginpage", "loginpage.html"));
+});
+
+app.get("/loginpage/password.html", function(req, res){
+    res.sendFile(path.join(__dirname, "loginpage", "password.html"));
 });
 app.get("/loginpage/login.css", function(req, res){
     res.sendFile(path.join(__dirname, "loginpage", "login.css"));
@@ -155,6 +169,9 @@ app.get("/mypage/mypage.html", function(req, res){
 });
 app.get("/mypage/mypage.css", function(req, res){
     res.sendFile(path.join(__dirname, "mypage", "mypage.css"));
+});
+app.get("/mypage/mypagemob.css", function(req, res){
+    res.sendFile(path.join(__dirname, "mypage", "mypagemob.css"));
 });
 app.get('/mypage/mypage.js', function(req, res) {
     res.type('text/javascript');
@@ -189,6 +206,40 @@ app.get("/image/savemoney.png", function(req, res){
   app.get("/image/loginimage.png", function(req, res){
     res.sendFile(path.join(__dirname, 'image', 'loginimage.png'));
   });
+
+  app.get("/image/logo2.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'logo2.png'));
+  });
+  app.get("/image/favicon.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'favicon.png'));
+  });
+  app.get("/image/qulity.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'qulity.png'));
+  });
+  app.get("/image/qulity2.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'qulity2.png'));
+  });
+  app.get("/image/qulity3.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'qulity3.png'));
+  });
+
+  // 특정 파일에 대한 라우팅
+app.get("/favicon_package_v0.16", function(req, res){
+    res.sendFile(path.join(__dirname, "favicon_package_v0.16"));
+});
+
+app.get("/favicon_package_v0.16/favicon.ico", function(req, res){
+    res.sendFile(path.join(__dirname, 'favicon_package_v0.16', 'favicon.ico'));
+});
+app.get("/favicon_package_v0.16/favicon-32x32.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'favicon_package_v0.16', 'favicon-32x32.png'));
+});
+app.get("/favicon_package_v0.16/favicon-16x16.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'favicon_package_v0.16', 'favicon-16x16.png'));
+});
+app.get("/favicon_package_v0.16/site.webmanifest", function(req, res){
+    res.sendFile(path.join(__dirname, 'favicon_package_v0.16', 'site.webmanifest'));
+});
 
 // testserver.js 파일 제공
 app.get("/testserver.js", function(req, res){
@@ -289,13 +340,10 @@ app.post("/loginpage/loginpage.html/login/company", function(req, res) {
             res.status(401).send("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
     });
-});
-// 인력도급 로그인 처리
-app.post("/loginpage/loginpage.html/login/contractor", function(req, res) {
-    // 로그인 폼에서 전송된 데이터 받아오기
+    });
+    app.post("/loginpage/loginpage.html/login/contractor", function(req, res) {
     const { contractorEmail, contractorPassword } = req.body;
 
-    // MySQL 데이터베이스에서 해당 이메일을 가진 사용자를 찾음
     const query = `SELECT * FROM contractors WHERE email = ? AND password = ?`;
     connection.query(query, [contractorEmail, contractorPassword], (err, results) => {
         if (err) {
@@ -305,17 +353,114 @@ app.post("/loginpage/loginpage.html/login/contractor", function(req, res) {
         }
 
         if (results.length > 0) {
-            // 로그인 성공 시 세션에 사용자 정보 저장
-            req.session.user = results[0]; // 여기서는 첫 번째 결과만 사용 (단일 사용자)
-            const token = jwt.sign({ userId: results[0].id }, secretKey);
-                // 토큰을 클라이언트에게 반환
-                res.json({ contractorEmail: contractorEmail, token: token, userType: 'contractor' });
+            const token = createToken(results[0].email); // 토큰 생성 함수 호출
+            res.json({ contractorEmail: contractorEmail, token: token, userType: 'contractor' });
         } else {
-            res.status(401).send("이메일 또는 비밀번호가 올바르지 않습니다."); // 로그인 실패 시 실패 메시지를 클라이언트로 보냄
+            res.status(401).send("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
     });
 });
 
+// 비밀번호 재설정 요청
+app.post('/password-reset/request', (req, res) => {
+    const { email, userType } = req.body;
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
+
+    let query = '';
+    if (userType === 'company') {
+        query = `UPDATE company SET reset_token = ?, reset_token_expiry = ? WHERE email = ?`;
+    } else if (userType === 'contractor') {
+        query = `UPDATE contractors SET reset_token = ?, reset_token_expiry = ? WHERE email = ?`;
+    } else {
+        res.status(400).send('Invalid user type.');
+        return;
+    }
+
+    connection.query(query, [resetToken, resetTokenExpiry, email], (err, results) => {
+        if (err) {
+            console.error('Error updating database:', err);
+            res.status(500).send('Server error');
+            return;
+        }
+
+        if (results.affectedRows > 0) {
+            // Send email with reset token
+            const transporter = nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 465, // Gmail SMTP 포트
+                secure: true, // true for 465, false for other ports
+                auth: {
+                    user: 'outfind222@gmail.com', // 이메일 계정
+                    pass: 'gazdbhtjlyyzvtpn' // 이메일 계정 비밀번호
+                }
+            });
+
+            const mailOptions = {
+                from: 'outfind222@gmail.com',
+                to: email,
+                subject: 'Password Reset',
+                text: `Click the link to reset your password: https://outfind.co.kr/password-reset?token=${resetToken}&userType=${userType}`
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('Error sending email:', error);
+                    res.status(500).send('Error sending email: ' + error.message); // 에러 메시지를 함께 보냄
+                } else {
+                    res.send('Password reset link has been sent to your email.');
+                }
+            });
+        } else {
+            res.status(404).send('Email not found');
+        }
+    });
+});
+
+// 비밀번호 재설정
+app.post('/password-reset', (req, res) => {
+    const { token, newPassword, userType } = req.body;
+
+    let query = '';
+    if (userType === 'company') {
+        query = `SELECT * FROM company WHERE reset_token = ? AND reset_token_expiry > NOW()`;
+    } else if (userType === 'contractor') {
+        query = `SELECT * FROM contractors WHERE reset_token = ? AND reset_token_expiry > NOW()`;
+    } else {
+        res.status(400).send('Invalid user type.');
+        return;
+    }
+
+    connection.query(query, [token], (err, results) => {
+        if (err) {
+            console.error('Error querying database:', err);
+            res.status(500).send('Server error');
+            return;
+        }
+
+        if (results.length > 0) {
+            const hashedPassword = bcrypt.hashSync(newPassword, 10);
+
+            let updateQuery = '';
+            if (userType === 'company') {
+                updateQuery = `UPDATE company SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = ?`;
+            } else if (userType === 'contractor') {
+                updateQuery = `UPDATE contractors SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = ?`;
+            }
+
+            connection.query(updateQuery, [hashedPassword, token], (updateErr, updateResults) => {
+                if (updateErr) {
+                    console.error('Error updating database:', updateErr);
+                    res.status(500).send('Server error');
+                } else {
+                    res.send('Password has been successfully reset.');
+                }
+            });
+        } else {
+            res.status(400).send('Invalid or expired token.');
+        }
+    });
+});
 // 서버 측 로그아웃 처리
 app.get('/logout', function(req, res) {
     req.session.destroy(function(err) {
@@ -495,7 +640,7 @@ app.post('/matching-info', (req, res) => {
 
         // 매칭된 업체 정보를 가져오는 SQL 쿼리
         const matchingInfoQuery = `
-            SELECT c.email, c.industry, c.sub_industry, c.location, c.introduction
+            SELECT c.contractor_name, c.email, c.industry, c.sub_industry, c.location, c.introduction
             FROM matchinginfo mi
             JOIN contractors c
             ON mi.contractor_email1 = c.email OR mi.contractor_email2 = c.email 
@@ -559,11 +704,13 @@ app.post('/check-matching', (req, res) => {
 
     // 매칭된 기업 정보 및 프로젝트 정보 조회하는 쿼리 작성
     const query = `
-    SELECT m.company_email, c.project_name, c.industry, c.number_of_people, c.phone, m.status    FROM matching m 
+    SELECT m.company_email, c.project_name, c.\`name\`, c.industry, c.number_of_people, c.phone, c.location, c.projectstructure, m.status
+    FROM matching m 
     INNER JOIN modal c ON m.modal_id = c.id
     WHERE m.contractor_email = ? AND (m.status = 'matching' OR m.status = 'accepted')
     ORDER BY c.project_name;
     `;
+    
 
     // 쿼리 실행
     connection.query(query, [contractorEmail], (err, results) => {
@@ -717,7 +864,7 @@ app.post("/payment/complete", async (req, res) => {
                 case "PAID":
                     return res.status(201).send({ message: "결제가 완료되었습니다." });
                 default:
-                    return res.status(400).send({ message: "알 수 없는 결제 상태입니다." });
+                    return res.status(400).send({ message: "결제를 취소 하였습니다." });
             }
         } else {
             return res.status(400).send({ message: "결제 금액 불일치" });
