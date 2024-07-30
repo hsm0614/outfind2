@@ -17,7 +17,6 @@ header {
     left: 30px; /* 헤더의 왼쪽에 로고를 배치 */
     margin-top: 10px;
 }
-
 nav {
     display: flex;
     position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
@@ -66,6 +65,18 @@ nav ul li a {
 nav ul li a:hover {
     text-decoration: underline; /* 호버 시 밑줄 추가 */
 }
+
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .nav-links li {
+        display: none; /* 작은 화면에서는 nav link를 숨김 */
+    }
+}
 body {
     margin: 0;
     padding: 0;
@@ -75,8 +86,447 @@ body {
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 더 현대적인 글꼴 사용 */
 }
+
 .container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1300px;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: row;
-    min-height: calc(100vh - 60px); /* 헤더 높이만큼 뺀 높이 설정 */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto; /* 중앙 정렬을 위한 margin: auto; 추가 */
+    overflow-x: hidden; /* 가로 스크롤 제거 */
+}
+
+
+h3 {
+    margin-left: 100px;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+}
+.main{
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+    font-weight: bold;
+    font-size: 28px;
+    text-align: center;
+}
+.mainp{
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+    font-size: 18px;
+    text-align: center;
+}
+
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+
+.tablinks {
+    background-color: white;
+    border: 2px solid #ccc;
+    color: #333;
+    cursor: pointer;
+    padding: 14px 20px;
+    font-size: 17px;
+    transition: 0.3s;
+    margin: 0;
+    width: 150px; /* 길이를 조정하세요 */
+    text-align: center;
+}
+
+.tablinks:hover {
+    background-color: #ddd;
+}
+
+.tablinks.active {
+    border-color: #2d8ef6;
+    color: #2d8ef6;
+    background-color: #e6f2ff;
+}
+
+.tabcontent {
+    display: none;
+    padding: 20px;
+    width: 100%;
+}
+
+.tabcontent.active {
+    display: block;
+}
+.register-link {
+    color: #6ba0ff; /* 연한 하늘색 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-weight: bold; /* 글자 굵게 */
+    display: block; /* 블록 레벨 요소로 설정하여 버튼처럼 보이도록 */
+    margin-top: 20px; /* 링크 위 여백 추가 */
+    text-align: center;
+}
+.computer {
+    display: block; /* 이미지를 블록 요소로 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.modal {
+    display: block; /* 이미지를 블록 요소로 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    max-width: 800px;
+}
+.icon-container {
+    display: flex;
+    flex-direction: column; /* 세로로 아이콘과 텍스트 블록을 나열 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    margin-left: 30%;
+}
+
+.icon-text {
+    display: flex;
+    align-items: center; /* 세로로 아이콘과 텍스트를 정렬 */
+    margin-bottom: 20px; /* 아이콘 텍스트 블록 간격 */
+}
+
+.icon-text img {
+    width: 48px; /* 아이콘 크기 */
+    height: 48px; /* 아이콘 크기 */
+    margin-right: 15px; /* 아이콘과 텍스트 사이 간격 */
+}
+
+.text-content {
+    width: 100%; /* 텍스트 컨텐츠 전체 너비 */
+}
+
+.text-content h4 {
+    font-size: 18px; /* 제목 폰트 크기 */
+    margin-bottom: 5px; /* 제목 아래 여백 */
+    margin-top: 20px;
+}
+
+.text-content p {
+    font-size: 14px; /* 문단 폰트 크기 */
+    color: #666; /* 텍스트 색상 */
+    margin-top: 5px; /* 문단 위 여백 */
+    margin-bottom: 0; /* 문단 아래 여백 없애기 */
+    line-height: 1.5; /* 줄 간격 */
+}
+
+.explain-section {
+    text-align: center; /* 섹션 전체 텍스트 가운데 정렬 */
+    margin: 20px 0; /* 섹션 위아래 여백 */
+}
+
+.explain-container {
+    display: flex; /* 가로로 나열 */
+    justify-content: space-around; /* 아이템 사이의 공간을 균등하게 분배 */
+    align-items: center; /* 수직 가운데 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin-top: 20px; /* 제목과 아이콘들 사이의 여백 */
+}
+
+.explain-item {
+    display: flex;
+    flex-direction: column; /* 아이콘과 텍스트를 세로로 정렬 */
+    align-items: center; /* 아이템을 수직으로 가운데 정렬 */
+    margin: 10px; /* 각 아이템 사이의 간격 */
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+
+.explain-item img {
+    width: 50px; /* 아이콘 크기 */
+    height: 50px; /* 아이콘 크기 */
+    margin-bottom: 5px; /* 아이콘과 텍스트 사이의 간격 */
+}
+
+.explain-item p {
+    font-size: 18px; /* 텍스트 폰트 크기 */
+    color: #666; /* 텍스트 색상 */
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+
+h4 {
+    font-size: 28px; /* 제목 폰트 크기 */
+    margin-bottom: 10px; /* 제목 아래 여백 */
+    color: #333; /* 제목 색상 */
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+}
+.matchingsection{
+    text-align: center;
+}
+.custom-container {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    justify-content: space-between; /* 이미지와 텍스트 사이 간격 */
+    padding: 10px; /* 컨테이너 여백 추가 */
+}
+
+.custom-text-content {
+    flex: 2; /* 텍스트 컨테이너의 크기 비율 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    padding: 10px; /* 여백 추가 */
+}
+
+.custom-image-container {
+    flex: 1; /* 이미지 컨테이너의 크기 비율 설정 */
+    text-align: right; /* 이미지 오른쪽 정렬 */
+    padding: 10px; /* 여백 추가 */
+}
+
+.custom-image-container img {
+    max-width: 100%; /* 이미지가 컨테이너를 넘지 않도록 설정 */
+    height: auto; /* 이미지 비율 유지 */
+
+}
+.signup-container {
+    position: relative;
+    width: 100%; /* 전체 너비를 사용 */
+    overflow: hidden; /* 넘치는 부분 숨기기 */
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.signup-container img {
+    flex: 0 1 auto; /* 이미지가 고정 크기로 적용 */
+    position: relative;
+    left: -15%; /* 왼쪽으로 이동하여 잘림 효과 */
+    width: 75%; /* 이미지 크기 조정 */
+    height: auto; /* 비율 유지 */
+    display: block;
+
+}
+
+.signup-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20%; /* 블러 처리할 영역 너비 */
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    filter: blur(8px); /* 블러 강도 조정 */
+    z-index: 1; /* 블러가 이미지 위에 표시되도록 설정 */
+    pointer-events: none; /* 클릭 방지 */
+}
+
+.info-section {
+    flex: 0 0 auto; /* 이미지가 고정 크기로 적용 */
+
+    width: 100%; /* 텍스트 영역 너비 설정 */
+    box-sizing: border-box; /* 패딩과 테두리가 총 너비에 포함되도록 설정 */
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 텍스트 배치 */
+    justify-content: center; /* 텍스트 세로 중앙 정렬 */
+    flex: 1; /* 나머지 공간을 차지 */}
+
+.info-section h4 {
+    margin-top: 0; /* 제목 위쪽 여백 제거 */
+    margin-bottom: 10px; /* 제목 아래쪽 여백 설정 */
+    font-size: 24px; /* 제목의 폰트 크기 */
+    color: #333; /* 제목 색상 */
+}
+
+.info-section p.mainp {
+    margin: 0; /* 본문 위쪽 여백 제거 */
+    font-size: 16px; /* 본문 폰트 크기 */
+    color: #666; /* 본문 색상 */
+}
+.checklist {
+    display: flex;
+    flex-direction: column; /* 체크 아이템을 세로로 배치 */
+    margin-bottom: 20px; /* 체크리스트와 본문 간격 설정 */
+
+}
+
+.check-item {
+    display: flex;
+    align-items: center; /* 체크 아이콘과 텍스트를 수직으로 정렬 */
+    margin-bottom: 10px; /* 체크 아이템 간격 설정 */
+}
+
+.check-icon {
+    width: 30px !important; /* 체크 아이콘 크기 조정 */
+    height: 30px !important; /* 체크 아이콘 크기 조정 */
+    margin-left: 10px;
+}
+.mainp {
+    margin-top: 0; /* 설명 위쪽 여백 제거 */
+    font-size: 16px; /* 설명의 폰트 크기 */
+    color: #666; /* 설명 색상 */
+}
+
+.video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+}
+
+.video-container img {
+    width: 100%; /* Adjust the width as needed */
+    max-width: 600px; /* Adjust the maximum width as needed */
+}
+
+
+        .matchingguide {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .matchingguide img {
+            width: 48px; /* Adjust the size as needed */
+            height: 48px; /* Adjust the size as needed */
+            margin-right: 10px;
+        }
+
+        .matchingguide-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .matchingguide-text h4 {
+            margin: 0 0 10px 0;
+        }
+
+        .content-container {
+            display: flex;
+            align-items: center;
+        }
+
+.content-container {
+    display: flex;
+    align-items: center;
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 20px; /* 패딩 설정 */
+}
+
+.main-image {
+    width: 100%; /* 이미지 너비를 전체 너비로 설정 */
+    max-width: 600px; /* 최대 너비 설정 */
+    height: auto; /* 비율 유지 */
+    margin-bottom: 20px; /* 아래 여백 설정 */
+}
+
+.sub-images {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    gap: 20px; /* 이미지 간격 설정 */
+    margin-bottom: 20px; /* 아래 여백 설정 */
+}
+
+.image-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 텍스트와 이미지를 중앙 정렬 */
+}
+
+.sub-image {
+    width: 100px; /* 서브 이미지 너비 설정 */
+    height: auto; /* 비율 유지 */
+    margin-bottom: 10px; /* 이미지와 텍스트 사이의 여백 설정 */
+}
+
+.image-text {
+    font-size: 18px; /* 텍스트 크기 설정 */
+    color: #666; /* 텍스트 색상 설정 */
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+}
+
+.description {
+    font-size: 16px; /* 글꼴 크기 설정 */
+    color: #666; /* 글꼴 색상 설정 */
+    margin-top: 20px; /* 위 여백 설정 */
+}
+
+
+/* footer */
+footer {
+    background-color: rgb(249, 249, 249); /* 푸터의 배경색을 변경 */
+    color: #666; /* 푸터의 텍스트 색상을 회색으로 설정 */
+    padding: 10px 0; /* 푸터의 위아래 패딩 */
+    text-align: center; /* 모든 텍스트를 가로로 정렬 */
+    position: relative; /* 푸터를 고정시킴 */
+    bottom: 0; /* 화면 하단에 배치 */
+    width: 100%; /* 너비를 100%로 설정하여 전체 폭을 차지하도록 함 */
+    margin-top: 550px;
+}
+
+
+.footer-content {
+    display: flex;
+    justify-content: flex-start; 
+    border-bottom: 1px solid #ccc; /* 각 섹션 사이의 구분선 */
+}
+
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px; /* 좌우 여백 추가 */
+    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+    margin-right: auto;
+}
+
+.footer-section h2 {
+    color: #666; /* 섹션 제목의 색상 */
+    font-size: 15px; /* 섹션 제목의 폰트 크기 */
+    margin-bottom: 10px; /* 섹션 제목과 내용 사이의 간격 */
+    font-weight: normal;
+}
+
+.footer-section p {
+    font-size: 14px; /* 섹션 내용의 폰트 크기 */
+    line-height: 1.5; /* 섹션 내용의 줄 간격 */
+    text-align: left;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px; /* 각 링크 항목 사이의 간격 */
+}
+
+.footer-section ul li a {
+    color: #666; /* 링크 텍스트의 색상 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.footer-section ul li:last-child {
+    margin-bottom: 20px; /* 마지막 링크 항목과 내용 사이의 간격을 크게 설정 */
+}
+
+.footer-bottom {
+    text-align: left;
+    padding-top: 20px; /* 푸터 하단과 내용 사이의 간격 */
+    border-top: 1px solid #ccc; /* 푸터 상단 경계선 */
+    font-size: 12px; /* 푸터 하단 텍스트의 폰트 크기를 줄임 */
+}
+
+.footer-bottom p {
+    display: inline-block; /* p 요소를 블록 레벨에서 인라인 레벨로 변경하여 두 개씩 나눠서 표시 */
+    margin: 5px; /* 각 텍스트 사이의 간격 설정 */
+    width: 50%; /* 부모 요소의 절반만큼 너비를 가짐 */
+    vertical-align: top; /* 상단 정렬 */
+    justify-content: space-between; /* 좌우 여백을 최대로 설정 */
+}
+
+a {
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 부모 요소의 텍스트 색상을 상속하여 링크 색상을 텍스트 색상으로 설정 */
 }

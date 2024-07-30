@@ -1,674 +1,280 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아웃소싱 플랫폼을 찾을땐? 아웃파인드</title>
-    <link rel="stylesheet" type="text/css" href="mainpage.css">
-    <link rel="stylesheet" type="text/css" href="mainpagemob.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="icon" href="/favicon_package_v0.16/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon_package_v0.16/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_package_v0.16/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_package_v0.16/favicon-16x16.png">
-    <link rel="manifest" href="favicon_package_v0.16/site.webmanifest">
-    <link rel="mask-icon" href="favicon_package_v0.16/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-</head>
-<body>
-    <header>
-        <a href="/" class="outfind">아웃파인드</a>
-        <div class="header-text">
-            <p class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
-            </p>
-            <h1 class="h1-outfind">OutFind</h1>
-            <h1 class="h1-second">영업의 어려움을 간소화하세요</h1>
-        </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="/">홈</a></li>
-                <li><a href="/introducepage/introduce.html">회사 소개</a></li>
-                <li><a href="#">매칭가이드</a></li>
-                <li><a href="#">FAQ</a></li>
-            </ul>
-            <ul class="user-links">
-                <li class="login-link"><a href="loginpage/loginpage.html" id="login-link">로그인</a></li> <!-- 로그인 링크 추가 -->
-                <li class="signup-link"><a href="signuppage/signup.html" id="signup-link">회원가입</a></li> <!-- 회원가입 링크 추가 -->
-                <li class="mypage-link"><a href="mypage/mypage.html" id="mypage-link">마이페이지</a></li>
-                <li class="logout-link"><a href="#" id="logout-link">로그아웃</a></li> <!-- 로그아웃 버튼 추가 -->
-            </ul>
-        </nav>
-        <button class="match-button">매칭하기</button>
-        
-  <!-- 첫 번째 모달 -->
-  <div class="modal" id="modal">
-    <div class="modal_body">
-        <button class="close-button">닫기 &times;</button>
-        <h1>기업 매칭 정보 입력</h1>
-        <div class="separator"></div>
-        <form id="form1">
-            <div class="input-container">
-                <label for="name">담당자 성함</label>
-                <input type="text" id="name" name="name">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>아웃소싱 플랫폼을 찾을땐? 아웃파인드</title>
+        <link rel="stylesheet" type="text/css" href="mainpage.css">
+        <link rel="stylesheet" type="text/css" href="mainpagemob.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin="crossorigin">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+            rel="stylesheet">
+        <link rel="icon" href="/favicon_package_v0.16/favicon.ico">
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="favicon_package_v0.16/apple-touch-icon.png">
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="favicon_package_v0.16/favicon-32x32.png">
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="favicon_package_v0.16/favicon-16x16.png">
+        <link rel="manifest" href="favicon_package_v0.16/site.webmanifest">
+        <link
+            rel="mask-icon"
+            href="favicon_package_v0.16/safari-pinned-tab.svg"
+            color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+        <header>
+            <a href="/" class="outfind">아웃파인드</a>
+            <div class="header-text">
+                <p class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
+                </p>
+                <h1 class="h1-outfind">OutFind</h1>
+                <h1 class="h1-second">영업의 어려움을 간소화하세요</h1>
             </div>
-            <div class="input-container">
-                <label for="email">이메일</label>
-                <input type="email" id="email" name="email" placeholder="회원가입 시 사용된 이메일을 입력해주세요">
-            </div>
-            <div class="input-container">
-                <label for="phone">담당자 번호</label>
-                <input type="tel" id="phone" name="phone">
-            </div>
-            <button type="button" class="next-button">다음</button>
-        </form>
-    </div>
-</div>
+            <nav>
+                <ul class="nav-links">
+                    <li>
+                        <a href="/">홈</a>
+                    </li>
+                    <li>
+                        <a href="/introducepage/introduce.html">서비스</a>
+                    </li>
+                    <li>
+                        <a href="#">매칭가이드</a>
+                    </li>
+                    <li>
+                        <a href="#">FAQ</a>
+                    </li>
+                </ul>
+                <ul class="user-links">
+                    <li class="login-link">
+                        <a href="loginpage/loginpage.html" id="login-link">로그인</a>
+                    </li>
+                    <!-- 로그인 링크 추가 -->
+                    <li class="signup-link">
+                        <a href="signuppage/signup.html" id="signup-link">회원가입</a>
+                    </li>
+                    <!-- 회원가입 링크 추가 -->
+                    <li class="mypage-link">
+                        <a href="mypage/mypage.html" id="mypage-link">마이페이지</a>
+                    </li>
+                    <li class="logout-link">
+                        <a href="#" id="logout-link">로그아웃</a>
+                    </li>
+                    <!-- 로그아웃 버튼 추가 -->
+                </ul>
+            </nav>
+            <button class="match-button">매칭하기</button>
 
-<!-- 두 번째 모달 -->
-<div class="modal2" id="modal2">
-    <div class="modal_body2">
-        <button class="close-button2">닫기 &times;</button>
-        <h1>기업 매칭 정보 입력</h1>
-        <div class="separator"></div>
-        <form id="form2">
-            <div class="form-group">
-                <label for="project-name">프로젝트명</label>
-                <input type="text" id="project-name" name="project-name">
-            </div>
-            <div class="form-group">
-                <label for="job-type">직종</label>
-                <select id="job-type" name="job-type">
-                    <option value="제조업">제조업</option>
-                    <option value="물류업">물류업</option>
-                    <option value="서비스업">서비스업</option>
-                    <!-- 다른 직종 옵션들을 추가할 수 있음 -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="location">지역</label>
-                <select id="location" name="location">
-                    <option value="서울">서울</option>
-                    <option value="부산">부산</option>
-                    <option value="인천">인천</option>
-                    <option value="대구">대구</option>
-                    <option value="광주">광주</option>
-                    <option value="대전">대전</option>
-                    <option value="울산">울산</option>
-                    <option value="경기">경기</option>
-                    <option value="강원">강원</option>
-                    <option value="충북">충북</option>
-                    <option value="충남">충남</option>
-                    <option value="전북">전북</option>
-                    <option value="전남">전남</option>
-                    <option value="경북">경북</option>
-                    <option value="경남">경남</option>
-                    <option value="제주">제주</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="number-of-people">인원</label>
-                <input type="number" id="number-of-people" name="number-of-people" min="1">
-            </div>
-            <div class="form-group">
-                <label for="projectstructure">프로젝트 설명</label>
-                <textarea id="projectstructure" name="projectstructure" rows="5" placeholder="프로젝트에 대해 간략히 설명해주세요"></textarea>
-            </div>
-            <button type="button" class="previous-button">이전</button>
-            <button type="submit">제출</button>
-        </form>
-    </div>
-</div>
-<div class="modal-backdrop" id="modal-backdrop"></div>
-        
-    </header>
-    <!-- 매칭된 인력도급 업체 목록 표시 부분 -->
-    <div class="matching-contractor-container" id="matching-contractor-container">
-        <div id="matching-contractor-list" class="card-container"></div>
-    </div>
-    <div class="text">
-        <h1 class="intro">OutFind</h1>
-        <p class="intro2">Problem&Solution</p>
-    </div>
-    <div class="introimg">
-        <div class="image-container">
-            <img src="./image/savemoney.png" alt="Save Money">
-            <div class="image-text">
-                <div class="big-text">1. 비용 절감</div>
-                <div class="small-text">영업을 하기 직전까지의 불필요한 비용을 줄여줍니다.</div>
-            </div>
-        </div>
-        <div class="image-container">
-            <img src="./image/savetime.png" alt="Save Time">
-            <div class="image-text">
-                <div class="big-text">2. 시간 절약</div>
-                <div class="small-text">아웃파인드는 매칭 시스템을 통해 불필요한 시간을 줄여줍니다.</div>
-            </div>
-        </div>
-        <div class="image-container">
-            <img src="./image/goodcontract.png" alt="Good Contract">
-            <div class="image-text">
-                <div class="big-text">3. 체결확률 증가</div>
-                <div class="small-text">기업의 아웃소싱 평가를 통해 신뢰성 높은 아웃소싱을 사용할 수 있게 합니다.</div>
-            </div>
-        </div>
-    </div>
-    <section class="intro3">
-        <div class="companyoutfind"><h4>기업은 왜 아웃파인드를 쓸까?</h4></div>
-        <div class="card-container">
-            <!-- 첫 번째 카드 -->
-            <div class="card3">
-                <div class="card-image3">
-                    <img src="/image/qulity.png" alt="Quality">
-                </div>
-                <div class="card3-content">
-                    <p>실시간 인력도급업체 회원 관리를 통해 품질을 보증합니다.</p>
+            <!-- 첫 번째 모달 -->
+            <div class="modal" id="modal">
+                <div class="modal_body">
+                    <button class="close-button">닫기 &times;</button>
+                    <h1>기업 매칭 정보 입력</h1>
+                    <div class="separator"></div>
+                    <form id="form1">
+                        <div class="input-container">
+                            <label for="name">담당자 성함</label>
+                            <input type="text" id="name" name="name">
+                        </div>
+                        <div class="input-container">
+                            <label for="email">이메일</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="회원가입 시 사용된 이메일을 입력해주세요">
+                        </div>
+                        <div class="input-container">
+                            <label for="phone">담당자 번호</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <button type="button" class="next-button">다음</button>
+                    </form>
                 </div>
             </div>
-            <!-- 두 번째 카드 -->
-            <div class="card3">
-                <div class="card-image3">
-                    <img src="/image/qulity2.png" alt="Quality2">
-                </div>
-                <div class="card3-content">
-                    <p>사업자를 통한 보증된 인력도급업체를 찾을 수 있습니다.</p>
-                </div>
-            </div>
-            <!-- 세 번째 카드 -->
-            <div class="card3">
-                <div class="card-image3">
-                    <img src="/image/qulity3.png" alt="Quality3">
-                </div>
-                <div class="card3-content">
-                    <p>아웃파인드를 통해 원하는 인재를 적재적소에 공급할 수 있습니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
+            <!-- 두 번째 모달 -->
+            <div class="modal2" id="modal2">
+                <div class="modal_body2">
+                    <button class="close-button2">닫기 &times;</button>
+                    <h1>기업 매칭 정보 입력</h1>
+                    <div class="separator"></div>
+                    <form id="form2">
+                        <div class="form-group">
+                            <label for="project-name">프로젝트명</label>
+                            <input type="text" id="project-name" name="project-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="job-type">직종</label>
+                            <select id="job-type" name="job-type">
+                                <option value="choice">선택</option>
+                                    <option value="생산,제조업">생산,제조업</option>
+                                    <option value="물류업">물류업</option>
+                                    <option value="유통업">유통업</option>
+                                    <option value="인아웃바운드 상담원">인아웃바운드 상담원</option>
+                                    <option value="컨택센터(콜센터)">컨택센터(콜센터)</option>
+                                    <option value="경비청소시설관리">경비청소시설관리</option>
+                                    <option value="호텔,골프장">호텔,골프장</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">지역</label>
+                            <select id="location" name="location">
+                                <option value="서울">서울</option>
+                                <option value="부산">부산</option>
+                                <option value="인천">인천</option>
+                                <option value="대구">대구</option>
+                                <option value="광주">광주</option>
+                                <option value="대전">대전</option>
+                                <option value="울산">울산</option>
+                                <option value="경기">경기</option>
+                                <option value="강원">강원</option>
+                                <option value="충북">충북</option>
+                                <option value="충남">충남</option>
+                                <option value="전북">전북</option>
+                                <option value="전남">전남</option>
+                                <option value="경북">경북</option>
+                                <option value="경남">경남</option>
+                                <option value="제주">제주</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="number-of-people">인원</label>
+                            <input type="number" id="number-of-people" name="number-of-people" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="projectstructure">프로젝트 설명</label>
+                            <textarea
+                                id="projectstructure"
+                                name="projectstructure"
+                                rows="5"
+                                placeholder="프로젝트에 대해 간략히 설명해주세요"></textarea>
+                        </div>
+                        <button type="button" class="previous-button">이전</button>
+                        <button type="submit">제출</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-backdrop" id="modal-backdrop"></div>
 
+        </header>
+        <!-- 매칭된 인력도급 업체 목록 표시 부분 -->
+        <div class="matching-contractor-container" id="matching-contractor-container">
+            <div id="matching-contractor-list" class="card-container"></div>
+        </div>
+        <div class="text">
+            <h1 class="intro">OutFind</h1>
+            <p class="intro2">Problem&Solution</p>
+        </div>
+        <div class="introimg">
+            <div class="image-container">
+                <img src="./image/savemoney.png" alt="Save Money">
+                <div class="image-text">
+                    <div class="big-text">1. 비용 절감</div>
+                    <div class="small-text">영업을 하기 직전까지의 불필요한 비용을 줄여줍니다.</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="./image/savetime.png" alt="Save Time">
+                <div class="image-text">
+                    <div class="big-text">2. 시간 절약</div>
+                    <div class="small-text">아웃파인드는 매칭 시스템을 통해 불필요한 시간을 줄여줍니다.</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="./image/goodcontract.png" alt="Good Contract">
+                <div class="image-text">
+                    <div class="big-text">3. 체결확률 증가</div>
+                    <div class="small-text">기업의 아웃소싱 평가를 통해 신뢰성 높은 아웃소싱을 사용할 수 있게 합니다.</div>
+                </div>
+            </div>
+        </div>
+        <section class="intro3">
+            <div class="companyoutfind">
+                <h4>기업은 왜 아웃파인드를 쓸까?</h4>
+            </div>
+            <div class="card-container">
+                <!-- 첫 번째 카드 -->
+                <div class="card3">
+                    <div class="card-image3">
+                        <img src="/image/qulity.png" alt="Quality">
+                    </div>
+                    <div class="card3-content">
+                        <p>실시간 인력도급업체 회원 관리를 통해 품질을 보증합니다.</p>
+                    </div>
+                </div>
+                <!-- 두 번째 카드 -->
+                <div class="card3">
+                    <div class="card-image3">
+                        <img src="/image/qulity2.png" alt="Quality2">
+                    </div>
+                    <div class="card3-content">
+                        <p>사업자를 통한 보증된 인력도급업체를 찾을 수 있습니다.</p>
+                    </div>
+                </div>
+                <!-- 세 번째 카드 -->
+                <div class="card3">
+                    <div class="card-image3">
+                        <img src="/image/qulity3.png" alt="Quality3">
+                    </div>
+                    <div class="card3-content">
+                        <p>아웃파인드를 통해 원하는 인재를 적재적소에 공급할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
-    
+
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h2><a href="/">홈</a></h2>
+                <h2>
+                    <a href="/">홈</a>
+                </h2>
             </div>
             <div class="footer-section">
-                <h2><a href="about.html">회사 소개</a></h2>
+                <h2>
+                    <a href="about.html">서비스</a>
+                </h2>
             </div>
             <div class="footer-section">
-                <h2><a href="matching_guide.html">매칭 가이드</a></h2>
+                <h2>
+                    <a href="matching_guide.html">매칭 가이드</a>
+                </h2>
             </div>
             <div class="footer-section">
-                <h2><a href="faq.html">FAQ</a></h2>
+                <h2>
+                    <a href="faq.html">FAQ</a>
+                </h2>
             </div>
         </div>
         <div class="footer-bottom">
-            <p class="outfindname">아웃파인드<p>
-            <p>Email: outfind222@gmail.com</p>
-            <p>Phone: 010-4653-3002</p>
-            <p>Address: 강원도 원주시, 상지대길 58-7</p>
-            <p>사업자등록번호: 668-16-02391</p>
+            <p class="outfindname">(주)아웃파인드 <span style="border-left:1px solid #000; margin:0 10px;"></span> 대표이사: 황성민 <span style="border-left:1px solid #000; margin:0 10px;"></span> 사업자등록번호: 668-16-02391</p>
+            <p>Email: outfind222@gmail.com <span style="border-left:1px solid #000; margin:0 10px;"></span> Phone: 010-4653-3002</p>            <p>Address: 강원도 원주시, 상지대길 58-7</p>
             <p>&copy; 2024 Outfind. All rights reserved.</p>
-            <p>대표: 황성민</p>
-        </div>
-    </footer>
+            <p><a href="/agree/agree.html">이용약관</a> | <a href="/agree/agree2.html">개인정보방침</a></p>
+            </footer>
 
-    <script src="/testserver.js"></script>
-    <script>
-        window.addEventListener('load', function() {
-            // 이미지 크기 조정
-            resizeImage();
-            // 윈도우 크기 변경시 이미지 크기 조정
-            window.addEventListener('resize', resizeImage);
-        });
-
-        function resizeImage() {
-            var image = document.getElementById('main-image');
-            var windowHeight = window.innerHeight;
-            var imageHeight = windowHeight / 2; // 화면의 반 정도의 높이
-            image.style.height = imageHeight + 'px';
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-    const headerText = document.querySelector('.header-text');
-    const matchButton = document.querySelector('.match-button');
-    const imageContainers = document.querySelectorAll('.image-container');
-
-    const addAnimationClass = () => {
-        if (headerText.getBoundingClientRect().top < window.innerHeight) {
-            headerText.classList.add('show');
-        }
-
-        if (matchButton.getBoundingClientRect().top < window.innerHeight) {
-            matchButton.classList.add('show');
-        }
-
-        imageContainers.forEach((container, index) => {
-            if (container.getBoundingClientRect().top < window.innerHeight) {
-                setTimeout(() => {
-                    container.classList.add('show');
-                }, index * 300); // 각 이미지 컨테이너에 300ms의 지연 시간 적용
-            }
-        });
-    };
-
-    addAnimationClass();
-    window.addEventListener('scroll', addAnimationClass);
-});
-document.addEventListener('DOMContentLoaded', function() {
-    const cards = document.querySelectorAll('.card3');
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('show');
-                }, index * 100); // 순차적으로 애니메이션을 적용
-                observer.unobserve(entry.target); // 한번 애니메이션이 적용되면 다시 관찰하지 않음
-            }
-        });
-    }, observerOptions);
-
-    cards.forEach(card => {
-        observer.observe(card);
-    });
-});
-$(document).ready(function() {
-    // 페이지가 로드될 때 실행될 코드 작성
-    if(sessionStorage.getItem('token')) {
-        // 토큰이 있는 경우: 로그인 상태
-        $('#login-link').hide(); // 로그인 링크 숨기기
-        $('#signup-link').hide(); // 회원가입 링크 숨기기
-        $('#mypage-link').show(); // 마이페이지 링크 표시
-    } else {
-        // 토큰이 없는 경우: 비로그인 상태
-        $('#login-link').show(); // 로그인 링크 표시
-        $('#signup-link').show(); // 회원가입 링크 표시
-        $('#mypage-link').hide(); // 마이페이지 링크 숨기기
-        $('#logout-link').hide(); // 마이페이지 링크 숨기기
-    }
-
-    // 로그아웃 버튼 클릭 시 처리
-    $('#logout-link').click(function(event) {
-        event.preventDefault(); // 기본 클릭 동작 막기
-        sessionStorage.removeItem('token'); // localStorage에서 토큰 삭제
-        sessionStorage.removeItem('userType');
-        sessionStorage.removeItem('email'); // 로그인 이메일 삭제
-        sessionStorage.removeItem('contractor-email')
-        // 로그인 및 회원가입 링크 표시, 마이페이지 링크 숨기기
-        $('#login-link').show();
-        $('#signup-link').show();
-        $('#mypage-link').hide();
-        $('#logout-link').hide();
-        // 페이지 새로고침
-        window.location.href = '/';
-    });
-});
-$(document).ready(function() {
-    // 페이지 로드 시 모달 및 백드롭 숨김
-    $('#modal, #modal2, #modal-backdrop').hide();
-  
-    // 페이지 로드 시 유저 타입 확인하여 매칭된 정보 표시 여부 결정
-    var userType = sessionStorage.getItem('userType');
-    if (userType === 'company') {
-        $('#matching-companies-container').show(); // 기업인 경우 매칭된 정보 표시
-        
-    } else {
-        $('#matching-companies-container').hide(); // 기업이 아닌 경우 매칭된 정보 숨김
-    }
-
-
-    
-    // 매칭하기 버튼 클릭 시 처리
-    $('.match-button,.match-button2').click(function() {
-        // 모달이 열리면 페이지를 모달 위치로 스크롤
-        $('html, body').animate({
-            scrollTop: $('#modal').offset().top
-        }, 500); // 스크롤 속도 설정
-        var userType = sessionStorage.getItem('userType');
-        if (userType === 'company') {
-            showMatchingModal();
-        } else if (userType === 'contractor') {
-            alert('기업 전용 기능입니다.');
-        } else {
-            alert('로그인이 필요합니다.');
-            // 로그인 페이지로 이동하는 코드 추가
-            window.location.href = 'loginpage/loginpage.html';
-        }
-    });
-
-    // 닫기 버튼 클릭 시 처리
-    $('.close-button, .close-button2').click(function() {
-        closeModal();
-    });
-
-    // 다음 버튼 클릭 시 처리
-    $('.next-button').click(function() {
-            var isValid = validateForm('#form1');
-            if (isValid) {
-                switchModal('#modal', '#modal2');
-            }
-        });
-
-    // 이전 버튼 클릭 시 처리
-    $('.previous-button').click(function() {
-    switchModal('#modal2', '#modal'); // 모달 전환
-});
-
-    // 모달 백드롭 클릭 시 처리 (모달 닫기)
-    $('#modal-backdrop').click(function() {
-        closeModal();
-    });
-
- // 두 번째 모달에서 제출 버튼 클릭 시 처리
- $('#modal2 form').submit(function(event) {
-        event.preventDefault();
-        var isValid = validateForm('#form2');
-        if (isValid) {
-            submitCompanyInfo();
+            <script src="/testserver.js"></script>
+            <script src="mainpage.js"></script>
             
-            var industry = $('#job-type').val();
-            var location = $('#location').val();
-             // 매칭된 업체 요청     
-        }
-    });
-});
-
-
-// 폼 유효성 검사 함수
-function validateForm(formSelector) {
-    var isValid = true;
-    $(formSelector + ' input[type="text"]').each(function() {
-        var fieldValue = $.trim($(this).val());
-        if (fieldValue === '') { // 입력 값에서 공백을 제거하고 빈 문자열인지 확인
-            isValid = false;
-            return false; // 반복문 탈출
-        }
-    });
-
-    if (!isValid) {
-        alert('모든 필드를 입력하세요.');
-    }
-
-    return isValid;
-}
-
-// 기업 정보를 서버에 제출하는 함수
-function submitCompanyInfo() {
-    var projectName = $('#project-name').val();
-    var industry = $('#job-type').val();
-    var location = $('#location').val();
-    var numberOfPeople = $('#number-of-people').val();
-    var projectstructure =  $('#projectstructure').val();
-    $.ajax({
-        url: '/submit-company-info',
-        method: 'POST',
-        data: {
-            name: $('#name').val(),
-            email: $('#email').val(),
-            phone: $('#phone').val(),
-            project_name: projectName,
-            industry: industry,
-            location: location,
-            number_of_people: numberOfPeople,
-            projectstructure: projectstructure
-        },
-        success: function(response) {
-            $('.match-apply-button').show();
-            $('#matching-companies-container').show();
-            var modalId = response.modalId;
-            localStorage.setItem('lastSubmittedModalId', modalId);
-            // 매칭된 업체 요청
-            requestMatchingCompanies(industry, location);
-            // 매칭된 업체 정보 요청
-            fetchMatchingInfo();
-
-        },
-        error: function(xhr, status, error) {
-            console.error('Error submitting data:', error);
-            alert('모든빈칸을 입력해주세요!.');
-        }
-    });
-}
-
-// 서버로부터 매칭된 인력도급 업체를 요청하는 함수
-function requestMatchingCompanies(industry, location) {
-    var nowEmail = sessionStorage.getItem('email')
-    $.ajax({
-        url: '/matching-companies',
-        type: 'POST',
-        data: {            
-            industry: industry,
-            location: location
-        }, 
-        success: function(response) {           
-            var contractorEmails = response.matchingCompanies.map(contractor => contractor.email);
-            submitContractorEmails( contractorEmails, nowEmail);
-            closeModal(); // 모달 닫기
-            // 매칭이 완료되면 페이지를 새로고침
-            window.location.reload();
-        },
-        error: function(xhr, status, error) {
-            console.error('Error requesting matching companies:', error);
-            alert('인력도급 업체를 가져오는 중 오류가 발생했습니다.');
-        }
-    });
-}
-
-// 매칭된 업체의 이메일을 서버로 전송하는 함수
-function submitContractorEmails(contractorEmails, nowEmail) {
-    if (!Array.isArray(contractorEmails)) {
-        console.error('Contractor email is not an array:', contractorEmails);
-        contractorEmails = [contractorEmails]; // 배열로 변환
-    }
-
-    $.ajax({
-        url: '/submit-contractor-emails',
-        method: 'POST',
-        contentType: 'application/json', // 이 줄을 추가하세요
-        data: JSON.stringify({
-            contractorEmails: contractorEmails,
-            nowEmail: nowEmail
-        }),
-        success: function(response) {
-        },
-        error: function(xhr, status, error) {
-            console.error('Error submitting contractor emails:', error);
-            alert('인력도급 업체 이메일을 제출하는 중 오류가 발생했습니다.');
-        }
-    });
-}
-   // 페이지 로드 시 매칭된 업체 정보 가져오기
-fetchMatchingInfo();
-
-
-// 매칭된 업체 정보를 가져오는 함수
-function fetchMatchingInfo() {
-    // 세션 스토리지에서 현재 로그인된 사용자의 이메일 가져오기
-    var nowEmail = sessionStorage.getItem('email');
-
-    // 이메일이 없는 경우 처리
-    if (!nowEmail) {
-        console.error('No email found in session storage.');
-        return;
-    }
-
-    $.ajax({
-        url: '/matching-info',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ nowEmail: nowEmail }),
-        success: function(response) {
-            $('#matching-contractor-list').empty(); // 기존 카드 목록을 지우기
-            displayContractors(response.matchingInfo);
-            requestMatchingStatusForAll(); // 매칭 정보를 가져온 후 매칭 상태를 요청하여 처리하는 함수 호출
-        },
-        error: function(xhr, status, error) {
-        }
-    });
-}
-
-// 매칭된 업체 정보를 화면에 표시하는 함수
-function displayContractors(matchingInfo) {
-    console.log(matchingInfo)
-    // 매칭된 업체 정보를 받아와서 화면에 표시하는 코드를 작성
-    matchingInfo.forEach(function(contractor, index) {
-        var companyCard = $('<div class="card"></div>'); // 카드 스타일 적용
-        companyCard.attr('data-contractor-email', contractor.email);
-        // 업체 정보를 텍스트로 설정하여 요소에 추가
-        companyCard.append('<div class="contractor_name"> <div class="introduction-content">' + contractor.contractor_name + '</div></div>'); // 기업 소개
-        companyCard.append('<div class="company-info introduction">기업소개: <div class="introduction-content">' + contractor.introduction + '</div></div>'); // 기업 소개
-        companyCard.append('<div class="divider"></div>'); // 구분선
-        companyCard.append('<div class="company-info industry">직종: ' + contractor.industry + '</div>'); // 직종
-        companyCard.append('<div class="company-info location">지역: ' + contractor.location + '</div>'); // 지역
-
-    
-        // 매칭하기 버튼 추가
-        var matchButton = $('<button class="match-apply-button">매칭하기</button>');
-
-        // 매칭하기 버튼 클릭 이벤트 핸들러
-        matchButton.click(function() {
-            var contractorEmail = $(this).closest('.card').attr('data-contractor-email'); // 해당 업체의 이메일 가져오기
-            var companyEmail = sessionStorage.getItem('email');
-            requestMatchingStatus(contractorEmail, companyEmail);
-
-            
-            // 서버로 매칭 상태 업데이트 요청과 함께 인력도급업체의 이메일 정보 전송
-            $.ajax({
-                url: '/submit-matching-request',
-                method: 'POST',
-                data: {
-                    contractorEmail: contractorEmail, // 인력도급업체의 이메일 정보 전송
-                    status: 'matching', // 매칭 중 상태 전송
-                    companyEmail: sessionStorage.getItem('email'), // 기업 이메일
-
-                },
-                success: function(response) {
-                    // 매칭 상태가 업데이트되면 버튼을 매칭 중으로 변경할 수 있습니다.
-                    matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
-                    // 클릭한 카드 요소에서만 이메일을 가져와서 콘솔에 출력합니다.
-                },
-                error: function(xhr, status, error) {
-                    console.error('매칭 상태 업데이트 중 오류:', error);
-                    alert('매칭 상태를 업데이트하는 중 오류가 발생했습니다.');
-                }
-            });
-        });
-
-        // 생성된 카드에 매칭하기 버튼 추가
-        companyCard.append(matchButton);
-
-        $('#matching-contractor-list').append(companyCard);
-               // 클로저를 사용하여 index 값을 보존
-        (function(card, i) {
-            setTimeout(function() {
-                card.addClass('show');
-            }, i * 100); // 순차적으로 보여주기 위한 지연 시간 설정
-        })(companyCard, index);
-    });
-}
-
-// 매칭 상태를 서버에 요청하는 함수
-function requestMatchingStatus(contractorEmail, companyEmail) {
-    $.ajax({
-        url: '/get-matching-status',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ contractorEmail: contractorEmail, companyEmail: companyEmail }),
-        success: function(response) {
-            handleMatchingStatus(response.status, contractorEmail);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching matching status:', error);
-            alert('Error fetching matching status');
-        }
-    });
-}
-
-// 매칭 상태를 처리하는 함수
-function handleMatchingStatus(status, contractorEmail) {
-    // 매칭 상태에 따라 버튼 업데이트
-    var matchButton = $('.card[data-contractor-email="' + contractorEmail + '"]').find('.match-apply-button');
-    if (status === 'matching') {
-        matchButton.text('매칭 중').prop('disabled', true).addClass('matching');
-    } else {
-        matchButton.text('매칭하기').prop('disabled', false).removeClass('matching');
-    }
-}
-
-// 모든 업체에 대한 매칭 상태를 요청하여 처리하는 함수
-function requestMatchingStatusForAll() {
-    $('.card').each(function() {
-        var contractorEmail = $(this).attr('data-contractor-email');
-        var companyEmail = sessionStorage.getItem('email');
-        requestMatchingStatus(contractorEmail, companyEmail);
-    });
-}
-
-
-
-
-
-// 매칭하기 모달을 보여주는 함수
-function showMatchingModal() {
-    $('body').css('overflow', 'hidden');
-    $('#modal').fadeIn();
-    $('#modal-backdrop').fadeIn();
-}
-
-// 모달을 닫는 함수
-function closeModal() {
-    $('body').css('overflow', '');
-    $('#modal, #modal2, #modal-backdrop').fadeOut();
-}
-
-// 모달을 전환하는 함수
-function switchModal(currentModal, nextModal) {
-    $(currentModal).fadeOut();
-    $(nextModal).fadeIn();
-}
-
-
-// 사용자가 기업인지 확인하는 함수
-function isCompanyUser() {
-    // 세션에서 userType 값을 확인하여 기업 사용자인지 여부를 반환합니다.
-    // 만약 userType이 'company'라면 true를 반환하고, 그렇지 않으면 false를 반환합니다.
-    // 이 예시에서는 임의로 'userType'이라는 세션 변수를 확인합니다.
-    return sessionStorage.getItem('userType') === 'company';
-}
-
-// 사용자가 로그인되어 있는지 확인하는 함수
-function isLoggedIn() {
-    // 세션에서 userType 값을 확인하여 기업 사용자인 경우에만 로그인된 것으로 간주합니다.
-    return isCompanyUser();
-}
-
-
-// JavaScript 코드
-$(document).ready(function() {
-    // 각 기업 소개의 길이를 확인하고 클래스를 추가
-    $('.company-info').each(function() {
-        var introLength = $(this).text().length;
-        if (introLength > 50) {
-            $(this).addClass('long-introduction');
-        }
-    });
-});
-;
-    </script>
-
-    </script>
-</body>
+    </body>
 </html>

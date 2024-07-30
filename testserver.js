@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'favicon_package_v0.16')));
 
 
 const options = {
-    key: fs.readFileSync('/etc/letsencrypt/archive/www.outfind.co.kr/privkey3.pem'),
+    key: fs.readFileSync('/etc/letsencrypt/live/www.outfind.co.kr/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/www.outfind.co.kr/fullchain.pem')
 };
 https.createServer(options, app).listen(3000, () => {
@@ -105,6 +105,8 @@ connection.connect((err) => {
 // 정적 파일 미들웨어 설정
 app.use(express.static(path.join(__dirname, 'outfind2', 'image')));
 app.use(express.static(path.join(__dirname, 'outfind2')));
+app.use(express.static(path.join(__dirname, 'loginpage')));
+app.use(express.static(path.join(__dirname, 'mypage')));
 
 
 // 루트 경로에 대한 요청 처리
@@ -118,6 +120,10 @@ app.get("/mainpage.css", function(req, res){
 app.get("/mainpagemob.css", function(req, res){
     res.sendFile(path.join(__dirname, "mainpagemob.css"));
 });
+app.get("/mainpage.js", function(req, res){
+    res.sendFile(path.join(__dirname, "mainpage.js"));
+});
+
 
 app.get("/introducepage/introduce.html", function(req, res){
     res.sendFile(path.join(__dirname, "introducepage", "introduce.html"));
@@ -125,7 +131,9 @@ app.get("/introducepage/introduce.html", function(req, res){
 app.get("/introducepage/introduce.css", function(req, res){
     res.sendFile(path.join(__dirname, "introducepage", "introduce.css"));
 });
-
+app.get("/introducepage/introduce.js", function(req, res){
+    res.sendFile(path.join(__dirname, "introducepage", "introduce.js"));
+});
 // 회원가입 패이지
 app.get("/signuppage/signup.html", function(req, res){
     res.sendFile(path.join(__dirname, "signuppage", "signup.html"));
@@ -178,6 +186,16 @@ app.get('/mypage/mypage.js', function(req, res) {
     res.sendFile(__dirname + '/mypage/mypage.js');
 });
 
+app.get("/agree/agree.html", function(req, res){
+    res.sendFile(path.join(__dirname, "agree", "agree.html"));
+});
+app.get("/agree/agree2.html", function(req, res){
+    res.sendFile(path.join(__dirname, "agree", "agree2.html"));
+});
+app.get("/agree/agree.css", function(req, res){
+    res.sendFile(path.join(__dirname, "agree", "agree.css"));
+});
+
 // 이미지 파일에 대한 요청 처리
 app.get("/image/mainpageimage.png", function(req, res){
   res.sendFile(path.join(__dirname, 'image', 'mainpageimage.png'));
@@ -222,6 +240,58 @@ app.get("/image/savemoney.png", function(req, res){
   app.get("/image/qulity3.png", function(req, res){
     res.sendFile(path.join(__dirname, 'image', 'qulity3.png'));
   });
+  app.get("/image/computerrm.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'computerrm.png'));
+  });
+  app.get("/image/money.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'money.png'));
+  });
+  app.get("/image/outsourcing.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'outsourcing.png'));
+  });
+  app.get("/image/securitydocument.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'securitydocument.png'));
+  });
+  app.get("/image/industry.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'industry.png'));
+  });  app.get("/image/location.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'location.png'));
+  });  app.get("/image/people.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'people.png'));
+  });  app.get("/image/phone.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'phone.png'));
+  });
+  app.get("/image/modal.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'modal.png'));
+  });
+  app.get("/image/video.gif", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'video.gif'));
+  });
+  app.get("/image/check.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'check.png'));
+  });
+  app.get("/image/outsourcing.gif", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'outsourcing.gif'));
+  });
+  app.get("/image/sales.gif", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'sales.gif'));
+  });
+  app.get("/image/signup2.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'signup2.png'));
+  });
+  app.get("/image/capture.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'capture.png'));
+  });
+  app.get("/image/career.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'career.png'));
+  });
+  app.get("/image/work.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'work.png'));
+  });
+  app.get("/image/introduction.png", function(req, res){
+    res.sendFile(path.join(__dirname, 'image', 'introduction.png'));
+  });
+
 
   // 특정 파일에 대한 라우팅
 app.get("/favicon_package_v0.16", function(req, res){
@@ -532,11 +602,22 @@ app.post('/submit-company-info', (req, res) => {
 // 클라이언트에서 전송된 정보를 사용하여 DB에서 매칭된 인력도급 업체를 찾고 결과를 반환하는 엔드포인트
 app.post('/matching-companies', (req, res) => {
     const { industry, location } = req.body;
-    // DB에서 매칭된 인력도급 업체를 조회하는 쿼리 작성
-    const query = `SELECT *, introduction FROM contractors WHERE industry = ? AND location = ?`;
 
+    console.log('Received values on server:', {
+        industry: industry,
+        location: location
+    });
+
+    // 업종(1차 직종)과 상세 업종(2차 직종) 중 하나라도 일치하는 쿼리
+    const query = `
+        SELECT c.*, c.introduction
+        FROM contractors c
+        WHERE (c.industry = ? OR c.sub_industry = ?)
+          AND c.location = ?
+    `;
+    
     // 쿼리 실행
-    connection.query(query, [industry, location], (err, results) => {
+    connection.query(query, [industry, industry, location], (err, results) => {
         if (err) {
             console.error('Error matching companies:', err);
             res.status(500).json({ error: 'Error matching companies' });
@@ -547,10 +628,8 @@ app.post('/matching-companies', (req, res) => {
 
         // 매칭된 업체 정보를 클라이언트에게 반환
         res.json({ matchingCompanies: selectedCompanies });
-        });
     });
-
-
+});
 // 배열에서 무작위로 원하는 개수의 요소를 선택하는 함수
 function selectRandomCompanies(companies, count) {
     const totalCompanies = companies.length;

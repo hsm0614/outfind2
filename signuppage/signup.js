@@ -236,35 +236,29 @@ $(document).ready(function() {
 });
 });
 
-////직업 옵션
-        function updateSubIndustry() {
-            var industrySelect = document.getElementById("contractor-industry");
-            var subIndustrySelect = document.getElementById("contractor-subindustry");
-            subIndustrySelect.innerHTML = ""; // 이전 선택 내용 지우기
-            
-            var selectedIndustry = industrySelect.value;
-            var subIndustries = [];
-            
-            switch(selectedIndustry) {
-                case "제조업":
-                    subIndustries = ["식음료제조업", "자동차 금속 기계업", "의복류 제조업", "펄프 종이제조업", "의료, 정밀기계 제조업", "기타제조업"];
-                    break;
-                case "물류업":
-                    subIndustries = ["냉장 냉동물류", "의류물류", "농산물 물류", "일반 물류", "운송 택배"];
-                    break;
-                case "서비스업":
-                    subIndustries = ["판촉업(마트)", "호텔 및 리조트", "식음료 서비스업", "콜센터 서비스업"];
-                    break;
-                default:
-                    subIndustries = [];
-                    break;
-            }
-            
-// 상세업종 옵션 추가
-    subIndustries.forEach(function(subIndustry) {
+function updateSubIndustry() {
+    var industrySelect = document.getElementById("contractor-industry");
+    var subIndustrySelect = document.getElementById("contractor-subindustry");
+    
+    // 이전 선택 내용 지우기
+    subIndustrySelect.innerHTML = "";
+    
+    var selectedIndustry = industrySelect.value;
+    var industries = [
+        "생산,제조업",
+        "물류업",
+        "유통업",
+        "인아웃바운드 상담원",
+        "컨택센터(콜센터)",
+        "경비청소시설관리",
+        "호텔,골프장"
+    ];
+    
+    // 동일한 업종 옵션 추가
+    industries.forEach(function(industry) {
         var option = document.createElement("option");
-            option.value = subIndustry;
-            option.text = subIndustry;
-            subIndustrySelect.appendChild(option);
-     });
-}            
+        option.value = industry;
+        option.text = industry;
+        subIndustrySelect.appendChild(option);
+    });
+}
