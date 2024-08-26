@@ -112,7 +112,6 @@ body {
 }
 
 .sidebar ul {
-
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -122,9 +121,21 @@ body {
 #matching-management-button {
     margin-bottom: 20px; /* 매칭 리스트 버튼에 추가할 마진 */
     margin-left: 8px;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333; /* 버튼 텍스트 색상 설정 */
+    transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
 }
 
-
+#matching-management-button:hover{
+    background-color: #4580F6; /* 호버 시 배경색 변경 */
+    color: #fff; /* 호버 시 텍스트 색상 변경 */
+    cursor: pointer;
+}
 
 .sidebar button {
     display: block;
@@ -149,15 +160,14 @@ body {
     height: 1px; /* 수직 선의 높이 */
     margin: 0 10px; /* 좌우 여백 지정 */
     margin-bottom: 20px;
-
 }
 
 .content {
     text-align: center;
     flex: 1;
     padding: 20px; /* 콘텐츠 영역에 여백 추가 */
-
 }
+
 .status-accepted {
     background-color: #4580F6; /* 파란색 배경 */
     color: #ffffff; /* 하얀 글씨 */
@@ -173,6 +183,7 @@ body {
     border-radius: 5px; /* 모서리를 둥글게 */
     display: inline-block; /* 인라인 블록으로 설정 */
 }
+
 .phone-info {
     font-size: 1rem;
     margin-bottom: 10px;
@@ -192,8 +203,6 @@ body {
     width: calc(100% - 20px);
     margin-left: 10px;
     text-align: left;
-
-
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
@@ -319,6 +328,7 @@ body {
 
 
 
+
 /* 화면 폭이 작아질 때 카드 크기 조정 */
 @media screen and (max-width: 768px) {
     .card {
@@ -334,7 +344,235 @@ body {
     }
 }
 
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    visibility: hidden; /* 모달이 번쩍이지 않도록 숨김 */
+    position: absolute; /* 화면 전체에 표시 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 다른 요소들보다 위에 표시 */
+}
+/* 모달을 열 때 visibility를 visible로 변경 */
+.modal.show {
+    display: flex;
+    visibility: visible;
+}
+/* 비밀번호 입력 폼 스타일 */
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+}
 
+.modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #555;
+}
+
+.modal-content input[type="password"] {
+    width: calc(100% - 20px); /* 줄어든 너비 */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #333;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 라벨과 입력 필드를 같은 행에 배치 */
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    width: 150px; /* 라벨 너비 */
+    margin-right: 10px; /* 라벨과 입력 필드 사이 간격 */
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+    flex: 1; /* 입력 필드가 가능한 한 최대 너비를 차지하게 함 */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #333;
+    box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+}
+
+/* 텍스트 영역 스타일 */
+form textarea {
+    height: 100px;
+    resize: vertical; /* 수직으로만 크기 조절 가능 */
+}
+
+/* 버튼 스타일 */
+form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+
+
+#password-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+#password-form h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+#password-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #555;
+}
+
+#password-form input[type="password"] {
+    width: calc(100% - 20px); /* 줄어든 너비 */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #333;
+}
+
+#password-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#password-form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* 회원 정보 수정 섹션 스타일 */
+#profile-section {
+    display: none; /* 기본적으로 숨김 */
+    background-color: #fff;
+    padding: 20px;
+    margin-left: 40px;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 회사 및 계약자 필드 스타일 */
+#company-fields, #contractor-fields {
+    margin-bottom: 20px;
+}
+
+/* 회사 정보 필드 스타일 */
+#company-fields label {
+    display: inline-block;
+    width: 150px; /* 적절한 너비로 조정 */
+}
+
+/* 계약자 정보 필드 스타일 */
+#contractor-fields label {
+    display: inline-block;
+    width: 150px; /* 적절한 너비로 조정 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    section {
+        padding: 15px;
+    }
+    
+    form input[type="text"],
+    form input[type="password"],
+    form textarea {
+        padding: 8px;
+    }
+    
+    form button {
+        width: 100%;
+        padding: 10px;
+    }
+}
 /* footer */
 footer {
     background-color: rgb(249, 249, 249); /* 푸터의 배경색을 변경 */
@@ -392,20 +630,36 @@ footer {
 .footer-section ul li:last-child {
     margin-bottom: 20px; /* 마지막 링크 항목과 내용 사이의 간격을 크게 설정 */
 }
-
 .footer-bottom {
-    text-align: left;
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    margin-left: 20px;
+    margin-bottom: 20px;
     padding-top: 20px; /* 푸터 하단과 내용 사이의 간격 */
     border-top: 1px solid #ccc; /* 푸터 상단 경계선 */
     font-size: 12px; /* 푸터 하단 텍스트의 폰트 크기를 줄임 */
 }
 
+.footer_logo {
+    width: 200px; /* 원하는 너비로 조절 */
+    height: auto; /* 비율을 유지하면서 높이를 자동 조절 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 20px; /* 텍스트와의 간격 조절 */
+    margin-left: 100px;
+}
+
+.footer-text {
+    margin-left: auto; /* 나머지 공간을 차지하여 오른쪽 끝으로 이동 */
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+    margin-right: 100px;
+}
+
 .footer-bottom p {
-    display: inline-block; /* p 요소를 블록 레벨에서 인라인 레벨로 변경하여 두 개씩 나눠서 표시 */
-    margin: 5px; /* 각 텍스트 사이의 간격 설정 */
-    width: 50%; /* 부모 요소의 절반만큼 너비를 가짐 */
-    vertical-align: top; /* 상단 정렬 */
-    justify-content: space-between; /* 좌우 여백을 최대로 설정 */
+    margin: 5px 0; /* 각 텍스트 사이의 간격 설정 */
+    width: 100%; /* 부모 요소의 전체 너비를 차지 */
+    font-size: 12px;
 }
 
 a {

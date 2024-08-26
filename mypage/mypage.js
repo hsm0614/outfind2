@@ -1,4 +1,15 @@
 
+// 현재 페이지가 로드되면 실행되는 함수
+window.onload = function() {
+    // 세션 스토리지에서 userType 값을 가져옴
+    const userType = sessionStorage.getItem('userType');
+    
+    // userType이 'company' 또는 'contractor'인지 확인
+    if (userType !== 'company' && userType !== 'contractor') {
+        // 해당하지 않으면 로그인 페이지로 리디렉션
+        window.location.href = '../loginpage/loginpage.html'; // 로그인 페이지 URL에 맞게 수정 필요
+    }
+};
 $(document).ready(function() {
     // 매칭 리스트를 감싸는 부모 요소에 hover 이벤트 추가
     $('.matching-management-button-container').hover(function() {
@@ -10,6 +21,7 @@ $(document).ready(function() {
     });
 
     if (sessionStorage.getItem('userType') === 'contractor') {
+        $('#password-modal').hide();
         $('#matching-management-section').show();
         loadMatchingData();  // 기본으로 모든 매칭 리스트 로드
 
@@ -237,6 +249,7 @@ $(document).ready(function() {
 
     if (sessionStorage.getItem('userType') === 'company') {
         $('#matching-management-section').show();
+        $('#password-modal').hide();
         loadMatchingData();  // 기본으로 모든 매칭 리스트 로드
 
         $('#matching-management-button').click(function() {
@@ -307,3 +320,204 @@ $(document).ready(function() {
         }
     }
 });
+
+
+$(document).ready(function() {
+    // 매칭 관리 버튼 호버 시 서브 버튼 표시
+    $('.matching-management-button-container').hover(function() {
+        $(this).find('.matching-buttons').show(); // 버튼 보이기
+    }, function() {
+        $(this).find('.matching-buttons').hide(); // 버튼 감추기
+    });
+
+    // 매칭 리스트, 매칭 중, 매칭 완료 버튼 클릭 시 섹션 표시
+    $('#matching-management-button').click(function() {
+        $('#matching-management-section').show();
+        $('#password-section').hide();
+        $('#profile-section').hide();
+        $('#password-modal').hide();
+        loadMatchingData();  // 모든 매칭 리스트 로드
+    });
+
+    $('#matching-pending').click(function() {
+        $('#matching-management-section').show();
+        $('#password-section').hide();
+        $('#profile-section').hide();
+        $('#password-modal').hide();
+        loadMatchingData('matching');  // 매칭중 리스트 로드
+    });
+
+    $('#matching-accepted').click(function() {
+        $('#matching-management-section').show();
+        $('#password-section').hide();
+        $('#profile-section').hide();
+        $('#password-modal').hide();
+        loadMatchingData('accepted');  // 매칭완료 리스트 로드
+    });
+
+    // 모달 관련 변수 및 함수
+    var modal = document.getElementById('password-modal');
+    var closeBtn = document.querySelector('.modal .close');
+
+    // 회원 정보 조회 버튼 클릭 시 모달 표시
+    $('#profile').on('click', function() {
+        $('#password-modal').css('visibility', 'visible');
+        $('#matching-management-section').hide();
+        $('#profile-section').hide();
+        modal.style.display = 'flex';
+    });
+
+    // 모달 닫기 버튼 클릭 시 모달 숨기기
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    // 모달 외부 클릭 시 모달 숨기기
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    // 비밀번호 확인 폼 제출 시
+    $('#password-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        const password = $('#password').val();
+        const userType = sessionStorage.getItem('userType');
+        const userEmail = userType === 'contractor'
+            ? sessionStorage.getItem('contractor-email')
+            : sessionStorage.getItem('email');
+    
+        if (!password || !userType || !userEmail) {
+            alert('필수 정보가 누락되었습니다.');
+            return;
+        }
+    
+        $.ajax({
+            type: 'POST',
+            url: '/check-password',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                password: password,
+                userType: userType,
+                userEmail: userEmail
+            }),
+            success: function(response) {
+                if (response.success) {
+                    $('#password-modal').hide();
+                    $('#password-section').hide();
+                    $('#profile-section').show();
+              
+    
+                    if (userType === 'company') {
+                        $('#company-fields').show();
+                        $('#contractor-fields').hide();
+                        $('#business_number').val(response.user.business_number);
+                        $('#company_name').val(response.user.company_name);
+                        $('#representatinve_name').val(response.user.representatinve_name);
+                        $('#address').val(response.user.address);
+                        $('#address_details').val(response.user.address_details);
+                    } else if (userType === 'contractor') {
+                        $('#company-fields').hide();
+                        $('#contractor-fields').show();
+                        $('#business_number').val(response.user.business_number);
+                        $('#contractor_name').val(response.user.contractor_name);
+                        $('#industry').val(response.user.industry);
+                        $('#sub_industry').val(response.user.sub_industry);
+                        $('#location').val(response.user.location);
+                    }
+                    
+                    $('#email').val(response.user.email);
+                    $('#password-update').val(response.user.password);
+                    $('#introduction').val(response.user.introduction);
+                } else {
+                    alert('비밀번호가 일치하지 않습니다.');
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                alert('비밀번호 확인 중 오류가 발생했습니다.');
+            }
+        });
+    });
+    
+    // 회원 정보 수정 폼 제출 시
+    $('#profile-form').on('submit', function(e) {
+        e.preventDefault();
+    
+        const userType = sessionStorage.getItem('userType');
+        const userEmail = userType === 'contractor'
+            ? sessionStorage.getItem('contractor-email')
+            : sessionStorage.getItem('email');
+    
+        const userData = {
+            email: userEmail,
+            business_number: $('#business_number').val(),
+            password: $('#password').val(),
+            introduction: $('#introduction').val()
+        };
+    
+        if (userType === 'company') {
+            userData.company_name = $('#company_name').val();
+            userData.representatinve_name = $('#representatinve_name').val();
+            userData.address = $('#address').val();
+            userData.address_details = $('#address_details').val();
+        } else if (userType === 'contractor') {
+            userData.contractor_name = $('#contractor_name').val();
+            userData.industry = $('#industry').val();
+            userData.sub_industry = $('#sub_industry').val();
+            userData.location = $('#location').val();
+        }
+    
+        $.ajax({
+            type: 'POST',
+            url: '/update-profile',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                userType: userType,
+                userData: userData
+            }),
+            success: function(response) {
+                if (response.success) {
+                    // 2. 납세 증명서 파일 업로드 (선택 사항)
+                    const taxCertificateFile = $('#tax_certificate')[0].files[0];
+                    if (taxCertificateFile) {
+                        const formData = new FormData();
+                        formData.append('email', userEmail);
+                        formData.append('userType', userType); // userType을 추가합니다
+                        formData.append('tax_certificate', taxCertificateFile);
+    
+                        $.ajax({
+                            type: 'POST',
+                            url: '/upload-tax-certificate',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(uploadResponse) {
+                                if (uploadResponse.success) {
+                                    alert('회원 정보와 납세 증명서가 성공적으로 업데이트되었습니다.');
+                                    location.reload();
+                                } else {
+                                    alert('회원 정보는 업데이트되었으나 납세 증명서 업로드에 실패했습니다.');
+                                }
+                            },
+                            error: function(error) {
+                                console.error('Error:', error);
+                                alert('납세 증명서 업로드 중 오류가 발생했습니다.');
+                            }
+                        });
+                    } else {
+                        alert('회원 정보가 성공적으로 업데이트되었습니다.');
+                        location.reload(); 
+                    }
+                } else {
+                    alert('회원 정보 업데이트에 실패했습니다.');
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                alert('회원 정보 업데이트 중 오류가 발생했습니다.');
+            }
+        });
+    });});

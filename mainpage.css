@@ -470,7 +470,7 @@ nav {
     text-align: center;
     display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
     align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
-    margin-right: 300px;
+    margin-right: 600px;
    
 }
 
@@ -697,6 +697,20 @@ nav ul li a:hover {
     font-size: 18px;
     font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
 }
+
+.status-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 5px;
+}
+
+.status-indicator.approved {
+    background-color: green;
+    color: white;
+}
 --------------
 
 
@@ -748,21 +762,35 @@ footer {
 .footer-section ul li:last-child {
     margin-bottom: 20px; /* 마지막 링크 항목과 내용 사이의 간격을 크게 설정 */
 }
-
 .footer-bottom {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
     margin-left: 20px;
     margin-bottom: 20px;
-    text-align: left;
     padding-top: 20px; /* 푸터 하단과 내용 사이의 간격 */
     border-top: 1px solid #ccc; /* 푸터 상단 경계선 */
     font-size: 12px; /* 푸터 하단 텍스트의 폰트 크기를 줄임 */
 }
 
+.footer_logo {
+    width: 200px; /* 원하는 너비로 조절 */
+    height: auto; /* 비율을 유지하면서 높이를 자동 조절 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 20px; /* 텍스트와의 간격 조절 */
+    margin-left: 100px;
+}
+
+.footer-text {
+    margin-left: auto; /* 나머지 공간을 차지하여 오른쪽 끝으로 이동 */
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+    margin-right: 100px;
+}
+
 .footer-bottom p {
-    display: inline-block; /* p 요소를 블록 레벨에서 인라인 레벨로 변경하여 두 개씩 나눠서 표시 */
-    margin: 5px; /* 각 텍스트 사이의 간격 설정 */
-    width: 50%; /* 부모 요소의 절반만큼 너비를 가짐 */
-    vertical-align: top; /* 상단 정렬 */
+    margin: 5px 0; /* 각 텍스트 사이의 간격 설정 */
+    width: 100%; /* 부모 요소의 전체 너비를 차지 */
     font-size: 12px;
 }
 
@@ -770,7 +798,6 @@ a {
     text-decoration: none; /* 링크의 밑줄 제거 */
     color: inherit; /* 부모 요소의 텍스트 색상을 상속하여 링크 색상을 텍스트 색상으로 설정 */
 }
-
 /* 매칭 카드 */
 /* 기업 정보 카드 스타일 */
 .card-container {
@@ -866,7 +893,21 @@ a {
     font-weight: bold;
 }
 
+.status-indicator {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* 원형으로 만들기 */
+    background-color: gray; /* 기본 배경색 */
+    color: white;
+    text-align: center;
+    line-height: 20px; /* 세로 가운데 정렬 */
+    font-weight: bold;
+}
 
+.status-indicator.approved {
+    background-color: green; /* 승인된 상태의 배경색 */
+}
 
 /* CSS 코드 */
 .long-introduction {

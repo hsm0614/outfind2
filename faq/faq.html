@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자주 찾는 질문(FAQ)</title>
+    <link rel="stylesheet" href="faq.css">
+</head>
+<body>
+    <header>
+        <a href="/" class="outfind">아웃파인드</a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">홈</a></li>
+                <li><a href="/company/company.html">회사소개</a></li>
+                <li><a href="/introducepage/introduce.html">매칭 가이드</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+            <ul class="user-links">
+                <li class="login-link"><a href="../loginpage/loginpage.html" id="login-link">로그인</a></li>
+                <li class="signup-link"><a href="../signuppage/signup.html" id="signup-link">회원가입</a></li>
+                <li class="mypage-link"><a href="../mypage/mypage.html" id="mypage-link">마이페이지</a></li>
+                <li class="logout-link"><a href="#" id="logout-link">로그아웃</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="faq-header">
+        <h1>자주 찾는 질문(FAQ)</h1>
+        <div class="search-box">
+            <input type="text" placeholder="검색어를 입력하세요.">
+            <button>🔍</button>
+        </div>
+    </section>
+
+    <div class="faq-container">
+        
+        <!-- FAQ Categories -->
+        <aside class="faq-category">
+            <h2>FAQ 카테고리</h2>
+            <ul id="category-list">
+                <li class="active" data-category="signup">회원가입 <span class="count">(0)</span></li>
+                <li data-category="event">매칭 시스템 <span class="count">(0)</span></li>
+                <li data-category="search">기업검색 <span class="count">(0)</span></li>
+                <li data-category="recommendation">프리미엄 <span class="count">(0)</span></li>
+                <li data-category="profile">프로필 <span class="count">(0)</span></li>
+            </ul>
+        </aside>
+    
+        <!-- FAQ Questions -->
+        <section class="faq-questions">
+            <ul id="question-list">
+                <li data-category="signup">
+                    <div class="question">
+                        <span class="badge">회원가입</span> 회원가입의 기준이 어떻게 되나요?
+                    </div>
+                    <div class="answer" style="display: none;">
+                        아웃소싱, 기업 모두 사업자 등록증을 보유 하고 있는 기업만 회원가입 가능합니다.
+                    </div>
+                </li>
+                <li data-category="signup">
+                    <div class="question">
+                        <span class="badge">회원가입</span> 회원가입 절차가 어떻게 되나요?
+                    </div>
+                    <div class="answer" style="display: none;">
+                        회원가입 절차는 다음과 같습니다. ...
+                    </div>
+                </li>
+                <li data-category="search">
+                    <div class="question">
+                        <span class="badge">기업검색</span> 기업검색 방법은 무엇인가요?
+                    </div>
+                    <div class="answer" style="display: none;">
+                        기업검색 방법에 대한 설명입니다. ...
+                    </div>
+                </li>
+                <li data-category="message">
+                    <div class="question">
+                        <span class="badge">메시지</span> 메시지 기능은 어떻게 사용하나요?
+                    </div>
+                    <div class="answer" style="display: none;">
+                        메시지 기능 사용 방법에 대한 설명입니다. ...
+                    </div>
+                </li>
+                <!-- 다른 카테고리의 질문들도 추가 -->
+            </ul>
+        </section>
+    </div>
+   
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="faq.js"></script>
+</body>
+
+</html>

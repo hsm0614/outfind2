@@ -1,0 +1,549 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-image: url('../image/mainpageimage.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    height: 80vh;
+    padding: 0;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden; /* 자식 요소가 부모 요소를 벗어나는 것을 숨김 */
+}
+
+.outfind {
+    text-decoration: none;
+    font-size: 24px; /* 로고 텍스트의 크기 */
+    font-weight: bold; /* 로고 텍스트의 굵기 */
+    color: #fff; /* 로고 텍스트의 색상 */
+    position: absolute; /* 로고를 절대적으로 위치시킴 */
+    top: 20px; /* 헤더의 상단에 로고를 배치 */
+    left: 30px; /* 헤더의 왼쪽에 로고를 배치 */
+    margin-top: 10px;
+    z-index: 5;
+}
+
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+    height: 100%;
+    opacity: 0; /* 애니메이션 전에 텍스트를 보이지 않게 설정 */
+    transform: translateY(-100px); /* 애니메이션 전에 텍스트를 위로 이동 */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.header-text.show {
+    opacity: 1; /* 애니메이션 후에 텍스트를 보이게 설정 */
+    transform: translateY(0); /* 애니메이션 후에 텍스트를 원래 위치로 이동 */
+}
+
+.h1-first {
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+    font-size: 1.5vw; /* 첫 번째 텍스트의 크기 설정 */
+    font-weight: 300; /* 첫 번째 텍스트의 굵기 설정 */
+    color: #fff; /* 첫 번째 텍스트의 색상 설정 */
+    margin-bottom: 40px; /* 첫 번째 텍스트 아래 여백 설정 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    
+}
+
+.h1-outfind {
+    font-family: 'Noto Sans KR', serif; /* 두 번째 텍스트의 글꼴 설정 */
+    font-size: 4vw; /* 두 번째 텍스트의 크기 설정 */
+    font-weight: bold; /* 두 번째 텍스트의 굵기 설정 */
+    color: #FFF; /* 두 번째 텍스트의 색상 설정 */
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    
+}
+
+.h1-second {
+    font-family: 'Noto Sans KR', sans-serif; /* 세 번째 텍스트의 글꼴 설정 */
+    font-size: 2vw; /* 세 번째 텍스트의 크기 설정 */
+    font-weight: 300; /* 세 번째 텍스트의 굵기 설정 */
+    color: #fff; /* 세 번째 텍스트의 색상 설정 */
+    margin-top: 0px; /* 세 번째 텍스트 위 여백 설정 */
+    margin-bottom: 80px;
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+
+}
+
+
+/*nav*/
+nav {
+    display: flex;
+    position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
+    top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
+    right: 20px; /* 헤더의 오른쪽에 네비게이션을 배치 */
+    align-items: center;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    text-align: center;
+    display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
+    align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
+    margin-right: 600px;
+   
+}
+
+.nav-links li {
+    margin-right: 10px; /* 각 항목 사이의 간격 설정 */
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 100px;
+}
+
+nav ul li a {
+    color: #fff; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    margin-right: 30px;
+}
+
+.nav-links li a::after {
+    content: "|"; /* 각 항목 사이에 짝대기 추가 */
+    margin-left: 20px; /* 짝대기와 텍스트 사이의 간격 설정 */
+}
+
+.nav-links li:last-child a::after {
+    content: none; /* 마지막 항목의 짝대기 제거 */
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* 호버 시 밑줄 추가 */
+}
+
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        
+        display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .nav-links li {
+        display: none; /* 작은 화면에서는 nav link를 숨김 */
+    }
+}
+
+.user-links {
+    margin-left: auto; /* 사용자 링크를 오른쪽으로 이동하여 로그인 및 회원가입이 오른쪽에 위치하도록 함 */
+}
+
+.user-links li {
+    margin-left: 0px; /* 각 항목 사이의 간격 설정 */
+    margin-right: 0px;
+}
+
+.user-links li a {
+    text-decoration: none; /* 링크 텍스트의 밑줄 제거 */
+    color: #fff; /* 링크 텍스트 색상 */
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* 세로 정렬로 변경 */
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center;
+    margin-right: 600px;
+    padding: 100px 20px;
+    position: relative;
+    height: 100%;
+}
+
+.headline {
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */    text-align: end;
+    font-size: 4em;
+    font-weight: bold;
+    line-height: 1.3em;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    color: white;
+    max-width: 100%; /* 헤드라인의 최대 너비 설정 */
+    bottom: 20%;
+
+}
+
+.headline .highlight {
+    color: white; /* 초기 색상: 흰색 */
+    display: inline-block;
+    position: relative;
+    transition: color 0.3s ease; /* 색상 변경 시 부드러운 전환 효과 */
+}
+
+.subtext {
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */    
+    text-align: end;
+    font-size: 20px;
+    line-height: 1.5em;
+    text-align: start;
+    color: white;
+    position: absolute; /* 서브텍스트를 헤드라인의 오른쪽에 위치시키기 위해 사용 */
+    top: 0; /* 헤드라인과 같은 높이로 맞추기 */
+    right: -70%; /* 헤드라인 오른쪽으로 이동 */
+    max-width: 60%; /* 서브텍스트의 최대 너비 설정 */
+    z-index: 2;
+    box-sizing: border-box; /* 패딩과 테두리도 너비에 포함되도록 설정 */
+}
+
+
+
+/* 서브텍스트를 감싸는 네모 박스 */
+.subtext-wrapper {
+    transform: translateY(-10px); /* 네모를 위로 이동 (값 조정 가능) */
+    position: absolute;
+    top: 0;
+    right: -72%;
+    width: 60%; /* 서브텍스트와 동일한 너비로 설정 */
+    height: 100%; /* 초기 높이는 서브텍스트의 높이에 맞게 설정 */
+    border: 3px solid transparent; /* 초기 상태에서 테두리 없음 */
+    border-color: #00d8ff; /* 하이라이트 색상으로 설정 */
+    box-sizing: border-box;
+    z-index: 1; /* 서브텍스트 아래에 위치하도록 설정 */
+    pointer-events: none; /* 클릭 이벤트를 방지 */
+    overflow: hidden; /* 자식 요소가 박스를 넘어가지 않도록 설정 */
+    animation: drawBox 2s forwards; /* 애니메이션 설정 */
+}
+
+@keyframes drawBox {
+    0% {
+        width: 0;
+        height: 0;
+        border-width: 3px;
+    }
+    25% {
+        width: 65%;
+        height: 0;
+        border-width: 3px;
+    }
+    50% {
+        width: 65%;
+        height: 150%; /* 서브텍스트의 높이에 맞춰서 */
+        border-width: 3px;
+    }
+    75% {
+        width: 65%;
+        height: 150%; /* 서브텍스트의 높이에 맞춰서 */
+        border-width: 3px;
+    }
+    100% {
+        width: 65%;
+        height: 100%; /* 서브텍스트의 높이에 맞춰서 */
+        border-width: 3px;
+    }
+}
+/* 애니메이션 완료 후 하이라이트 색상 변경 */
+/* 애니메이션이 끝난 후 하이라이트 색상 변경 */
+.subtext-wrapper {
+    animation: drawBox 2s forwards; /* 애니메이션 설정 */
+}
+
+@keyframes colorChange {
+    0% {
+        color: white; /* 초기 색상 */
+    }
+    100% {
+        color: #00d8ff; /* 애니메이션 완료 후 색상 */
+    }
+}
+
+/* 매치 섹션 스타일링 */
+.match-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px;
+    background-color: white; /* 배경색을 흰색으로 설정 */
+    position: relative;
+    height: 100%;
+}
+
+.match-container {
+    margin-left: 40px;
+    max-width: 600px;
+    z-index: 2; /* 이미지보다 앞에 오도록 설정 */
+}
+
+.match-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #0066ff; /* 제목 색상 설정 */
+    margin-bottom: 20px;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */    
+
+}
+
+.match-description {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    color: #333; /* 본문 색상 설정 */
+    margin-bottom: 30px;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */    
+}
+
+.apply-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #0066ff;
+    background-color: white;
+    border: 2px solid #0066ff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.apply-button:hover {
+    background-color: #0066ff;
+    color: white;
+}
+
+/* 로고 이미지 스타일링 */
+.logo3 {
+    margin-right: 40px;
+    max-width: 50%;
+    height: auto;
+    z-index: 1; /* 텍스트 및 버튼보다 뒤에 위치 */
+    object-fit: contain;
+    align-self: center; /* 수직 가운데 정렬 */
+    opacity: 0.5;
+}
+
+
+
+.info-section {
+    padding: 50px 0;
+    background-color: white; /* 섹션 배경색 */
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+
+.info-box {
+    width: 45%;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cyan-box {
+    background-color: #00c3d7;
+    margin-bottom: 100px;
+}
+
+.blue-box {
+    background-color: #0096ff;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.image-box {
+    width: 30%;
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    opacity: 0.8; /* 투명도 조절 */
+}
+
+@media (max-width: 768px) {
+    .info-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-box, .image-box {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .info-box {
+        margin-bottom: 20px;
+    }
+}
+
+/* 기존 features-section을 위한 CSS */
+.features-section {
+    text-align: center;
+    padding: 40px;
+    background-color: #F4F9FD;
+}
+.features-section{
+    background-color: white; /* 섹션 배경색 */
+}
+.features-section h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center; /* 제목 중앙 정렬 */
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+
+.features-section .matchd-blue {
+    color: #4580F6;
+}
+
+.features-section .highlight-blue {
+    color: #00AEEF;
+}
+
+.features-container {
+    display: flex;
+    flex-wrap: wrap; /* 항목들이 화면에 맞게 줄 바꿈 */
+    justify-content: space-between; /* 항목들 사이에 여백을 균등하게 배치 */
+    gap: 20px; /* 항목들 사이의 간격 */
+    margin-top: 30px;
+}
+
+.feature-item {
+    /* 카드 스타일 제거 */
+    text-align: center; /* 내용 중앙 정렬 */
+    flex: 1 1 calc(25% - 20px); /* 각 항목이 4개로 나열되도록 설정 */
+    box-sizing: border-box; /* 패딩과 테두리가 요소의 너비에 포함되도록 설정 */
+}
+
+.feature-item img {
+    max-width: 100%; /* 이미지가 부모 요소의 너비에 맞게 조정됨 */
+    height: 50%; /* 이미지의 비율 유지 */
+    margin-bottom: 10px; /* 이미지와 텍스트 간의 간격 */
+}
+
+.feature-item h2 {
+    font-size: 1.5rem; /* 제목 폰트 크기 조정 */
+    margin-bottom: 10px;
+    color: #333;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+
+.feature-item p {
+    font-size: 18px;
+    color: #666;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+
+
+
+/* 추가적인 반응형 디자인 설정 */
+@media (max-width: 768px) {
+    .features-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+footer {
+    background-color: rgb(249, 249, 249); /* 푸터의 배경색을 변경 */
+    color: #666; /* 푸터의 텍스트 색상을 회색으로 설정 */
+    padding: 50px 0; /* 푸터의 위아래 패딩 */
+    text-align: center; /* 모든 텍스트를 가로로 정렬 */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽 정렬 */
+    border-bottom: 1px solid #ccc; /* 각 섹션 사이의 구분선 */
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px; /* 좌우 여백 추가 */
+}
+
+.footer-section h2 {
+    color: #666; /* 섹션 제목의 색상 */
+    font-size: 18px; /* 섹션 제목의 폰트 크기 */
+    margin-bottom: 10px; /* 섹션 제목과 내용 사이의 간격 */
+}
+
+.footer-section p {
+    font-size: 14px; /* 섹션 내용의 폰트 크기 */
+    line-height: 1.5; /* 섹션 내용의 줄 간격 */
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px; /* 각 링크 항목 사이의 간격 */
+}
+
+.footer-section ul li a {
+    color: #666; /* 링크 텍스트의 색상 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.footer-section ul li:last-child {
+    margin-bottom: 20px; /* 마지막 링크 항목과 내용 사이의 간격을 크게 설정 */
+}.footer-bottom {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding-top: 20px; /* 푸터 하단과 내용 사이의 간격 */
+    border-top: 1px solid #ccc; /* 푸터 상단 경계선 */
+    font-size: 12px; /* 푸터 하단 텍스트의 폰트 크기를 줄임 */
+}
+
+.footer_logo {
+    width: 200px; /* 원하는 너비로 조절 */
+    height: auto; /* 비율을 유지하면서 높이를 자동 조절 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 20px; /* 텍스트와의 간격 조절 */
+    margin-left: 100px;
+}
+
+.footer-text {
+    margin-left: auto; /* 나머지 공간을 차지하여 오른쪽 끝으로 이동 */
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+    margin-right: 100px;
+}
+
+.footer-bottom p {
+    margin: 5px 0; /* 각 텍스트 사이의 간격 설정 */
+    width: 100%; /* 부모 요소의 전체 너비를 차지 */
+    font-size: 12px;
+}
+
+a {
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 부모 요소의 텍스트 색상을 상속하여 링크 색상을 텍스트 색상으로 설정 */
+}

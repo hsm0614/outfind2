@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require('express-session'); // express-session 모듈 추가
 const path = require("path");
+const multer = require('multer');
 const app = express();
 const bodyParser = require("body-parser");
 const uuid = require('uuid').v4; // uuid 패키지를 사용하여 고유한 세션 ID 생성
@@ -107,191 +108,19 @@ app.use(express.static(path.join(__dirname, 'outfind2', 'image')));
 app.use(express.static(path.join(__dirname, 'outfind2')));
 app.use(express.static(path.join(__dirname, 'loginpage')));
 app.use(express.static(path.join(__dirname, 'mypage')));
+app.use('/admin/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
-// 루트 경로에 대한 요청 처리
-app.get("/", function(req, res){
-    res.sendFile(path.join(__dirname, "maintpage.html")); // 절대 경로를 사용하여 파일 보내기
+// 정적 파일 서빙을 위한 미들웨어 설정
+app.use(express.static('/home/ubuntu/outfind2'));
+
+// 루트 경로 요청 처리
+app.get('/', function(req, res) {
+    res.sendFile(path.join('/home/ubuntu/outfind2', 'maintpage.html'));
 });
 
-app.get("/mainpage.css", function(req, res){
-    res.sendFile(path.join(__dirname, "mainpage.css"));
-});
-app.get("/mainpagemob.css", function(req, res){
-    res.sendFile(path.join(__dirname, "mainpagemob.css"));
-});
-app.get("/mainpage.js", function(req, res){
-    res.sendFile(path.join(__dirname, "mainpage.js"));
-});
-
-
-app.get("/introducepage/introduce.html", function(req, res){
-    res.sendFile(path.join(__dirname, "introducepage", "introduce.html"));
-});
-app.get("/introducepage/introduce.css", function(req, res){
-    res.sendFile(path.join(__dirname, "introducepage", "introduce.css"));
-});
-app.get("/introducepage/introduce.js", function(req, res){
-    res.sendFile(path.join(__dirname, "introducepage", "introduce.js"));
-});
-// 회원가입 패이지
-app.get("/signuppage/signup.html", function(req, res){
-    res.sendFile(path.join(__dirname, "signuppage", "signup.html"));
-});
-app.get("/signuppage/singup.css", function(req, res){
-    res.sendFile(path.join(__dirname, "signuppage", "singup.css"));
-});
-app.get("/signuppage/signupmob.css", function(req, res){
-    res.sendFile(path.join(__dirname, "signuppage", "signupmob.css"));
-});
-app.get('/signuppage/signup.js', function(req, res) {
-    res.type('text/javascript');
-    res.sendFile(__dirname + '/signuppage/signup.js');
-});
-app.get('/signuppage/agree.txt', function(req, res) {
-    res.type('text/plain');
-    res.sendFile(__dirname + '/signuppage/agree.txt');
-});
-// 로그인페이지
-app.get("/loginpage/loginpage.html", function(req, res){
-    res.sendFile(path.join(__dirname, "loginpage", "loginpage.html"));
-});
-
-app.get("/loginpage/password.html", function(req, res){
-    res.sendFile(path.join(__dirname, "loginpage", "password.html"));
-});
-app.get("/loginpage/login.css", function(req, res){
-    res.sendFile(path.join(__dirname, "loginpage", "login.css"));
-});
-app.get("/loginpage/loginmob.css", function(req, res){
-    res.sendFile(path.join(__dirname, "loginpage", "loginmob.css"));
-});
-app.get('/loginpage/login.js', function(req, res) {
-    res.type('text/javascript');
-    res.sendFile(__dirname + '/loginpage/login.js');
-});
-
-//마이페이지
-app.get("/mypage/mypage.html", function(req, res){
-    res.sendFile(path.join(__dirname, "mypage", "mypage.html"));
-});
-app.get("/mypage/mypage.css", function(req, res){
-    res.sendFile(path.join(__dirname, "mypage", "mypage.css"));
-});
-app.get("/mypage/mypagemob.css", function(req, res){
-    res.sendFile(path.join(__dirname, "mypage", "mypagemob.css"));
-});
-app.get('/mypage/mypage.js', function(req, res) {
-    res.type('text/javascript');
-    res.sendFile(__dirname + '/mypage/mypage.js');
-});
-
-app.get("/agree/agree.html", function(req, res){
-    res.sendFile(path.join(__dirname, "agree", "agree.html"));
-});
-app.get("/agree/agree2.html", function(req, res){
-    res.sendFile(path.join(__dirname, "agree", "agree2.html"));
-});
-app.get("/agree/agree.css", function(req, res){
-    res.sendFile(path.join(__dirname, "agree", "agree.css"));
-});
-
-// 이미지 파일에 대한 요청 처리
-app.get("/image/mainpageimage.png", function(req, res){
-  res.sendFile(path.join(__dirname, 'image', 'mainpageimage.png'));
-});
-
-app.get("/image/savemoney.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'savemoney.png'));
-  });
-
-  app.get("/image/savetime.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'savetime.png'));
-  });
-  
-  app.get("/image/goodcontract.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'goodcontract.png'));
-  });
-
-  app.get("/image/manage.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'manage.png'));
-  });
-
-  app.get("/image/BM.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'BM.png'));
-  });
-
-  app.get("/image/loginimage.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'loginimage.png'));
-  });
-
-  app.get("/image/logo2.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'logo2.png'));
-  });
-  app.get("/image/favicon.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'favicon.png'));
-  });
-  app.get("/image/qulity.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'qulity.png'));
-  });
-  app.get("/image/qulity2.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'qulity2.png'));
-  });
-  app.get("/image/qulity3.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'qulity3.png'));
-  });
-  app.get("/image/computerrm.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'computerrm.png'));
-  });
-  app.get("/image/money.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'money.png'));
-  });
-  app.get("/image/outsourcing.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'outsourcing.png'));
-  });
-  app.get("/image/securitydocument.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'securitydocument.png'));
-  });
-  app.get("/image/industry.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'industry.png'));
-  });  app.get("/image/location.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'location.png'));
-  });  app.get("/image/people.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'people.png'));
-  });  app.get("/image/phone.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'phone.png'));
-  });
-  app.get("/image/modal.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'modal.png'));
-  });
-  app.get("/image/video.gif", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'video.gif'));
-  });
-  app.get("/image/check.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'check.png'));
-  });
-  app.get("/image/outsourcing.gif", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'outsourcing.gif'));
-  });
-  app.get("/image/sales.gif", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'sales.gif'));
-  });
-  app.get("/image/signup2.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'signup2.png'));
-  });
-  app.get("/image/capture.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'capture.png'));
-  });
-  app.get("/image/career.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'career.png'));
-  });
-  app.get("/image/work.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'work.png'));
-  });
-  app.get("/image/introduction.png", function(req, res){
-    res.sendFile(path.join(__dirname, 'image', 'introduction.png'));
-  });
-
+// 정적 파일 제공을 위한 미들웨어 설정
+app.use('/image', express.static(path.join(__dirname, 'image')));
 
   // 특정 파일에 대한 라우팅
 app.get("/favicon_package_v0.16", function(req, res){
@@ -393,6 +222,7 @@ app.post('/check-contractor-email', (req, res) => {
 // 기업 로그인 처리
 app.post("/loginpage/loginpage.html/login/company", function(req, res) {
 
+    
     const { companyEmail, companyPassword } = req.body;
 
     const query = `SELECT * FROM company WHERE email = ? AND password = ?`;
@@ -719,7 +549,7 @@ app.post('/matching-info', (req, res) => {
 
         // 매칭된 업체 정보를 가져오는 SQL 쿼리
         const matchingInfoQuery = `
-            SELECT c.contractor_name, c.email, c.industry, c.sub_industry, c.location, c.introduction
+            SELECT c.contractor_name, c.email, c.industry, c.sub_industry, c.location, c.introduction,  c.status
             FROM matchinginfo mi
             JOIN contractors c
             ON mi.contractor_email1 = c.email OR mi.contractor_email2 = c.email 
@@ -951,5 +781,229 @@ app.post("/payment/complete", async (req, res) => {
     } catch (e) {
         console.error('결제 검증에 실패했습니다:', e.message);
         res.status(400).send({ error: e.message });
+    }
+});
+
+// 비밀번호 확인 요청 처리
+app.post('/check-password', (req, res) => {
+    const { password, userType, userEmail } = req.body;
+
+    if (!password || !userType || !userEmail) {
+        return res.status(400).json({ success: false, message: '필수 정보가 누락되었습니다.' });
+    }
+
+    let query = '';
+    if (userType === 'company') {
+        query = 'SELECT * FROM company WHERE email = ?';
+    } else if (userType === 'contractor') {
+        query = 'SELECT * FROM contractors WHERE email = ?';
+    } else {
+        return res.status(400).json({ success: false, message: '유효하지 않은 사용자 유형입니다.' });
+    }
+
+    connection.query(query, [userEmail], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        const user = results[0];
+
+        if (password === user.password) {
+            res.json({ success: true, user });
+        } else {
+            res.status(401).json({ success: false, message: '비밀번호가 일치하지 않습니다.' });
+        }
+    });
+});
+app.post('/update-profile', (req, res) => {
+    const { userType, userData } = req.body;
+    console.log('Received update-profile request:', { userType, userData });
+    if (!userType || !userData || !userData.email) {
+        return res.status(400).json({ success: false, message: '필수 정보가 누락되었습니다.' });
+    }
+
+    let query = '';
+    let queryParams = [];
+
+    if (userType === 'company') {
+        query = `UPDATE company SET 
+                    business_number = ?, company_name = ?, 
+                    representatinve_name = ?, password = ?, 
+                    address = ?, address_details = ?, 
+                    introduction = ? WHERE email = ?`;
+        queryParams = [
+            userData.business_number, userData.company_name, 
+            userData.representatinve_name, userData.password, 
+            userData.address, userData.address_details, 
+            userData.introduction, userData.email
+        ];
+    } else if (userType === 'contractor') {
+        query = `UPDATE contractors SET 
+                    business_number = ?, contractor_name = ?, 
+                    password = ?, industry = ?, 
+                    sub_industry = ?, location = ?, 
+                    introduction = ? WHERE email = ?`;
+        queryParams = [
+            userData.business_number, userData.contractor_name, 
+            userData.password, userData.industry, 
+            userData.sub_industry, userData.location, 
+            userData.introduction, userData.email
+        ];
+    } else {
+        return res.status(400).json({ success: false, message: '유효하지 않은 사용자 유형입니다.' });
+    }
+
+    connection.query(query, queryParams, (err, results) => {
+        if (err) {
+            console.error('Database update error:', err);
+            return res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+        }
+
+        res.json({ success: true, message: '회원 정보가 성공적으로 업데이트되었습니다.' });
+    });
+});
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/'); // 파일 저장 경로
+    },
+    filename: function(req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname)); // 파일 이름 설정
+    }
+});
+
+const upload = multer({ storage: storage });
+app.post('/upload-tax-certificate', upload.single('tax_certificate'), (req, res) => {
+    const { email, userType } = req.body; // userType을 req.body에서 추출합니다
+    const taxCertificatePath = req.file ? req.file.path : null;
+    console.log('Received upload-tax-certificate request:', { email, userType, taxCertificatePath });
+    if (!email || !taxCertificatePath) {
+        return res.status(400).json({ success: false, message: '필수 정보가 누락되었습니다.' });
+    }
+
+    let query = '';
+
+    if (req.body.userType === 'company') {
+        query = 'UPDATE company SET tax_certificate = ?, status = \'pending\' WHERE email = ?';
+    } else if (req.body.userType === 'contractor') {
+        query = 'UPDATE contractors SET tax_certificate = ?, status = \'pending\' WHERE email = ?';
+    } else {
+        return res.status(400).json({ success: false, message: '유효하지 않은 사용자 유형입니다.' });
+    }
+    connection.query(query, [taxCertificatePath, email], (err, results) => {
+        if (err) {
+            console.error('Database update error:', err);
+            return res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+        }
+
+        res.json({ success: true, message: '납세 증명서가 성공적으로 업로드되었습니다.' });
+    });
+});
+
+
+// 관리자 승인/거부 처리
+app.post('/admin/approve', (req, res) => {
+    const { email, userType, action } = req.body;
+
+    const status = action === 'approve' ? 'approved' : 'rejected';
+    let query = '';
+
+    if (userType === 'company') {
+        query = 'UPDATE company SET status = ? WHERE email = ?';
+    } else if (userType === 'contractor') {
+        query = 'UPDATE contractors SET status = ? WHERE email = ?';
+    } else {
+        return res.status(400).json({ success: false, message: '유효하지 않은 사용자 유형입니다.' });
+    }
+
+    connection.query(query, [status, email], (error, results) => {
+        if (error) {
+            console.error('DB 업데이트 오류:', error);
+            return res.status(500).send('서버 오류');
+        } else {
+            return res.send(`파일이 ${status}되었습니다.`);
+        }
+    });
+});
+
+
+app.get('/admin/get-users', (req, res) => {
+    if (!req.session.isAdmin) {
+        return res.status(403).json({ success: false, message: '관리자만 접근할 수 있습니다.' });
+    }
+
+    // 회사와 계약자 모두 포함하는 쿼리
+    const query = `
+        SELECT 'company' AS user_type, email, company_name AS name, tax_certificate, status
+        FROM company
+        WHERE tax_certificate IS NOT NULL
+        UNION ALL
+        SELECT 'contractor' AS user_type, email, contractor_name AS name, tax_certificate, status
+        FROM contractors
+        WHERE tax_certificate IS NOT NULL
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+        }
+
+        res.json(results);
+    });
+});
+
+app.post('/admin/update-status', (req, res) => {
+    if (!req.session.isAdmin) {
+        return res.status(403).json({ success: false, message: '관리자만 접근할 수 있습니다.' });
+    }
+
+    const { email, status, userType } = req.body;
+
+    if (!email || !status || !userType) {
+        return res.status(400).json({ success: false, message: '필수 정보가 누락되었습니다.' });
+    }
+
+    let query = '';
+    if (userType === 'company') {
+        query = 'UPDATE company SET status = ? WHERE email = ?';
+    } else if (userType === 'contractor') {
+        query = 'UPDATE contractors SET status = ? WHERE email = ?';
+    } else {
+        return res.status(400).json({ success: false, message: '유효하지 않은 사용자 유형입니다.' });
+    }
+
+    const queryParams = [status, email];
+
+    connection.query(query, queryParams, (err, results) => {
+        if (err) {
+            console.error('Database update error:', err);
+            return res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+        }
+
+        res.json({ success: true, message: '상태가 성공적으로 업데이트되었습니다.' });
+    });
+});
+const ADMIN_EMAIL = 'hymingef@naver.com';
+const ADMIN_PASSWORD = 'tjdals0912!';
+
+app.post('/adminlogin', (req, res) => {
+    const { email, password } = req.body;
+
+    console.log('Received login request:', email, password); // 요청 로그
+
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        const token = createToken(email); // 토큰 생성 함수 호출
+        req.session.isAdmin = true; // 세션에 관리자 정보 저장
+        res.json({ email: email, token: token, userType: 'admin' });
+    } else {
+        console.log('Invalid credentials:', email, password); // 잘못된 로그인 시도 로그
+        res.status(401).send('이메일 또는 비밀번호가 올바르지 않습니다.');
     }
 });

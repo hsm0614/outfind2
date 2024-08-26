@@ -1,0 +1,256 @@
+header {
+    background-color: #ffffff; /* 배경색을 흰색으로 설정 */
+    color: #000000; /* 글씨색을 검은색으로 설정 */
+    text-align: center;
+    height: 70px; /* 헤더의 높이를 70px로 설정 */
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.outfind {
+    text-decoration: none;
+    font-size: 24px; /* 로고 텍스트의 크기 */
+    font-weight: bold; /* 로고 텍스트의 굵기 */
+    color: #000000; /* 로고 텍스트의 색상 */
+    position: absolute; /* 로고를 절대적으로 위치시킴 */
+    top: 10px; /* 헤더의 상단에 로고를 배치 */
+    left: 30px; /* 헤더의 왼쪽에 로고를 배치 */
+    margin-top: 10px;
+}
+nav {
+    display: flex;
+    position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
+    top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
+    right: 20px; /* 헤더의 오른쪽에 네비게이션을 배치 */
+    align-items: center;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    text-align: center;
+    display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
+    align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
+    margin-right: 600px;
+   
+}
+
+.nav-links li {
+    margin-right: 10px; /* 각 항목 사이의 간격 설정 */
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 100px;
+}
+
+nav ul li a {
+    color: black; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    margin-right: 30px;
+}
+
+.nav-links li a::after {
+    content: "|"; /* 각 항목 사이에 짝대기 추가 */
+    margin-left: 20px; /* 짝대기와 텍스트 사이의 간격 설정 */
+}
+
+.nav-links li:last-child a::after {
+    content: none; /* 마지막 항목의 짝대기 제거 */
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* 호버 시 밑줄 추가 */
+}
+
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        
+        display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .nav-links li {
+        display: none; /* 작은 화면에서는 nav link를 숨김 */
+    }
+}
+
+.user-links {
+    color: black; /* 링크 텍스트 색상 */
+    margin-left: auto; /* 사용자 링크를 오른쪽으로 이동하여 로그인 및 회원가입이 오른쪽에 위치하도록 함 */
+}
+
+.user-links li {
+    margin-left: 0px; /* 각 항목 사이의 간격 설정 */
+    margin-right: 0px;
+}
+
+.user-links li a {
+    text-decoration: none; /* 링크 텍스트의 밑줄 제거 */
+    color: black; /* 링크 텍스트 색상 */
+}
+
+/* FAQ 헤더 섹션 스타일 */
+.faq-header {
+    background-color: #f7f7f7;
+    padding: 40px 0; /* 상하단에 충분한 패딩을 추가하여 nav와 구분 */
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    max-width: 80%;
+    margin: 0 auto; /* 가운데 정렬을 위한 설정 */
+}
+
+.faq-header h1 {
+    font-size: 32px;
+    color: #333;
+    margin: 0 0 20px 0;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.search-box input {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.faq-questions .answer {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    display: none;
+}
+
+.question {
+    cursor: pointer;
+}
+
+.question:hover {
+    background-color: #f0f0f0;
+}
+/* FAQ 섹션 레이아웃 */
+.faq-container {
+    width: 80%;
+    margin: 30px auto;
+    display: flex;
+}
+
+.faq-category {
+    width: 25%;
+}
+
+.faq-category h2 {
+    font-size: 18px;
+    color: #333;
+}
+
+.faq-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.faq-category li {
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.faq-category li.active {
+    font-weight: bold;
+    color: #333;
+}
+
+.faq-questions {
+    width: 70%;
+    margin-left: 5%;
+}
+
+.faq-questions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.faq-questions .question {
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.question {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 기본 화살표 스타일 (아래로 향함) */
+.question::after {
+    content: "▼"; /* 기본 아래로 향하는 화살표 */
+    font-size: 12px;
+    color: #333;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+    margin-left: auto; /* 자동으로 왼쪽 여백을 채워 화살표를 오른쪽 끝으로 이동 */
+}
+
+/* 화살표 회전 스타일 (질문 클릭 시 위로 향함) */
+.question.active::after {
+    content: "▲"; /* 위로 향하는 화살표 */
+}
+
+/* .answer 클래스의 스타일 */
+.answer {
+    padding: 10px;
+    border-left: 2px solid #ddd;
+    margin: 0;
+    color: #555;
+}
+
+.badge {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .nav-links li {
+        display: none;
+    }
+}

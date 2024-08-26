@@ -312,11 +312,23 @@ function fetchMatchingInfo() {
 
 // 매칭된 업체 정보를 화면에 표시하는 함수
 function displayContractors(matchingInfo) {
-    console.log(matchingInfo)
+    
     // 매칭된 업체 정보를 받아와서 화면에 표시하는 코드를 작성
     matchingInfo.forEach(function (contractor, index) {
         var companyCard = $('<div class="card"></div>'); // 카드 스타일 적용
         companyCard.attr('data-contractor-email', contractor.email);
+
+         // '납'을 표시할 원
+         var approvalStatus = contractor.status; // 'approved', 'pending' 등 상태 확인
+         var statusIndicator = '';
+         if (approvalStatus === 'approved') {
+             statusIndicator = '<div class="status-indicator approved">납</div>';
+         }
+        
+         // 상태 표시기가 있을 경우에만 카드에 추가
+        if (statusIndicator) {
+            companyCard.append(statusIndicator);
+        }
         // 업체 정보를 텍스트로 설정하여 요소에 추가
         companyCard.append(
             '<div class="contractor_name"> <div class="contractor_name-content">' +
