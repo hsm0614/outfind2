@@ -9,6 +9,7 @@
       
       
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src='/mainpage.js'></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link
             rel="preconnect"
@@ -41,6 +42,14 @@
         <meta name="theme-color" content="#ffffff">
     </head>
     <body>
+        <div class="mobile-header">
+            <a href="/" class="outfind2">아웃파인드</a>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
         <header>
             <a href="/" class="outfind">아웃파인드</a>
             <nav>
@@ -76,18 +85,45 @@
                     <!-- 로그아웃 버튼 추가 -->
                 </ul>
             </nav>
+            
             <div class="container">
                 <div class="headline">
-                    <span class="highlight">아웃파인드는</span><br>
-                    <span>영업의 근본적 문제를,<br> 아웃소싱 선택의 고민을</span><span class="highlight"> 해결합니다.</span>
+                    <span class="highlight">아웃파인드는</span>
+                    <br>
+                    <span>영업의 근본적 문제를,<br>
+                    아웃소싱 선택의 고민을</span>
+                    <span class="highlight"> 해결합니다.</span>
+                </div>
+                <div class="subtext-wrapper"> <!-- 네모 애니메이션을 위한 래퍼 -->
                     <div class="subtext">
-                        인력도급업체의 영업의 어려움은 아웃파인드가 정확히 알고 있습니다.<br><br>
-                        클라이언트를 상대하는 것, 그 과정에서의 비용, 시간, 등 여러 어려움이 있는 것을 알고 있습니다. 아웃파인드는 이 영업을 단순화하는 것을 넘어, 인력도급업체의 편의 제공을 목표하고 있습니다.
+                        인력도급업체의 영업의 어려움은 아웃파인드가 정확히 알고 있습니다.<br>
+                        <br>
+                        클라이언트를 상대하는 것, 그 과정에서의 비용, 시간, 등 여러 어려움이 있는 것을 알고 있습니다. 
+                        아웃파인드는 이 영업을 단순화하는 것을 넘어, 인력도급업체의 편의 제공을 목표하고 있습니다.
                     </div>
-                    <div class="subtext-wrapper"></div> <!-- 네모 애니메이션을 위한 래퍼 -->
                 </div>
             </div>
-   
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <button class="sidebar-close">×</button>
+                    <span class="outfind2">아웃파인드</span>
+                </div>
+                <div class="sidebar-content">
+                    <ul class="user-links">
+                        <li class="login-link"><a href="../loginpage/loginpage.html" id="sidebar-login-link">로그인</a></li>
+                        <li class="signup-link"><a href="../signuppage/signup.html" id="sidebar-signup-link">회원가입</a></li>
+                        <li class="mypage-link"><a href="../mypage/mypage.html" id="sidebar-mypage-link">마이페이지</a></li>
+                        <li class="logout-link"><a href="#" id="sidebar-logout-link">로그아웃</a></li>
+                    </ul>
+                    <div class="sidebar-match-button"><a href="#" id="sidebar-match-button">매칭하기</a></div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="/company/company.html">회사소개</a></li>
+                    <li><a href="/introducepage/introduce.html">매칭가이드</a></li>
+                    <li><a href="/faq/faq.html">FAQ</a></li>
+                </ul>
+                <img class="footer_logo" src="/image/logo3.png">
+            </div>
         </header>
         <section class="match-section">
             <div class="match-container">

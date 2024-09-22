@@ -58,33 +58,36 @@ $(document).ready(function() {
                 }
             });
         }
-
         function displayMatchingInfo(matchingCompanies, status) {
             var matchingInfoDiv = $('#matching-info');
             matchingInfoDiv.empty();
-
+        
             if (matchingCompanies.length > 0) {
                 var html = '<div class="matching-heading"><h2>매칭된 기업 목록</h2></div>';
                 matchingCompanies.forEach(function(company) {
-                    console.log(matchingCompanies)
-                    if (!status || company.status === status) {
+                    if (!status || company.matching_status === status) {
+                        var statusIndicator = '';
+                        if (company.taxCertificate) {
+                            statusIndicator = '<div class="status-indicator approved">납</div>';
+                        }
                         html += '<div class="card">';
                         html += '<div class="card-body">';
+                        html += statusIndicator; // 납 아이콘 추가
+                        console.log(statusIndicator);
                         html += '<h5 class="card-title">' + company.project_name + '</h5><hr>';                       
-                        html += '<p class="card-text">담당자 성함: ' + company.name + '</p>'; 
+                        html += '<p class="card-text">담당자 성함: ' + company.company_name + '</p>'; 
                         html += '<p class="card-text">산업: ' + company.industry + '</p>';
                         html += '<p class="card-text">인원수: ' + company.number_of_people + '</p>';
                         html += '<p class="card-text">지역: ' + company.location + '</p>';
                         html += '<p class="card-text">프로젝트 설명: ' + company.projectstructure + '</p>';
-                        if (company.status === 'matching') {
+                        if (company.matching_status === 'matching') {
                             html += '<button class="accept-match btn btn-primary" data-company-email="' + company.company_email + '">수락</button>';
                             html += '<button class="reject-match btn btn-danger" data-company-email="' + company.company_email + '">거절</button>';
-                        } else if (company.status === 'accepted') {
+                        } else if (company.matching_status === 'accepted') {
                             html += '<p class="phone-info">담당자 번호: ' + company.phone + '</p>';
                         }
                         html += '</div>';
-                        html += '</div>';
-                    }
+                        html += '</div>';}
                 });
                 matchingInfoDiv.html(html);
 
@@ -106,7 +109,6 @@ $(document).ready(function() {
 
         async function acceptMatch(companyEmail, $card) {
             try {
-                console.log("매칭 수락 API 호출 시작"); // 디버깅용 로그
                 
                 const response = await PortOne.requestPayment({
                     storeId: "store-bd2881ea-86f3-4d69-b779-c2dccb5e0c62",
@@ -134,7 +136,6 @@ $(document).ready(function() {
                     throw new Error('결제 응답에 paymentId 또는 orderId가 없습니다.');
                 }
         
-                console.log('매칭 수락 API 호출 시작');
 
 
                 // 주문 정보 생성
@@ -160,7 +161,6 @@ $(document).ready(function() {
         }
 
         const responseData = await responseOrder.json();
-        console.log('주문 생성 응답:', responseData);
 
                 
                 
@@ -170,7 +170,6 @@ $(document).ready(function() {
                     companyEmail: companyEmail
                 });
         
-                console.log('서버로 전송할 데이터:', body);
         
         
                 const notified = await fetch('/payment/complete', {  // 경로 수정
@@ -184,7 +183,6 @@ $(document).ready(function() {
                 const notifiedJson = await notified.json();
         
                 if (notified.ok) {
-                    console.log('결제 결과 서버에 전송 완료');
 
                     acceptMatchRequest(companyEmail, $card);
 
@@ -198,7 +196,6 @@ $(document).ready(function() {
         
         
         function acceptMatchRequest(companyEmail, $card) {
-            console.log('매칭 수락 요청 시작'); // 디버깅용 로그
             $.ajax({
                 url: '/accept-match',
                 method: 'POST',
@@ -207,7 +204,6 @@ $(document).ready(function() {
                     companyEmail: companyEmail
                 },
                 success: function (response) {
-                    console.log('매칭 수락 성공:', response);
                     loadMatchingData('matching');
                     loadMatchingData('accepted');
                     $card.remove();
@@ -227,7 +223,6 @@ $(document).ready(function() {
                     companyEmail: companyEmail
                 },
                 success: function(response) {
-                    console.log('매칭 거절:', response);
                     loadMatchingData('matching');
                 },
                 error: function(xhr, status, error) {
@@ -301,8 +296,13 @@ $(document).ready(function() {
                 var html = '<div class="matching-heading"><h2>' + headingText + '</h2></div>';
                 matchingContractors.forEach(function(contractor) {
                     if (!status || contractor.status === status) {
+                        var statusIndicator = '';
+                        if (contractor.taxCertificate) {
+                            statusIndicator = '<div class="status-indicator approved">납</div>';
+                        }
                         html += '<div class="card">';
                         html += '<div class="card-body">';
+                        html += statusIndicator;
                         html += '<h4 class="card-title">기업명: ' + contractor.contractor_name + '</h4>';
                         html += '<p class="card-text">기업소개: ' + contractor.introduction + '</p>';
                         html += '<p class="card-text">직종: ' + contractor.industry + '</p>';
@@ -378,69 +378,89 @@ $(document).ready(function() {
             modal.style.display = 'none';
         }
     });
+  
+// 비밀번호 확인 폼 제출 시
+$('#password-form').on('submit', function(e) {
+    e.preventDefault();
     
-    // 비밀번호 확인 폼 제출 시
-    $('#password-form').on('submit', function(e) {
-        e.preventDefault();
-        
-        const password = $('#password').val();
-        const userType = sessionStorage.getItem('userType');
-        const userEmail = userType === 'contractor'
-            ? sessionStorage.getItem('contractor-email')
-            : sessionStorage.getItem('email');
-    
-        if (!password || !userType || !userEmail) {
-            alert('필수 정보가 누락되었습니다.');
-            return;
-        }
-    
-        $.ajax({
-            type: 'POST',
-            url: '/check-password',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                password: password,
-                userType: userType,
-                userEmail: userEmail
-            }),
-            success: function(response) {
-                if (response.success) {
-                    $('#password-modal').hide();
-                    $('#password-section').hide();
-                    $('#profile-section').show();
-              
-    
-                    if (userType === 'company') {
-                        $('#company-fields').show();
-                        $('#contractor-fields').hide();
-                        $('#business_number').val(response.user.business_number);
-                        $('#company_name').val(response.user.company_name);
-                        $('#representatinve_name').val(response.user.representatinve_name);
-                        $('#address').val(response.user.address);
-                        $('#address_details').val(response.user.address_details);
-                    } else if (userType === 'contractor') {
-                        $('#company-fields').hide();
-                        $('#contractor-fields').show();
-                        $('#business_number').val(response.user.business_number);
-                        $('#contractor_name').val(response.user.contractor_name);
-                        $('#industry').val(response.user.industry);
-                        $('#sub_industry').val(response.user.sub_industry);
-                        $('#location').val(response.user.location);
-                    }
-                    
-                    $('#email').val(response.user.email);
-                    $('#password-update').val(response.user.password);
-                    $('#introduction').val(response.user.introduction);
-                } else {
-                    alert('비밀번호가 일치하지 않습니다.');
+    const password = $('#password').val();
+    const userType = sessionStorage.getItem('userType'); // userType 가져오기
+    const userEmail = userType === 'contractor'
+        ? sessionStorage.getItem('contractor-email')
+        : sessionStorage.getItem('email');
+
+    if (!password || !userType || !userEmail) {
+        alert('필수 정보가 누락되었습니다.');
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/check-password',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            password: password,
+            userType: userType,  // userType을 서버에 전송
+            userEmail: userEmail
+        }),
+        success: function(response) {
+            if (response.success) {
+                $('#password-modal').hide();
+                $('#password-section').hide();
+                $('#profile-section').show();
+
+                if (userType === 'company') {
+                    $('#company-fields').show();
+                    $('#contractor-fields').hide();
+                    $('#business_number').val(response.user.business_number);
+                    $('#company_name').val(response.user.company_name);
+                    $('#representatinve_name').val(response.user.representatinve_name);
+                    $('#address').val(response.user.address);
+                    $('#address_details').val(response.user.address_details);
+                } else if (userType === 'contractor') {
+                    $('#company-fields').hide();
+                    $('#contractor-fields').show();
+                    $('#business_number').val(response.user.business_number);
+                    $('#contractor_name').val(response.user.contractor_name);
+                    $('#industry').val(response.user.industry);
+                    $('#sub_industry').val(response.user.sub_industry);
+                    $('#location').val(response.user.location);
                 }
-            },
-            error: function(error) {
-                console.error('Error:', error);
-                alert('비밀번호 확인 중 오류가 발생했습니다.');
+                
+                $('#email').val(response.user.email);
+                $('#password-update').val(response.user.password);
+                $('#introduction').val(response.user.introduction);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/get-uploaded-file',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ 
+                        userEmail: userEmail,  // userEmail 전달
+                        userType: userType     // userType 전달
+                    }),
+                    success: function(fileResponse) {
+                        if (fileResponse.fileName) {
+                            $('#uploaded-file-name').text('Uploaded file: ' + fileResponse.fileName);
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                        alert('파일 정보를 가져오는 중 오류가 발생했습니다.');
+                    }
+                });
+            } else {
+                alert('비밀번호가 일치하지 않습니다.');
             }
-        });
+            
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            alert('비밀번호 확인 중 오류가 발생했습니다.');
+        }
     });
+});
+
     
     // 회원 정보 수정 폼 제출 시
     $('#profile-form').on('submit', function(e) {

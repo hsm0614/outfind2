@@ -23,7 +23,7 @@ nav {
     display: flex;
     position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
     top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
-    right: 0px; /* 헤더의 오른쪽에 네비게이션을 배치 */
+    right: 10%; /* 헤더의 오른쪽에 네비게이션을 배치 */
     align-items: center;
     overflow: hidden;
 }
@@ -308,7 +308,19 @@ body {
 .btn {
     margin-right: 10px;
 }
+.status-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 5px;
+}
 
+.status-indicator.approved {
+    background-color: green;
+    color: white;
+}
 .accept-match,
 .reject-match {
     background: #4580F6;
@@ -329,17 +341,11 @@ body {
 
 
 
-/* 화면 폭이 작아질 때 카드 크기 조정 */
-@media screen and (max-width: 768px) {
-    .card {
-        padding: 15px;
-        width: 100%; /* 작은 화면에서는 카드가 전체 너비를 차지하도록 */
-    }
-}
+
 
 /* 화면 폭이 매우 작아질 때 카드 크기 조정 */
 @media screen and (max-width: 576px) {
-    .card {
+.card {
         padding: 10px;
     }
 }

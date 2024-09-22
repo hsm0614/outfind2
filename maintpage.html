@@ -39,19 +39,20 @@
         <meta name="theme-color" content="#ffffff">
     </head>
     <body>
+        <div class="mobile-header">
+            <a href="/" class="outfind2">아웃파인드</a>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
         <header>
             <a href="/" class="outfind">아웃파인드</a>
-            <div class="header-text">
-                <p class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
-                </p>
-                <h1 class="h1-outfind">OutFind</h1>
-                <h1 class="h1-second">영업의 어려움을 간소화하세요</h1>
-            </div>
-            <nav>
+                <nav>
                 <ul class="nav-links">
                     <li>
                         <a href="/company/company.html">회사소개</a>
-                        
                     </li>
                     <li>
                         <a href="/introducepage/introduce.html">매칭가이드</a>
@@ -64,23 +65,47 @@
                     <li class="login-link">
                         <a href="loginpage/loginpage.html" id="login-link">로그인</a>
                     </li>
-                    <!-- 로그인 링크 추가 -->
                     <li class="signup-link">
                         <a href="signuppage/signup.html" id="signup-link">회원가입</a>
                     </li>
-                    <!-- 회원가입 링크 추가 -->
                     <li class="mypage-link">
                         <a href="mypage/mypage.html" id="mypage-link">마이페이지</a>
                     </li>
                     <li class="logout-link">
                         <a href="#" id="logout-link">로그아웃</a>
                     </li>
-                    <!-- 로그아웃 버튼 추가 -->
                 </ul>
             </nav>
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <button class="sidebar-close">×</button>
+                    <span class="outfind2">아웃파인드</span>
+                </div>
+                <div class="sidebar-content">
+                    <ul class="user-links">
+                        <li class="login-link"><a href="loginpage/loginpage.html" id="sidebar-login-link">로그인</a></li>
+                        <li class="signup-link"><a href="signuppage/signup.html" id="sidebar-signup-link">회원가입</a></li>
+                        <li class="mypage-link"><a href="mypage/mypage.html" id="sidebar-mypage-link">마이페이지</a></li>
+                        <li class="logout-link"><a href="#" id="sidebar-logout-link">로그아웃</a></li>
+                    </ul>
+                    <div class="sidebar-match-button"><a href="#" id="sidebar-match-button">매칭하기</a></div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="/company/company.html">회사소개</a></li>
+                    <li><a href="/introducepage/introduce.html">매칭가이드</a></li>
+                    <li><a href="/faq/faq.html">FAQ</a></li>
+                </ul>
+                <img class="footer_logo" src="/image/logo3.png">
+            </div>
+            <div class="header-text">
+                <p class="h1-first">인력도급 업체와 기업간<br>B2B 매칭 플랫폼
+                </p>
+                <h1 class="h1-outfind">OutFind</h1>
+                <h1 class="h1-second">영업의 어려움을 간소화하세요</h1>
+            </div>
             <button class="match-button">매칭하기</button>
 
-            <!-- 첫 번째 모달 -->
+
             <div class="modal" id="modal">
                 <div class="modal_body">
                     <button class="close-button">닫기 &times;</button>
@@ -171,8 +196,8 @@
                 </div>
             </div>
             <div class="modal-backdrop" id="modal-backdrop"></div>
-
         </header>
+
         <!-- 매칭된 인력도급 업체 목록 표시 부분 -->
         <div class="matching-contractor-container" id="matching-contractor-container">
             <div id="matching-contractor-list" class="card-container"></div>

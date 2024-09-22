@@ -68,11 +68,18 @@
     .footer-content {
         flex-direction: column; /* 푸터 섹션을 세로로 배치 */
         align-items: center; /* 중앙 정렬 */
+
     }
 
     .footer-section {
         text-align: center; /* 푸터 섹션 텍스트 중앙 정렬 */
         margin: 10px 0; /* 섹션 간격 조정 */
+    }
+
+    .footer-section p {
+        font-size: 10px; /* 섹션 내용의 폰트 크기 */
+        line-height: 1.5; /* 섹션 내용의 줄 간격 */
+        text-align: left;
     }
 
     .footer-bottom {

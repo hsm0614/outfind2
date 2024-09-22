@@ -3,6 +3,7 @@
     .container {
         width: 85%; /* 컨테이너를 더 작은 너비로 조정 */
         margin: 50px auto; /* 중앙 정렬 유지 */
+        padding: 15px;
     }
 
     .nav-links {
@@ -20,7 +21,29 @@
     .logincontent{
         display: none;
     }
+    input[type="text"],
+    input[type="password"],
+    button{
+        width: 100%;
+    }
+    .login-choice {
+        display: flex;
+        justify-content: space-between; /* 양옆으로 버튼 배치 */
+        padding: 0;
+        width: 100%; /* 전체 너비 사용 */
+        box-sizing: border-box; /* 패딩 포함 너비 계산 */
+    }
 
+    .login-btn {
+        display: inline-block;
+        width: 48%; /* 버튼의 너비를 넓히고 버튼 간의 간격 조정 */
+        padding: 15px;
+        font-size: 12px;
+        margin: 0; /* 버튼 간의 간격 없애기 */
+    }
+    .register-link{
+        font-size: 14px;
+    }
      /* 푸터 */
      .footer-content {
         flex-direction: column;

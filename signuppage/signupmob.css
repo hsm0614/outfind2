@@ -1,125 +1,173 @@
 @media screen and (max-width: 800px) {
+   
+   
     header {
         height: auto;
         padding: 10px;
         background-color: #f0f5ff;
     }
-    #contractor-search-button{
-        display: inline-block; /* 버튼을 인라인 블록 요소로 설정 */
-        padding: 10px 20px; /* 버튼 패딩 조정 */
-        background-color: #007bff; /* 버튼 배경색 설정 */
-        color: white; /* 버튼 텍스트 색상 설정 */
-        border: none; /* 버튼 테두리 제거 */
-        cursor: pointer; /* 커서 설정 */
-        text-align: center; /* 텍스트 중앙 정렬 */
-        vertical-align: middle; /* 수직 정렬 */
-        white-space: nowrap; /* 텍스트가 여러 줄로 분리되지 않도록 설정 */
-        transform: rotate(0deg); /* 텍스트 회전 방지 */
-        margin-left: 40px;
-    }
+
+    #contractor-search-button,
     #company-search-button {
-        display: inline-block; /* 버튼을 인라인 블록 요소로 설정 */
-        padding: 10px 20px; /* 버튼 패딩 조정 */
-        background-color: #007bff; /* 버튼 배경색 설정 */
-        color: white; /* 버튼 텍스트 색상 설정 */
-        border: none; /* 버튼 테두리 제거 */
-        cursor: pointer; /* 커서 설정 */
-        text-align: center; /* 텍스트 중앙 정렬 */
-        vertical-align: middle; /* 수직 정렬 */
-        white-space: nowrap; /* 텍스트가 여러 줄로 분리되지 않도록 설정 */
-        transform: rotate(0deg); /* 텍스트 회전 방지 */
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        margin-bottom: 10px; /* 버튼 간 간격 조정 */
     }
 
     .outfind {
-        font-size: 20px;
-        position: relative;
-        top: auto;
-        left: auto;
+        font-size: 18px; /* 폰트 크기 조정 */
         margin: 0;
         text-align: center;
     }
 
     .login-image,
-    .logincontent{
+    .logincontent {
         display: none;
+        margin: 0;
+        padding: 0;
+        width: 0;
     }
-
+    .login-wrapper {
+        display: block; /* flex가 아닌 block으로 변경 */
+        margin: 0 auto; /* 중앙 정렬 */
+        box-sizing: border-box;
+        width: 85%; /* 화면 너비에 대한 비율 */
+        max-width: 550px; /* 최대 너비 설정 */
+        padding: 0px; /* 내부 여백 조정 */
+    }
+    
     .container {
-        width: 90%;
-        margin: 20px auto;
-        padding: 20px;
+        width: 100%; /* 화면 너비에 맞게 조정 */
+        max-width: 550px; /* 최대 너비 설정 */
+        padding: 20px; /* 내부 여백 조정 */
+        margin: 50px auto 0; /* 위쪽 여백을 추가하여 아래로 내리기 */
+        box-sizing: border-box; /* 박스 모델 설정 */
+    }
+    .signup-choice {
+        text-align: center;
+        margin-bottom: 15px; /* 하단 여백 줄이기 */
+        display: flex;
+        justify-content: center; /* 버튼을 수평 가운데로 정렬 */
+        gap: 10px; /* 버튼 사이 간격 */
     }
 
+    .signup-btn {
+        display: inline-block;
+        padding: 10px; /* 패딩 조정 */
+        margin: 0; /* 버튼 간격 제거 */
+        text-align: center; /* 텍스트 가운데 정렬 */
+    }
     .business-number-input,
     .company-email-input {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch; /* 입력 필드가 전체 너비를 차지하도록 설정 */
     }
 
     .business-number-input input[type="text"],
     .company-email-input input[type="text"] {
-        margin-right: 0;
         margin-bottom: 10px;
-        width: calc(100% - 10px);
+        width: 100%; /* 입력 필드가 전체 너비를 차지하도록 설정 */
     }
 
-    .footer-content {
+    /* 인력도급과 기업 회원가입 폼 사이즈 조정 */
+    #company-signup-form,
+    #contractor-signup-form {
+        width: 100%; /* 폼 너비를 100%로 설정하여 화면에 맞게 조정 */
+        max-width: 100%; /* 최대 너비를 100%로 설정하여 넘치지 않도록 조정 */
+    }
+
+    #contractor-signup-form .business-number-input button,
+    #company-signup-form .business-number-input button {
+        width: 100%;
+        display: inline-block;
+        margin-right: 0; /* 여백 조정 */
+    }
+
+    #contractor-signup-form .contractor-email-check-button,
+    #company-signup-form .company-email-check-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .contractor-email-input,
+    .company-email-input {
+        position: relative;
+    }
+    .agree-button {
+        margin-left: 5px; /* 왼쪽 여백 조정 */
+        padding: 5px 8px; /* 패딩 조정 */
+        font-size: 10px; /* 글자 크기 줄이기 */
+        width: 70px; /* 버튼 너비 조정 */
+    }
+
+    .popup {
+        width: 90%; /* 너비를 화면에 맞게 조정 */
+        max-width: 90%; /* 최대 너비를 90%로 설정 */
+        padding: 15px; /* 내부 여백 조정 */
+        margin: 0 auto; /* 중앙 정렬 */
+    }
+
+    .popup-header {
+        padding-bottom: 8px; /* 하단 패딩 조정 */
+        margin-bottom: 8px; /* 하단 여백 조정 */
+    }
+
+    .popup-content {
+        font-size: 12px; /* 글자 크기 조정 */
+        max-height: 150px; /* 최대 높이 조정 */
+    }
+
+    .close {
+        top: 10px; /* 상단 위치 조정 */
+        right: 10px; /* 우측 위치 조정 */
+        font-size: 18px; /* 글자 크기 조정 */
+    }
+
+    #agreement-section {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px; /* 왼쪽 여백 제거 */
+        padding: 0 10px; /* 좌우 패딩 추가 */
+    }
+
+    .agreement-item {
+        margin-bottom: 8px; /* 하단 여백 조정 */
+    }
+     /* 푸터 */
+     .footer-content {
         flex-direction: column;
         align-items: center;
     }
 
     .footer-section {
-        margin: 10px 0;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .footer_logo {
+        margin: 0 auto 20px; /* 로고를 중앙으로 이동 */
+    }
+
+    .footer-text {
+        margin: 0;
         text-align: center;
     }
 
     .footer-bottom p {
-        width: 100%;
-        text-align: center;
+        font-size: 10px; /* 푸터 텍스트 크기 줄임 */
     }
 
-    #contractor-signup-form .business-number-input button {
-        width: auto;
-        display: inline-block;
-        margin-right: 280px
-    };
-
-    #contractor-signup-form .contractor-email-check-button{
-        width: auto;
-        margin-top: 10px;
-    };
-    .contractor-email-input{
-        position: relative;
-    }
-
-    
- /* 푸터 */
- .footer-content {
-    flex-direction: column;
-    align-items: center;
-}
-
-.footer-section {
-    margin: 20px 0;
-    text-align: center;
-}
-
-.footer-bottom {
-    flex-direction: column;
-    text-align: center;
-    margin: 20px 0;
-}
-
-.footer_logo {
-    margin: 0 auto 20px; /* 로고를 중앙으로 이동 */
-}
-
-.footer-text {
-    margin: 0;
-    text-align: center;
-}
-
-.footer-bottom p {
-    font-size: 10px; /* 푸터 텍스트 크기 줄임 */
-}
 }

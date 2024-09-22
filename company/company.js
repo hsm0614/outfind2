@@ -31,25 +31,33 @@ $(document).ready(function () {
     });
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const highlights = document.querySelectorAll('.highlight');
     const subtextWrapper = document.querySelector('.subtext-wrapper');
+    const headlineHighlight = document.querySelector('.headline .highlight');
 
-    subtextWrapper.addEventListener('animationend', function() {
-        highlights.forEach(highlight => {
-            highlight.style.color = '#00d8ff'; // 애니메이션이 끝난 후 색상 변경
+    // 하이라이트 애니메이션이 끝난 후 서브텍스트와퍼 애니메이션 시작
+    if (headlineHighlight && subtextWrapper) {
+        headlineHighlight.addEventListener('animationend', function() {
+            subtextWrapper.classList.add('animate');
         });
-    });
-});
-document.addEventListener("DOMContentLoaded", function() {
-    if (window.innerWidth <= 768) { // 화면 너비가 480px 이하인 경우
-        const subtext = document.querySelector('.subtext');
-        if (subtext) {
-            subtext.innerHTML = 
-                "인력도급업체의 영업의 어려움은 아웃파인드가 정확히 알고 있습니다.<br><br>" +
-                "클라이언트를 상대하는 것, 그 과정에서의 비용, 시간, 등<br> 여러 어려움이 있는 것을 알고 있습니다.<br><br>" +
-                "아웃파인드는 이 영업을 단순화하는 것을 넘어,<br> 인력도급업체의 편의 제공을 목표하고 있습니다.";
-        }
+    }
+
+    // 서브텍스트와퍼 애니메이션이 끝난 후 하이라이트 색상 변경
+    if (subtextWrapper) {
+        subtextWrapper.addEventListener('animationend', function() {
+            highlights.forEach(highlight => {
+                highlight.style.color = '#00d8ff'; // 애니메이션이 끝난 후 색상 변경
+            });
+        });
+    }
+
+    // 모바일 화면에서 서브텍스트 내용 변경
+    const subtext = document.querySelector('.subtext');
+    if (window.innerWidth <= 768 && subtext) {
+        subtext.innerHTML = 
+            "인력도급업체의 영업의 어려움은 아웃파인드가 정확히 알고 있습니다.<br><br>" +
+            "클라이언트를 상대하는 것, 그 과정에서의 비용, 시간, 등<br> 여러 어려움이 있는 것을 알고 있습니다.<br><br>" +
+            "아웃파인드는 이 영업을 단순화하는 것을 넘어,<br> 인력도급업체의 편의 제공을 목표하고 있습니다.";
     }
 });

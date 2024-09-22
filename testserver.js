@@ -613,11 +613,24 @@ app.post('/check-matching', (req, res) => {
 
     // 매칭된 기업 정보 및 프로젝트 정보 조회하는 쿼리 작성
     const query = `
-    SELECT m.company_email, c.project_name, c.\`name\`, c.industry, c.number_of_people, c.phone, c.location, c.projectstructure, m.status
-    FROM matching m 
-    INNER JOIN modal c ON m.modal_id = c.id
-    WHERE m.contractor_email = ? AND (m.status = 'matching' OR m.status = 'accepted')
-    ORDER BY c.project_name;
+    SELECT 
+        m.company_email, 
+        mo.project_name, 
+        mo.name AS company_name, 
+        mo.industry, 
+        mo.number_of_people, 
+        mo.phone, 
+        mo.location, 
+        mo.projectstructure, 
+        m.status AS matching_status,
+        co.tax_certificate AS taxCertificate, 
+        co.status AS company_status
+    FROM matching m
+    INNER JOIN modal mo ON m.modal_id = mo.id
+    INNER JOIN company co ON m.company_email = co.email
+    WHERE m.contractor_email = ? 
+      AND (m.status = 'matching' OR m.status = 'accepted')
+    ORDER BY mo.project_name;
     `;
     
 
@@ -691,13 +704,21 @@ app.post('/reject-match', (req, res) => {
 // 매칭된 인력 조회
 app.post('/check-company-matching', (req, res) => {
     const companyEmail = req.body.companyEmail;
-  
+
     // 매칭된 인력 정보 조회하는 쿼리 작성
     const query = `
-    SELECT c.email AS contractor_email, c.introduction, c.industry, c.location, m.status
+    SELECT 
+        c.email AS contractor_email, 
+        c.introduction, 
+        c.industry, 
+        c.location, 
+        m.status, 
+        c.status AS contractor_status, 
+        c.tax_certificate AS taxCertificate
     FROM matching m
     INNER JOIN contractors c ON m.contractor_email = c.email
-    WHERE m.company_email = ? AND (m.status = 'matching' OR m.status = 'accepted')
+    WHERE m.company_email = ? 
+      AND (m.status = 'matching' OR m.status = 'accepted')
     `;
   
     // 쿼리 실행
@@ -784,6 +805,7 @@ app.post("/payment/complete", async (req, res) => {
     }
 });
 
+
 // 비밀번호 확인 요청 처리
 app.post('/check-password', (req, res) => {
     const { password, userType, userEmail } = req.body;
@@ -820,9 +842,41 @@ app.post('/check-password', (req, res) => {
         }
     });
 });
+
+app.post('/get-uploaded-file', (req, res) => {
+    const { userEmail, userType } = req.body;
+    console.log('Received data:', { userEmail, userType }); // 로그 추가
+
+    if (!userEmail || !userType) {
+        return res.status(400).json({ error: '필수 정보가 누락되었습니다.' });
+    }
+
+    let query = '';
+    if (userType === 'company') {
+        query = 'SELECT tax_certificate FROM company WHERE email = ?';
+    } else if (userType === 'contractor') {
+        query = 'SELECT tax_certificate FROM contractors WHERE email = ?';
+    } else {
+        return res.status(400).json({ error: '유효하지 않은 사용자 유형입니다.' });
+    }
+
+    connection.query(query, [userEmail], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ error: '서버 오류가 발생했습니다.' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
+        }
+
+        const fileName = results[0].tax_certificate;
+        res.json({ fileName });
+    });
+});
 app.post('/update-profile', (req, res) => {
     const { userType, userData } = req.body;
-    console.log('Received update-profile request:', { userType, userData });
+   
     if (!userType || !userData || !userData.email) {
         return res.status(400).json({ success: false, message: '필수 정보가 누락되었습니다.' });
     }

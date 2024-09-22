@@ -13,9 +13,11 @@ header {
     height: 90vh;
     padding: 0;
     margin-bottom: 20px;
+    display: flex;
     position: relative;
     overflow: hidden; /* 자식 요소가 부모 요소를 벗어나는 것을 숨김 */
 }
+
 
 .outfind {
     text-decoration: none;
@@ -28,6 +30,318 @@ header {
     margin-top: 10px;
 }
 
+
+/* nav */
+nav {
+    display: flex;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    align-items: center;
+    overflow: hidden;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-right: 600px;
+}
+
+.nav-links li {
+    margin-right: 10px;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 100px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+.nav-links li a::after {
+    content: "|";
+    margin-left: 20px;
+}
+
+.nav-links li:last-child a::after {
+    content: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* 햄버거 메뉴 */
+.mobile-header {
+    display: none; /* 기본적으로 모바일 헤더 숨김 */
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hamburger-menu {
+    display: none; /* 기본적으로 햄버거 메뉴 숨김 */
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #000;
+    margin: 4px 0;
+}
+.sidebar-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px; /* 닫기 버튼과 사용자 링크 간의 간격 */
+}
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* 사이드바 헤더와 내용 간의 간격 */
+}
+.sidebar .outfind2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: black; /* Desired color */
+    display: flex;
+    align-items: center; /* Vertically center-align text */
+    margin-top: 5px;
+    font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
+
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0; /* 사이드바의 오른쪽 끝을 화면의 오른쪽 끝과 맞추기 */
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(24, 24, 24, 0.5);
+    transition: transform 0.4s ease, opacity 0.4s ease; /* 애니메이션 속성 */
+    transform: translateX(100%); /* 사이드바를 화면 오른쪽으로 이동 */
+    opacity: 0; /* 사이드바 초기 상태는 투명 */
+    z-index: 10000;
+    padding: 20px;
+    flex-direction: column;
+}
+
+/* 사이드바 활성화 시 오른쪽에서 화면 안으로 들어옴 */
+.sidebar.active {
+    transform: translateX(0); /* 사이드바가 화면 안으로 이동 */
+    opacity: 1; /* 사이드바가 불투명해짐 */
+}
+
+.sidebar-close {
+    position: relative;
+    color: #666;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: right 0.4s ease; /* 애니메이션 속성: right값 변화에 애니메이션 부여 */
+    z-index: 10003; /* 닫기 버튼이 항상 클릭될 수 있도록 z-index를 높게 설정 */
+}
+
+
+
+/* 네비게이션 링크 */
+.sidebar .nav-links,
+.sidebar .user-links {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    margin: 0;
+}
+
+/* 링크 항목 */
+.sidebar .nav-links li,
+.sidebar .user-links li {
+    margin-bottom: 15px; /* 각 항목 간의 간격 */
+}
+
+/* 링크 스타일 */
+.sidebar .nav-links a,
+.sidebar .user-links a {
+    color: #007bff; /* 브랜드 색상 또는 블루 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    font-size: 16px; /* 적당한 폰트 사이즈 */
+    font-weight: 500; /* 가벼운 굵기 */
+    display: block; /* 블록으로 변경하여 클릭 영역 확대 */
+    transition: color 0.3s ease; /* 색상 변경 애니메이션 */
+}
+
+.sidebar .nav-links a:hover,
+.sidebar .user-links a:hover {
+    color: #0056b3; /* 호버 시 색상 변경 */
+}
+
+/* 로그인, 회원가입 등의 버튼 스타일 */
+.sidebar .user-links .login-link a,
+.sidebar .user-links .signup-link a,
+.sidebar .user-links .mypage-link a,
+.sidebar .user-links .logout-link a{
+    background-color: #f4f4f4;
+    color: #666; /* 버튼 텍스트 색상 */
+    padding: 10px 15px; /* 버튼 패딩 */
+    border-radius: 5px; /* 둥근 모서리 */
+    text-align: center;
+    display: block;
+    font-weight: 600;
+}
+.sidebar-match-button {
+    margin-top: auto; /* 버튼을 사이드바 하단에 위치하도록 설정 */
+    padding: 15px; /* 버튼 내부 여백 */
+    background-color: #007bff; /* 버튼 배경 색상 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 */
+    text-align: center; /* 버튼 텍스트 중앙 정렬 */
+}
+
+.sidebar-match-button a {
+    color: #fff; /* 버튼 텍스트 색상 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    font-size: 16px; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 굵기 */
+    display: block; /* 버튼 영역 전체를 클릭 가능하게 */
+}
+
+.sidebar-match-button a:hover {
+    background-color: #0056b3; /* 호버 시 버튼 배경 색상 변경 */
+    color: #fff; /* 호버 시 버튼 텍스트 색상 유지 */
+}
+.sidebar .user-links .login-link a:hover,
+.sidebar .user-links .signup-link a:hover,
+.sidebar .user-links .mypage-link a:hover,
+.sidebar .user-links .logout-link a:hover{
+    background-color: #ddd; /* 버튼 호버 색상 */
+}
+.sidebar .nav-links a{
+        display: block;
+        color: #333;
+        text-decoration: none;
+        padding: 10px 0;
+}
+.sidebar .nav-links a:hover{
+    background-color: #ddd;
+}
+
+.sidebar-close {
+    position: absolute; /* 절대 위치 지정 */
+    top: 20px; /* 상단에서 20px 떨어진 위치 */
+    right: 20px; /* 오른쪽에서 20px 떨어진 위치 */
+    font-size: 32px; /* 버튼의 글자 크기 조정 */
+    color: #000; /* 버튼의 글자 색상 */
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 마우스 커서 모양 변경 */
+    z-index: 10001; /* 사이드바보다 위에 배치되도록 z-index 조정 */
+    transition: color 0.3s; /* 글자 색상 전환 효과 */
+}
+
+.sidebar-close:hover {
+    color: #666; /* 마우스 오버 시 색상 변경 */
+}
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+    .mobile-header {
+        display: flex; /* 모바일 헤더 표시 */
+        padding: 10px 20px;
+    }
+    .outfind {
+        display: none;
+    }
+    .sidebar {
+        display: block; /* 모바일 화면에서는 사이드바 표시 */
+        right: 0; /* 사이드바가 화면 끝에 맞춰짐 */
+        transform: translateX(100%); /* 사이드바를 화면 오른쪽으로 이동 */
+    }
+    .sidebar .nav-links{
+        margin-top: 30px;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        position: relative;
+        margin-left: auto;
+        margin-right: 40px;
+    }
+    .outfind2 {
+        color: #000;
+        font-family: 'Noto SansKR', sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    header .nav-links,
+    header .user-links {
+        display: none; /* 기본적으로 숨김 */
+    }
+    .sidebar .nav-links,
+    .sidebar .user-links {
+        display: block; /* 모바일에서 사이드바 내의 링크 표시 */
+    }
+
+    /* 사이드바가 활성화되었을 때만 보이도록 설정 */
+    .sidebar.active .nav-links,
+    .sidebar.active .user-links {
+        display: block; /* 사이드바가 활성화되면 표시 */
+    }
+  
+}
+
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .nav-links li {
+        display: none; /* 작은 화면에서는 nav link를 숨김 */
+    }
+}
+@media (min-width: 769px) {
+    .mobile-header {
+        display: none; /* 데스크탑 해상도에서 모바일 헤더 숨김 */
+    }
+    .sidebar {
+        display: none; /* 데스크탑 화면에서는 사이드바 숨김 */
+    }
+}
+
+.user-links {
+    margin-left: auto;
+}
+
+.user-links li {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.user-links li a {
+    text-decoration: none;
+    color: #fff;
+}
 
 .header-text {
     display: flex;
@@ -189,9 +503,10 @@ header {
 /* 모달 기본 스타일 */
 
 .modal {
-    position: fixed;
+    position: relative;
     top: 50%;
     left: 50%;
+    display: flex;
     transform: translate(-50%, -50%);
     z-index: 10000; /* 다른 요소 위에 보이도록 함 */
     background-color: #fff; /* 모달 배경 색상 */
@@ -230,7 +545,7 @@ header {
     display: none; /* 초기 상태에서 모달을 숨김 */
 }
 
-.modal_h1 {
+.modal h1 {
     font-family: 'Noto Sans KR',sans-serif;
 }
 
@@ -452,83 +767,6 @@ header {
     margin-bottom: 30px;
 }
 
-/*nav*/
-nav {
-    display: flex;
-    position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
-    top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
-    right: 20px; /* 헤더의 오른쪽에 네비게이션을 배치 */
-    align-items: center;
-    overflow: hidden;
-}
-
-.nav-links {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    flex-grow: 1;
-    text-align: center;
-    display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
-    align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
-    margin-right: 600px;
-   
-}
-
-.nav-links li {
-    margin-right: 10px; /* 각 항목 사이의 간격 설정 */
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 100px;
-}
-
-nav ul li a {
-    color: #fff; /* 링크 텍스트 색상 */
-    text-decoration: none; /* 링크 밑줄 제거 */
-    margin-right: 30px;
-}
-
-.nav-links li a::after {
-    content: "|"; /* 각 항목 사이에 짝대기 추가 */
-    margin-left: 20px; /* 짝대기와 텍스트 사이의 간격 설정 */
-}
-
-.nav-links li:last-child a::after {
-    content: none; /* 마지막 항목의 짝대기 제거 */
-}
-
-nav ul li a:hover {
-    text-decoration: underline; /* 호버 시 밑줄 추가 */
-}
-
-@media screen and (max-width: 1200px) {
-    .nav-links {
-        
-        display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
-    }
-}
-
-@media screen and (max-width: 200px) {
-    .nav-links li {
-        display: none; /* 작은 화면에서는 nav link를 숨김 */
-    }
-}
-
-.user-links {
-    margin-left: auto; /* 사용자 링크를 오른쪽으로 이동하여 로그인 및 회원가입이 오른쪽에 위치하도록 함 */
-}
-
-.user-links li {
-    margin-left: 0px; /* 각 항목 사이의 간격 설정 */
-    margin-right: 0px;
-}
-
-.user-links li a {
-    text-decoration: none; /* 링크 텍스트의 밑줄 제거 */
-    color: #fff; /* 링크 텍스트 색상 */
-}
-
 .match-button {
     width: 15vw; /* 버튼의 너비 */
     height: 4vw; /* 버튼의 높이 */
@@ -634,6 +872,7 @@ nav ul li a:hover {
 }
 
 .intro3{
+    background-color: #F4F9FD;
     margin-bottom: 20px;
 }
 .companyoutfind{
