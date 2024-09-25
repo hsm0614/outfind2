@@ -1,0 +1,137 @@
+@media (max-width: 768px) {
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    header{ display: none!important;}
+    /* 기본 스타일 */
+.faq-container {
+    background-color: white;
+    width: 100%; /* 너비를 100%로 설정 */
+    margin: 30px auto;
+    display: flex;
+    max-width: 1250px; /* 최대 너비 설정 유지 */
+    border-radius: 15px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+}
+
+    .faq-container {
+        max-width: 300px;
+        flex-direction: column; /* 세로 방향으로 정렬 */
+        margin: 15px; /* 마진 조정 */
+    }
+
+     .faq-questions {
+        width: 100%; /* 너비를 100%로 설정 */
+        margin: 0; /* 좌우 마진 제거 */
+        font-size: 0.8em;
+    }
+
+
+    #category-list {
+        display: none; /* 기존 카테고리 리스트 숨김 */
+    }
+
+#category-dropdown {
+    display: block; /* 드롭다운 표시 */
+    width: 100%; /* 전체 너비 사용 */
+    padding: 12px; /* 패딩 추가 */
+    font-size: 16px; /* 글자 크기 */
+    border: 1px solid #ddd; /* 테두리 추가 */
+    border-radius: 4px; /* 둥근 모서리 */
+    background-color: #fff; /* 배경색 */
+    color: #333; /* 글자 색상 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    transition: border-color 0.3s, box-shadow 0.3s; /* 호버 시 애니메이션 추가 */
+}
+
+/* 포커스 시 테두리 색상 변경 */
+#category-dropdown:focus {
+    outline: none; /* 기본 포커스 아웃라인 제거 */
+    border-color: #007bff; /* 포커스 시 테두리 색상 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 포커스 시 그림자 추가 */
+}
+
+/* 호버 시 배경색 변화 */
+#category-dropdown:hover {
+    background-color: #f9f9f9; /* 호버 시 배경색 변화 */
+}
+
+    .faq-questions {
+        padding: 10px; /* 패딩 조정 */
+    }
+
+    .faq-header {
+        padding: 20px; /* 패딩 조정 */
+        width: auto;
+    }
+
+    .search-box input {
+        width: 90%; /* 입력 상자 너비 조정 */
+    }
+
+    .search-box button {
+        background-color: transparent; /* 배경색 투명하게 설정 */
+        margin-left: 5px; /* 버튼의 여백 제거 */
+        padding: 0;
+    }
+    .faq-category{
+        width: 40%;
+    }
+    .faq-category li {
+        font-size: 14px; /* 글자 크기 조정 */
+    }
+
+    .faq-category h2 {
+        font-size: 16px; /* 카테고리 제목 크기 조정 */
+    }
+
+    .faq-header h1 {
+        font-size: 1.5rem; /* 제목 크기 조정 */
+    }
+
+    .faq-header h3 {
+        margin-left: 0; /* 왼쪽 마진 제거 */
+        font-size: 24px; /* 글자 크기 조정 */
+    }
+    .badge{
+        padding: 5px 15px;
+        text-align: center;
+        white-space: nowrap; /* 줄바꿈 방지 */
+    }
+    .faq-questions ul {
+        margin: 5px;
+    }
+
+        /* 푸터 */
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .footer-section {
+            margin: 10px 0;
+            text-align: center;
+        }
+    
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+            margin: 10px 0;
+        }
+    
+        .footer_logo {
+            margin: 0 auto 15px; /* 로고를 중앙으로 이동 */
+        }
+    
+        .footer-text {
+            margin: 0;
+            text-align: center;
+        }
+    
+        .footer-bottom p {
+            font-size: 9px; /* 푸터 텍스트 크기 줄임 */
+        }
+}
+

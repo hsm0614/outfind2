@@ -29,13 +29,20 @@ $(document).ready(function () {
         window.location.href = '/';
     });
 });
-
-
+$(document).ready(function () {
+    $('#category-dropdown').change(function () {
+        var selectedCategory = $(this).val();
+        // 선택된 카테고리에 맞는 질문 표시 로직 추가
+        $('.faq-questions li').hide(); // 모든 질문 숨김
+        $('.faq-questions li[data-category="' + selectedCategory + '"]').show(); // 선택된 카테고리 질문만 표시
+    });
+});
 document.addEventListener("DOMContentLoaded", function() {
     const categoryList = document.querySelectorAll("#category-list li");
     const questions = document.querySelectorAll("#question-list li");
     const searchBox = document.querySelector(".search-box input");
     const searchButton = document.querySelector(".search-box button");
+    const dropdown = document.getElementById("category-dropdown");
 
     // 카테고리별로 질문의 개수를 세고 표시
     categoryList.forEach(category => {
@@ -58,6 +65,25 @@ document.addEventListener("DOMContentLoaded", function() {
                     q.style.display = "none";
                 }
             });
+            dropdown.value = category; // 드롭다운 값 업데이트
+        });
+    });
+
+    // 드롭다운 선택 이벤트 처리
+    dropdown.addEventListener("change", function() {
+        const selectedCategory = this.value;
+        categoryList.forEach(i => i.classList.remove("active"));
+        categoryList.forEach(item => {
+            if (item.getAttribute("data-category") === selectedCategory) {
+                item.classList.add("active");
+            }
+        });
+        questions.forEach(q => {
+            if (q.getAttribute("data-category") === selectedCategory) {
+                q.style.display = "block";
+            } else {
+                q.style.display = "none";
+            }
         });
     });
 

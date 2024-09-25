@@ -6,8 +6,11 @@
         <title>아웃파인드 이용방법</title>
         <link rel="stylesheet" type="text/css" href="introduce.css">
         <link rel="stylesheet" type="text/css" href="introducemob.css">
-        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script src="/hambuger.js"></script>
         <script defer="defer" src="introduce.js"></script>
+
         <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
             rel="stylesheet">
@@ -35,9 +38,16 @@
         <meta name="theme-color" content="#ffffff">
     </head>
     <body>
+        <div class="mobile-header">
+            <a href="/" class="outfind2">아웃파인드</a>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
         <header>
             <a href="/" class="outfind">아웃파인드</a>
-
             <nav>
                 <ul class="nav-links">
                     <li>
@@ -53,8 +63,46 @@
                         <a href="/faq/faq.html">FAQ</a>
                     </li>
                 </ul>
+                <ul class="user-links">
+                    <li class="login-link">
+                        <a href="../loginpage/loginpage.html" id="login-link">로그인</a>
+                    </li>
+                    <!-- 로그인 링크 추가 -->
+                    <li class="signup-link">
+                        <a href="../signuppage/signup.html" id="signup-link">회원가입</a>
+                    </li>
+                    <!-- 회원가입 링크 추가 -->
+                    <li class="mypage-link">
+                        <a href="../mypage/mypage.html" id="mypage-link">마이페이지</a>
+                    </li>
+                    <li class="logout-link">
+                        <a href="#" id="logout-link">로그아웃</a>
+                    </li>
+                    <!-- 로그아웃 버튼 추가 -->
+                </ul>
             </nav>
         </header>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-close">×</button>
+                <span class="outfind2">아웃파인드</span>
+            </div>
+            <div class="sidebar-content">
+                <ul class="user-links">
+                    <li class="login-link"><a href="../loginpage/loginpage.html" id="sidebar-login-link">로그인</a></li>
+                    <li class="signup-link"><a href="../signuppage/signup.html" id="sidebar-signup-link">회원가입</a></li>
+                    <li class="mypage-link"><a href="../mypage/mypage.html" id="sidebar-mypage-link">마이페이지</a></li>
+                    <li class="logout-link"><a href="#" id="sidebar-logout-link">로그아웃</a></li>
+                </ul>
+                <div class="sidebar-match-button"><a href="#" id="sidebar-match-button">매칭하기</a></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/company/company.html">회사소개</a></li>
+                <li><a href="/introducepage/introduce.html">매칭가이드</a></li>
+                <li><a href="/faq/faq.html">FAQ</a></li>
+            </ul>
+            <img class="footer_logo" src="/image/logo3.png">
+        </div>
         <h3>이용방법</h3>
         <div class="container">
             <div class="tab-buttons">
@@ -349,4 +397,5 @@
         </div>
     </div>
 </footer>
+
 </html>

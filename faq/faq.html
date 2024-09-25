@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자주 찾는 질문(FAQ)</title>
     <link rel="stylesheet" href="faq.css">
+    <link rel="stylesheet" href="faqmob.css">
 </head>
 <body>
+    <div class="mobile-header">
+        <a href="/" class="outfind2">아웃파인드</a>
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
     <header>
+       
         <a href="/" class="outfind">아웃파인드</a>
         <nav>
             <ul class="nav-links">
@@ -24,7 +34,28 @@
             </ul>
         </nav>
     </header>
-
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <button class="sidebar-close">×</button>
+            <span class="outfind2">아웃파인드</span>
+        </div>
+        <div class="sidebar-content">
+            <ul class="user-links">
+                <li class="login-link"><a href="../loginpage/loginpage.html" id="sidebar-login-link">로그인</a></li>
+                <li class="signup-link"><a href="../signuppage/signup.html" id="sidebar-signup-link">회원가입</a></li>
+                <li class="mypage-link"><a href="../mypage/mypage.html" id="sidebar-mypage-link">마이페이지</a></li>
+                <li class="logout-link"><a href="#" id="sidebar-logout-link">로그아웃</a></li>
+            </ul>
+            <div class="sidebar-match-button"><a href="#" id="sidebar-match-button">매칭하기</a></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/company/company.html">회사소개</a></li>
+            <li><a href="/introducepage/introduce.html">매칭가이드</a></li>
+            <li><a href="/faq/faq.html">FAQ</a></li>
+        </ul>
+        <img class="footer_logo" src="/image/logo3.png">
+    </div>
+    <h3>FAQ</h3>
     <section class="faq-header">
         <h1>자주 찾는 질문(FAQ)</h1>
         <div class="search-box">
@@ -36,6 +67,7 @@
     <div class="faq-container">
         
         <!-- FAQ Categories -->
+
         <aside class="faq-category">
             <h2>FAQ 카테고리</h2>
             <ul id="category-list">
@@ -45,7 +77,15 @@
                 <li data-category="recommendation">프리미엄 <span class="count">(0)</span></li>
                 <li data-category="profile">프로필 <span class="count">(0)</span></li>
             </ul>
+            <select id="category-dropdown">
+                <option value="signup">회원가입</option>
+                <option value="event">매칭 시스템</option>
+                <option value="search">기업검색</option>
+                <option value="recommendation">프리미엄</option>
+                <option value="profile">프로필</option>
+            </select>
         </aside>
+        
     
         <!-- FAQ Questions -->
         <section class="faq-questions">
@@ -66,31 +106,85 @@
                         회원가입 절차는 다음과 같습니다. ...
                     </div>
                 </li>
+                <li data-category="event">
+                    <div class="question">
+                        <span class="badge">매칭 시스템</span> 매칭은 어떤 방식으로 진행되나요?
+                    </div>
+                    <div class="answer" style="display: none;">
+                        아웃파인드의 매칭 시스템은 기업만 이용 가능한 시스템입니다.<br>
+                        기업은 메인페이지에서 매칭하기 버튼을 통해 프로젝트 내용을 입력하고 프로젝트에 맞는 인력도급을 추천합니다.                    </div>
+                </li>
+                <li data-category="event">
+                    <div class="question">
+                        <span class="badge">매칭 시스템</span> 아웃소싱 업체는 어떤 것을 하나요?
+                    </div>
+                    <div class="answer" style="display: none;">
+                        기본적으로 아웃소싱 업체는 인력도급의 핵심 분야를 회원가입에서 선택하고 기업소개를 통해 기업 PR을 합니다.<br>
+                       PR을 통해 기업은 선택지를 정할 수 있고, 내용은 보유 인력, 경력 등이 있습니다.</div>
+                </li>
+
                 <li data-category="search">
                     <div class="question">
                         <span class="badge">기업검색</span> 기업검색 방법은 무엇인가요?
                     </div>
                     <div class="answer" style="display: none;">
-                        기업검색 방법에 대한 설명입니다. ...
+                        아웃파인드는 전적으로 검색기능을 배제했습니다.<br>
+                        지역, 인원 별로 조건에 맞게 프로젝트를 제출 하고 인력도급업체와 기업 간 매칭을 하는 시스템입니다.
                     </div>
                 </li>
-                <li data-category="message">
+
+                <li data-category="profile">
                     <div class="question">
-                        <span class="badge">메시지</span> 메시지 기능은 어떻게 사용하나요?
+                        <span class="badge">프로필</span> 한번 작성한 프로필은 수정할 수 있나요?
                     </div>
                     <div class="answer" style="display: none;">
-                        메시지 기능 사용 방법에 대한 설명입니다. ...
+                        프로필은 마이페이지에서 수정이 가능합니다. <br>
+                        프로필 뿐만 아닌 납세증명서도 마이페이지에서 추가 할 수 있습니다.
                     </div>
                 </li>
                 <!-- 다른 카테고리의 질문들도 추가 -->
             </ul>
         </section>
     </div>
-   
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>
+                    <a href="/">홈</a>
+                </h2>
+            </div>
+            <div class="footer-section">
+                <h2>
+                    <a href="../company/company.html">회사소개</a>
+                </h2>
+            </div>
+            <div class="footer-section">
+                <h2>
+                    <a href="../introducepage/introduce.html">매칭가이드</a>
+                </h2>
+            </div>
+            <div class="footer-section">
+                <h2>
+                    <a href="/faq/faq.html">FAQ</a>
+                </h2>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <img class="footer_logo" src='/image/logo1.png'>
+            <div class="footer-text">
+                <p class="outfindname">(주)아웃파인드 <span style="border-left:1px solid #000; margin:0 10px;"></span> 대표이사: 황성민 <span style="border-left:1px solid #000; margin:0 10px;"></span> 사업자등록번호: 668-16-02391</p>
+                <p>Email: outfind222@gmail.com <span style="border-left:1px solid #000; margin:0 10px;"></span> Phone: 010-4653-3002</p>
+                <p>Address: 강원도 원주시, 상지대길 58-7</p>
+                <p>&copy; 2024 Outfind. All rights reserved.</p>
+                <p><a href="/agree/agree.html">이용약관</a> | <a href="/agree/agree2.html">개인정보방침</a></p>
+            </div>
+        </div>
+            </footer>
 
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="faq.js"></script>
+<script src="/hambuger.js"></script>
 </body>
 
 </html>

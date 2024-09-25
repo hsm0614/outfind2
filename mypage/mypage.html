@@ -9,7 +9,16 @@
         <link rel="stylesheet" href="mypagemob.css">
         <!-- CSS 파일 링크 -->
     </head>
+
     <body>
+        <div class="mobile-header">
+            <a href="/" class="outfind2">아웃파인드</a>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
         <!-- 공통 헤더 -->
         <header>
             <a href="/" class="outfind">아웃파인드</a>
@@ -30,9 +39,30 @@
                 </ul>
             </nav>
         </header>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-close">×</button>
+                <span class="outfind2">아웃파인드</span>
+            </div>
+            <div class="sidebar-content">
+                <ul class="user-links">
+                    <li class="login-link"><a href="../loginpage/loginpage.html" id="sidebar-login-link">로그인</a></li>
+                    <li class="signup-link"><a href="../signuppage/signup.html" id="sidebar-signup-link">회원가입</a></li>
+                    <li class="mypage-link"><a href="../mypage/mypage.html" id="sidebar-mypage-link">마이페이지</a></li>
+                    <li class="logout-link"><a href="#" id="sidebar-logout-link">로그아웃</a></li>
+                </ul>
+                <div class="sidebar-match-button"><a href="#" id="sidebar-match-button">매칭하기</a></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/company/company.html">회사소개</a></li>
+                <li><a href="/introducepage/introduce.html">매칭가이드</a></li>
+                <li><a href="/faq/faq.html">FAQ</a></li>
+            </ul>
+            <img class="footer_logo" src="/image/logo3.png">
+        </div>
         <body>
             <div class="container">
-                <div class="sidebar">
+                <div class="sidebar2">
                     <ul>
                         <li>
                             <div class="matching-management-button-container">
@@ -202,6 +232,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="mypage.js"></script>
     <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+<script src="/hambuger.js"></script>
 
 </body>
 </html>

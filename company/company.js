@@ -61,3 +61,12 @@ document.addEventListener('DOMContentLoaded', function() {
             "아웃파인드는 이 영업을 단순화하는 것을 넘어,<br> 인력도급업체의 편의 제공을 목표하고 있습니다.";
     }
 });
+document.addEventListener('scroll', function() {
+    const elements = document.querySelectorAll('.info-box, .feature-item');
+    elements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+            element.classList.add('visible');
+        }
+    });
+});

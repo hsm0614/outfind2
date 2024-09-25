@@ -53,6 +53,12 @@
         flex-direction: column; /* 세로 방향으로 배치 */
         align-items: center; /* 중앙 정렬 */
         margin-top: 20px;
+        margin: 0 auto; /* 가로 중앙 정렬을 확실히 하기 위해 */
+        margin-left: 0;
+    }
+    .introimg img {
+        margin: 0;
+        object-fit: cover; /* 이미지 비율 유지 */
     }
 
     .image-container {
@@ -172,6 +178,7 @@
 
 .modal h1, .modal2 h1{
 margin-top: 3vh;
+font-size: 1.2rem;
 }
 #form1 {
     margin-top: 7vh; /* 원하는 값으로 변경 */

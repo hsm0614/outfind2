@@ -144,6 +144,7 @@ $(document).ready(function () {
 });
 
 
+
 // 페이지 로드 시 유저 타입 확인하여 매칭된 정보 표시 여부 결정
 var userType = sessionStorage.getItem('userType');
 if (userType === 'company') {

@@ -309,7 +309,7 @@ nav ul li a:hover {
   
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1420px) {
     .nav-links {
         display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
     }
@@ -873,7 +873,7 @@ nav ul li a:hover {
 
 .intro3{
     background-color: #F4F9FD;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .companyoutfind{
     text-align: center;

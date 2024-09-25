@@ -108,6 +108,7 @@ app.use(express.static(path.join(__dirname, 'outfind2', 'image')));
 app.use(express.static(path.join(__dirname, 'outfind2')));
 app.use(express.static(path.join(__dirname, 'loginpage')));
 app.use(express.static(path.join(__dirname, 'mypage')));
+app.use(express.static(path.join(__dirname, 'faq')));
 app.use('/admin/uploads', express.static(path.join(__dirname, 'uploads')));
 
 

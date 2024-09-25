@@ -130,7 +130,7 @@ nav ul li a:hover {
     text-decoration: underline; /* 호버 시 밑줄 추가 */
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1420px) {
     .nav-links {
         
         display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
@@ -439,7 +439,17 @@ nav ul li a:hover {
     font-family: 'Noto Sans KR', sans-serif; /* 첫 번째 텍스트의 글꼴 설정 */
 
 }
+.info-box, .feature-item {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
 
+/* 화면에 요소가 보일 때 등장하는 애니메이션 */
+.info-box.visible, .feature-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 
 /* 추가적인 반응형 디자인 설정 */
@@ -533,6 +543,7 @@ a {
     text-decoration: none; /* 링크의 밑줄 제거 */
     color: inherit; /* 부모 요소의 텍스트 색상을 상속하여 링크 색상을 텍스트 색상으로 설정 */
 }
+
 
 
 /* 햄버거 메뉴 */

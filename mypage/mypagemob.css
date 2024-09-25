@@ -1,10 +1,12 @@
 /* 모바일 화면에서의 스타일 조정 */
 @media screen and (max-width: 768px) {
-    header {
-        height: auto;
-        padding: 10px;
-        text-align: center;
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
     }
+    header {
+        display: none}
 
     .outfind {
         position: static;
@@ -33,7 +35,7 @@
         flex-direction: column;
     }
 
-    .sidebar {
+    .sidebar2 {
         margin-top: 0;
         width: 100%;
         top: 0;

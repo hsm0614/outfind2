@@ -1,5 +1,16 @@
 /* 미디어 쿼리 추가 */
 @media screen and (max-width: 768px) {
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    header {
+        display: none; /* 헤더를 숨깁니다 */
+    }
+
     .container {
         width: 85%; /* 컨테이너를 더 작은 너비로 조정 */
         margin: 50px auto; /* 중앙 정렬 유지 */
@@ -23,7 +34,7 @@
     }
     input[type="text"],
     input[type="password"],
-    button{
+    button:not(.sidebar-close){
         width: 100%;
     }
     .login-choice {
@@ -37,9 +48,10 @@
     .login-btn {
         display: inline-block;
         width: 48%; /* 버튼의 너비를 넓히고 버튼 간의 간격 조정 */
-        padding: 15px;
-        font-size: 12px;
+        padding: 10px 5px; /* 버튼의 패딩 줄이기 */
+        font-size: 0.8rem;
         margin: 0; /* 버튼 간의 간격 없애기 */
+        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     }
     .register-link{
         font-size: 14px;
