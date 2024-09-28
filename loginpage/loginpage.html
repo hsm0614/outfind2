@@ -31,8 +31,14 @@
                     <a href="/introducepage/introduce.html">매칭 가이드</a>
                 </li>
                 <li>
-                    <a href="#">FAQ</a>
+                    <a href="/faq/faq.html">FAQ</a>
                 </li>
+            </ul>
+            <ul class="user-links">
+                <li class="login-link"><a href="../loginpage/loginpage.html" id="login-link">로그인</a></li>
+                <li class="signup-link"><a href="../signuppage/signup.html" id="signup-link">회원가입</a></li>
+                <li class="mypage-link"><a href="../mypage/mypage.html" id="mypage-link">마이페이지</a></li>
+                <li class="logout-link"><a href="#" id="logout-link">로그아웃</a></li>
             </ul>
         </nav>
         
@@ -75,6 +81,7 @@
             <div id="company-login-form" class="login-form" style="display: none;">
                 <form id="company-login-form" action="/login" method="POST">
                     <input type="text" id="email" name="email" placeholder="이메일">
+                    <input type="checkbox" id="rememberCompanyEmail"> 아이디 저장
                     <input type="password" id="password" name="password" placeholder="비밀번호">
                     <button id="company-login-button" type="submit">기업 로그인</button>
                 </form>
@@ -83,6 +90,7 @@
             <div id="contractor-login-form" class="login-form" style="display: none;">
                 <form id="contractor-login-form" action="/login" method="POST">
                     <input type="text" id="contractor-email" name="contractorEmail" placeholder="이메일">
+                    <input type="checkbox" id="rememberCompanyEmail"> 아이디 저장
                     <input type="password" id="contractor-password" name="contractorPassword" placeholder="비밀번호">
                     <button id="contractor-login-button" type="submit">인력도급 업체 로그인</button>
                 </form>

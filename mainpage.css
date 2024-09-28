@@ -876,16 +876,21 @@ nav ul li a:hover {
     margin-bottom: 40px;
 }
 .companyoutfind{
+    margin-top: 10px;
+    padding-top: 10px;
     text-align: center;
     font-size: 38px;
     font-family: 'Noto Sans KR',sans-serif;
-}.card-container {
+}
+
+.card-container {
     display: flex; /* Flexbox를 사용하여 요소들을 정렬 */
     flex-wrap: wrap; /* 자식 요소들이 넘칠 경우 줄 바꿈 */
     gap: 20px; /* 카드 간의 간격 조정 */
     margin-left: 10px;
     margin-right: 10px;
     justify-content: flex-start; /* 요소 사이의 여백을 최대한 넓힙니다. */
+
 }
 
 .card3 {

@@ -11,6 +11,21 @@ document.getElementById("contractor-login-btn").addEventListener("click", functi
     document.getElementById("contractor-login-form").style.display = "block";
 });
 
+window.onload = function() {
+    // 기업 로그인 아이디 불러오기
+    const savedCompanyEmail = localStorage.getItem('companyEmail');
+    if (savedCompanyEmail) {
+        document.getElementById('email').value = savedCompanyEmail;
+        document.getElementById('rememberCompanyEmail').checked = true;
+    }
+
+    // 인력도급 업체 로그인 아이디 불러오기
+    const savedContractorEmail = localStorage.getItem('contractorEmail');
+    if (savedContractorEmail) {
+        document.getElementById('contractor-email').value = savedContractorEmail;
+        document.getElementById('rememberContractorEmail').checked = true;
+    }
+};
 
 
 $('#company-login-button').click(function(event) {
@@ -18,7 +33,16 @@ $('#company-login-button').click(function(event) {
 
     var companyEmail = $('#email').val(); // 이메일 가져오기
     var companyPassword = $('#password').val(); // 비밀번호 가져오기
-    
+    var rememberCompanyEmail = $('#rememberCompanyEmail').is(':checked');
+
+    if (rememberCompanyEmail) {
+        // 체크박스가 체크되어 있으면 아이디를 저장
+        localStorage.setItem('companyEmail', companyEmail);
+    } else {
+        // 체크박스가 체크 해제되어 있으면 저장된 아이디 삭제
+        localStorage.removeItem('companyEmail');
+    }
+
     $.ajax({
         url: '/loginpage/loginpage.html/login/company', // 로그인 엔드포인트로 수정
         type: 'POST',
@@ -82,7 +106,16 @@ $('#contractor-login-button').click(function(event) {
 
     var contractorEmail = $('#contractor-email').val(); // 이메일 가져오기
     var contractorPassword = $('#contractor-password').val(); // 비밀번호 가져오기
+    var rememberContractorEmail = $('#rememberContractorEmail').is(':checked');
 
+    if (rememberContractorEmail) {
+        // 체크박스가 체크되어 있으면 아이디를 저장
+        localStorage.setItem('contractorEmail', contractorEmail);
+    } else {
+        // 체크박스가 체크 해제되어 있으면 저장된 아이디 삭제
+        localStorage.removeItem('contractorEmail');
+    }
+    
     $.ajax({
         url: '/loginpage/loginpage.html/login/contractor', // 로그인 엔드포인트로 수정
         type: 'POST',

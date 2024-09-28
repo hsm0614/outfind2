@@ -203,6 +203,22 @@ nav ul li a:hover {
         display: none; /* 작은 화면에서는 nav link를 숨김 */
     }
 }
+
+
+.user-links {
+    color: black; /* 링크 텍스트 색상 */
+    margin-left: auto; /* 사용자 링크를 오른쪽으로 이동하여 로그인 및 회원가입이 오른쪽에 위치하도록 함 */
+}
+
+.user-links li {
+    margin-left: 0px; /* 각 항목 사이의 간격 설정 */
+    margin-right: 0px;
+}
+
+.user-links li a {
+    text-decoration: none; /* 링크 텍스트의 밑줄 제거 */
+    color: black; /* 링크 텍스트 색상 */
+}
 .register-link a {
     float: right; /* 오른쪽으로 배치 */
     vertical-align: middle; /* 수직 가운데 정렬 */

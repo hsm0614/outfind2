@@ -56,6 +56,9 @@
     .register-link{
         font-size: 14px;
     }
+    .register-link a{
+        font-size: 0.7rem;
+    }
      /* 푸터 */
      .footer-content {
         flex-direction: column;

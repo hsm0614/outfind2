@@ -24,7 +24,7 @@ nav {
     display: flex;
     position: absolute; /* 네비게이션을 절대적으로 위치시킴 */
     top: 20px; /* 헤더의 상단에 네비게이션을 배치 */
-    right: 20px; /* 헤더의 오른쪽에 네비게이션을 배치 */
+    right: 0px; /* 헤더의 오른쪽에 네비게이션을 배치 */
     align-items: center;
     overflow: hidden;
 }
@@ -38,6 +38,7 @@ nav {
     display: flex; /* 네비게이션 메뉴를 수평 정렬하기 위해 Flexbox를 사용 */
     align-items: center; /* 수직 정렬을 맞추기 위해 추가 */
     margin-right: 600px;
+
 }
 
 .nav-links li {
@@ -68,6 +69,33 @@ nav ul li a:hover {
     text-decoration: underline; /* 호버 시 밑줄 추가 */
 }
 
+@media screen and (max-width: 1420px) {
+    .nav-links {
+        display: none; /* 작은 화면에서는 네비게이션 링크를 숨김 */
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .nav-links li {
+        display: none; /* 작은 화면에서는 nav link를 숨김 */
+    }
+}
+
+
+.user-links {
+    color: black; /* 링크 텍스트 색상 */
+    margin-left: auto; /* 사용자 링크를 오른쪽으로 이동하여 로그인 및 회원가입이 오른쪽에 위치하도록 함 */
+}
+
+.user-links li {
+    margin-left: 0px; /* 각 항목 사이의 간격 설정 */
+    margin-right: 0px;
+}
+
+.user-links li a {
+    text-decoration: none; /* 링크 텍스트의 밑줄 제거 */
+    color: black; /* 링크 텍스트 색상 */
+}
 body {
     margin: 0; /* body의 기본 여백 제거 */
     padding: 0; /* body의 기본 패딩 제거 */
@@ -139,7 +167,20 @@ label {
     display: block;
     margin-bottom: 5px;
 }
-
+.address-search-btn {
+    background-color: #4580F6;
+    ; /* 버튼 배경색 */
+    color: white;              /* 텍스트 색상 */
+    border: none;              /* 테두리 없앰 */
+    padding: 10px;
+    border-radius: 5px;        /* 테두리 둥글게 */
+    cursor: pointer;           /* 마우스 커서 포인터로 변경 */
+  }
+  
+  /* 호버 시 스타일 */
+  .address-search-btn:hover {
+    background-color: #0056b3;
+  }
 input[type="text"],
 input[type="password"],
 textarea {

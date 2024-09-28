@@ -22,19 +22,18 @@
         <nav>
             <ul class="nav-links">
                 <li>
-                    <a href="/">홈</a>
-                </li>
+                    <a href="/">홈</a></li>
                 <li>
-                    <a href="/company/company.html">회사소개</a>
-                </li>
-                <li>
-                    <a href="/introducepage/introduce.html">매칭 가이드</a>
-                </li>
-                <li>
-                    <a href="#">FAQ</a>
-                </li>
+                    <a href="/company/company.html">회사소개</a></li>
+                <li><a href="/introducepage/introduce.html">매칭 가이드</a></li>
+                <li><a href="/faq/faq.html">FAQ</a></li>
             </ul>
-            
+            <ul class="user-links">
+                <li class="login-link"><a href="../loginpage/loginpage.html" id="login-link">로그인</a></li>
+                <li class="signup-link"><a href="../signuppage/signup.html" id="signup-link">회원가입</a></li>
+                <li class="mypage-link"><a href="../mypage/mypage.html" id="mypage-link">마이페이지</a></li>
+                <li class="logout-link"><a href="#" id="logout-link">로그아웃</a></li>
+            </ul>
         </nav>
     </header>
     <div class="sidebar">
@@ -110,6 +109,7 @@
             <div class="form-group">
                 <label for="company-address">회사주소</label>
                 <input type="text" id="company-address" placeholder="회사주소">
+                <input type="button" class="address-search-btn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
             </div>
             <div class="form-group">
                 <label for="company-address-details">상세주소</label>
@@ -696,7 +696,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="signup.js"></script>
    <script src="/hambuger.js"></script>
-
+    
     <script>  
 // JavaScript 코드
 document.addEventListener('DOMContentLoaded', function() {
@@ -833,6 +833,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 도로명 주소와 지번 주소를 결합하여 하나의 필드에 입력
+                var fullAddr = data.roadAddress || data.jibunAddress; // 도로명주소가 없으면 지번주소 사용
+                
+                // 회사주소 필드에 주소값 입력
+                document.getElementById('company-address').value = fullAddr;
+            }
+        }).open();
+    }
+</script>
+        
 </body>
 </html>
 
