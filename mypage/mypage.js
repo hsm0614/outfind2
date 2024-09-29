@@ -114,7 +114,7 @@ $(document).ready(function() {
                     storeId: "store-bd2881ea-86f3-4d69-b779-c2dccb5e0c62",
                     paymentId: `payment-${crypto.randomUUID()}`,
                     orderName: "매칭 완료를 위한 결제페이지",
-                    totalAmount: 500,
+                    totalAmount: 50000,
                     currency: "CURRENCY_KRW",
                     channelKey: "channel-key-a62e997c-3b89-4b68-b406-0f6d59606bd1",
                     payMethod:  "CARD",

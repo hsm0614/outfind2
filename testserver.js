@@ -11,6 +11,8 @@ const https = require('https');
 const fs = require('fs');
 const jwt = require('jsonwebtoken'); // JWT 패키지 임포트
 const OrderService = require('./orderservice');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
 // 정적 파일 제공 설정
 app.use(express.static(path.join(__dirname, 'favicon_package_v0.16')));
@@ -260,105 +262,92 @@ app.post("/loginpage/loginpage.html/login/company", function(req, res) {
             res.status(401).send("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
     });
+});// Nodemailer Daum SMTP 설정
+const transporter = nodemailer.createTransport({
+    host: 'smtp.daum.net', // Daum 메일 서버
+    port: 465, // SSL 포트
+    secure: true, // SSL 사용
+    auth: {
+        user: 'hsm@outfind.co.kr', // Daum 메일 사용자 이메일
+        pass: 'hfhgluxsduqukfmv'   // 생성한 앱 비밀번호
+    }
 });
 
-// 비밀번호 재설정 요청
-app.post('/password-reset/request', (req, res) => {
+// 비밀번호 재설정 이메일 발송 함수
+function sendResetEmail(email) {
+    const mailOptions = {
+        from: 'hsm@outfind.co.kr',
+        to: email,
+        subject: '비밀번호 재설정 요청',
+        text: `비밀번호를 재설정하려면 아래 링크를 클릭하세요:\nhttps://www.outfind.co.kr/loginpage/reset-password.html?email=${email}`
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.error('이메일 전송 오류:', err);
+        } else {
+            console.log('이메일 전송 완료:', info.response);
+        }
+    });
+}
+
+// 비밀번호 재설정 요청 처리
+app.post('/forgot_password', (req, res) => {
     const { email, userType } = req.body;
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
 
     let query = '';
     if (userType === 'company') {
-        query = `UPDATE company SET reset_token = ?, reset_token_expiry = ? WHERE email = ?`;
+        query = 'SELECT * FROM company WHERE email = ?';
     } else if (userType === 'contractor') {
-        query = `UPDATE contractors SET reset_token = ?, reset_token_expiry = ? WHERE email = ?`;
-    } else {
-        res.status(400).send('Invalid user type.');
-        return;
+        query = 'SELECT * FROM contractors WHERE email = ?';
     }
 
-    connection.query(query, [resetToken, resetTokenExpiry, email], (err, results) => {
+    connection.query(query, [email], (err, results) => {
         if (err) {
-            console.error('Error updating database:', err);
-            res.status(500).send('Server error');
-            return;
+            console.error("Database query error:", err);
+            return res.status(500).json({ message: '서버 오류' });
         }
 
-        if (results.affectedRows > 0) {
-            // Send email with reset token
-            const transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 465, // Gmail SMTP 포트
-                secure: true, // true for 465, false for other ports
-                auth: {
-                    user: 'outfind222@gmail.com', // 이메일 계정
-                    pass: 'gazdbhtjlyyzvtpn' // 이메일 계정 비밀번호
-                }
-            });
-
-            const mailOptions = {
-                from: 'outfind222@gmail.com',
-                to: email,
-                subject: 'Password Reset',
-                text: `Click the link to reset your password: https://outfind.co.kr/password-reset?token=${resetToken}&userType=${userType}`
-            };
-
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.error('Error sending email:', error);
-                    res.status(500).send('Error sending email: ' + error.message); // 에러 메시지를 함께 보냄
-                } else {
-                    res.send('Password reset link has been sent to your email.');
-                }
-            });
-        } else {
-            res.status(404).send('Email not found');
+        if (results.length === 0) {
+            return res.status(404).json({ message: '해당 이메일이 존재하지 않습니다.' });
         }
+
+        sendResetEmail(email);
+        res.json({ message: '비밀번호 재설정 링크가 이메일로 발송되었습니다.' });
     });
 });
 
-// 비밀번호 재설정
-app.post('/password-reset', (req, res) => {
-    const { token, newPassword, userType } = req.body;
+app.post('/reset_password', (req, res) => {
+    const { newPassword, email } = req.body;
 
-    let query = '';
-    if (userType === 'company') {
-        query = `SELECT * FROM company WHERE reset_token = ? AND reset_token_expiry > NOW()`;
-    } else if (userType === 'contractor') {
-        query = `SELECT * FROM contractors WHERE reset_token = ? AND reset_token_expiry > NOW()`;
-    } else {
-        res.status(400).send('Invalid user type.');
-        return;
-    }
+    // 기업 또는 인력도급업체에 따라 비밀번호 업데이트
+    const updateCompanyQuery = `UPDATE company SET password = ? WHERE email = ?`;
+    const updateContractorQuery = `UPDATE contractors SET password = ? WHERE email = ?`;
 
-    connection.query(query, [token], (err, results) => {
+    // 기업 테이블에서 비밀번호 업데이트
+    connection.query(updateCompanyQuery, [newPassword, email], (err, result) => {
         if (err) {
-            console.error('Error querying database:', err);
-            res.status(500).send('Server error');
-            return;
+            console.error('기업 비밀번호 업데이트 오류:', err);
+            return res.status(500).json({ message: '서버 오류' });
         }
 
-        if (results.length > 0) {
-            const hashedPassword = bcrypt.hashSync(newPassword, 10);
-
-            let updateQuery = '';
-            if (userType === 'company') {
-                updateQuery = `UPDATE company SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = ?`;
-            } else if (userType === 'contractor') {
-                updateQuery = `UPDATE contractors SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = ?`;
-            }
-
-            connection.query(updateQuery, [hashedPassword, token], (updateErr, updateResults) => {
-                if (updateErr) {
-                    console.error('Error updating database:', updateErr);
-                    res.status(500).send('Server error');
-                } else {
-                    res.send('Password has been successfully reset.');
+        // 기업에서 변경된 행이 없으면 인력도급업체 테이블 업데이트 시도
+        if (result.affectedRows === 0) {
+            connection.query(updateContractorQuery, [newPassword, email], (err, result) => {
+                if (err) {
+                    console.error('인력도급업체 비밀번호 업데이트 오류:', err);
+                    return res.status(500).json({ message: '서버 오류' });
                 }
+
+                // 인력도급업체 테이블에서 변경된 행이 없으면 오류 처리
+                if (result.affectedRows === 0) {
+                    return res.status(404).json({ message: '해당 이메일이 존재하지 않습니다.' });
+                }
+
+                res.json({ message: '비밀번호가 성공적으로 변경되었습니다.' });
             });
         } else {
-            res.status(400).send('Invalid or expired token.');
+            res.json({ message: '비밀번호가 성공적으로 변경되었습니다.' });
         }
     });
 });
